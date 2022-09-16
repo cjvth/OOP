@@ -8,17 +8,17 @@ public class HeapSort {
     /**
      * Sorts given array using heapsort algorithm.
      *
-     * @param a array of int to be sorted
+     * @param array array of int to be sorted
      */
-    public static void heapSort(int[] a) {
-        for (int i = a.length / 2; i >= 0; i--) {
-            siftDown(a, i, a.length);
+    public static void heapSort(int[] array) {
+        for (int i = array.length / 2; i >= 0; i--) {
+            siftDown(array, i, array.length);
         }
-        for (int i = a.length - 1; i > 0; i--) {
-            int t = a[0];
-            a[0] = a[i];
-            a[i] = t;
-            siftDown(a, 0, i);
+        for (int i = array.length - 1; i > 0; i--) {
+            int t = array[0];
+            array[0] = array[i];
+            array[i] = t;
+            siftDown(array, 0, i);
         }
     }
 
