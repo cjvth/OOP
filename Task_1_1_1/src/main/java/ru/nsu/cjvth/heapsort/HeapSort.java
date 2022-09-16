@@ -1,7 +1,15 @@
 package ru.nsu.cjvth.heapsort;
 
+/**
+ * Provides static methods to heapsort arrays
+ */
 public class HeapSort {
 
+    /**
+     * Sort given array using heapsort algorithm
+     *
+     * @param a array of int to be sorted
+     */
     public static void heapSort(int[] a) {
         for (int i = a.length / 2; i >= 0; i--) {
             siftDown(a, i, a.length);
