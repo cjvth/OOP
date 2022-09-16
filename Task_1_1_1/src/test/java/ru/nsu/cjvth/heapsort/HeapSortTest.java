@@ -25,15 +25,15 @@ class HeapSortTest {
             };
 
         for (int[] array : arrays) {
-            int[] array_copy = Arrays.copyOf(array, array.length);
+            int[] arrayCopy = Arrays.copyOf(array, array.length);
             HeapSort.heapSort(array);
-            Arrays.sort(array_copy);
-            Assertions.assertArrayEquals(array, array_copy, "Test various long arrays");
+            Arrays.sort(arrayCopy);
+            Assertions.assertArrayEquals(array, arrayCopy, "Test various long arrays");
         }
         int[] negatives = new int[]{-55, 23, 65, 0, -12, 53};
-        int[] negatives_copy = Arrays.copyOf(negatives, negatives.length);
-        Arrays.sort(negatives_copy);
+        int[] negativesCopy = Arrays.copyOf(negatives, negatives.length);
+        Arrays.sort(negativesCopy);
         HeapSort.heapSort(negatives);
-        Assertions.assertArrayEquals(negatives, negatives_copy, "Test array with negative numbers");
+        Assertions.assertArrayEquals(negatives, negativesCopy, "Test array with negative numbers");
     }
 }
