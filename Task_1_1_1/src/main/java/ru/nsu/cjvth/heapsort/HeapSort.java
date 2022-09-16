@@ -1,12 +1,12 @@
 package ru.nsu.cjvth.heapsort;
 
 /**
- * Provides static methods to heapsort arrays
+ * Provides static methods to heapsort arrays.
  */
 public class HeapSort {
 
     /**
-     * Sort given array using heapsort algorithm
+     * Sorts given array using heapsort algorithm.
      *
      * @param a array of int to be sorted
      */
