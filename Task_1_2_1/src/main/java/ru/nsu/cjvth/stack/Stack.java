@@ -40,10 +40,10 @@ public class Stack<E> {
      */
     public Stack(Stack<E> otherStack) {
         size = otherStack.size;
-        array = Arrays.copyOf(otherStack.array, size * 2);
+        array = Arrays.copyOf(otherStack.array, size > 3 ? size * 2 : 8);
     }
 
-    public int size() {
+    public int count() {
         return size;
     }
 
@@ -66,24 +66,11 @@ public class Stack<E> {
      * @param item Item to be added to the stack
      */
     public void push(E item) {
-        if (size == array.length) {
-            array = Arrays.copyOf(array, size * 3 / 2);
+        if (size >= array.length) {
+            array = Arrays.copyOf(array, size * 2);
         }
         array[size++] = item;
     }
-
-    //    /**
-    //     * Pushes multiple items on top of the stack.
-    //     *
-    //     * @param items Array of items to be added to the stack, first items are pushed first
-    //     */
-    //    public void pushMultiple(E[] items) {
-    //        if (size + items.length > array.length) {
-    //            array = Arrays.copyOf(array, (size + items.length) * 3 / 2);
-    //        }
-    //        System.arraycopy(items, 0, array, size, items.length);
-    //        size += items.length;
-    //    }
 
     /**
      * Pushes items from another stack on top of this stack.
@@ -91,10 +78,42 @@ public class Stack<E> {
      * @param stack Stack with items to be added
      */
     public void pushStack(Stack<E> stack) {
-        if (size + stack.size > array.length) {
-            array = Arrays.copyOf(array, (size + stack.size) * 3 / 2);
+        if (size + stack.size >= array.length) {
+            array = Arrays.copyOf(array, (size + stack.size) * 2);
         }
         System.arraycopy(stack.array, 0, array, size, stack.size);
         size += stack.size;
+    }
+
+
+    private void reduceCapacity() {
+        if (size * 3 < array.length && size > 3) {
+            array = Arrays.copyOf(array, size * 2);
+        }
+    }
+
+    /**
+     * Removes and returns one element from top of the stack.
+     *
+     * @return element from top of the stack
+     */
+    public E pop() {
+        E ret = array[--size];
+        reduceCapacity();
+        return ret;
+    }
+
+    /**
+     * Move elements from top of the stack to a new stack and return it.
+     *
+     * @param n number of elements to be moved
+     * @return the new stack
+     */
+    public Stack<E> popStack(int n) {
+        @SuppressWarnings("unchecked") E[] a = (E[]) new Object[n];
+        System.arraycopy(array, size - n, a, 0, n);
+        size -= n;
+        reduceCapacity();
+        return new Stack<>(a);
     }
 }
