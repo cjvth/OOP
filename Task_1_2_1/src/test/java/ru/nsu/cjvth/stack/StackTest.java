@@ -228,4 +228,54 @@ class StackTest {
         Stack<Integer> s = new Stack<>(new Integer[]{1, 2, 3});
         assertThrows(NegativeArraySizeException.class, () -> s.popStack(-1));
     }
+
+
+    // Check for possible bugs, for example, in array resizing
+    @Test
+    void testMultiplePushPop() {
+        Stack<Integer> s = new Stack<>();
+        // pushStack pop
+        for (int i = 0; i < 10000; ) {
+            Integer[] a = new Integer[100];
+            for (int j = 0; j < 100; i++, j++) {
+                a[j] = i;
+            }
+            s.pushStack(new Stack<>(a));
+        }
+        for (int i = 9999; i >= 2000; i--) {
+            assertEquals(i, s.pop());
+        }
+        // push popStack
+        for (int i = 2000; i < 11000; i++) {
+            s.push(i);
+        }
+        for (int i = 10999; i >= 3000; ) {
+            Stack<Integer> s1 = s.popStack(100);
+            for (int j = 99; j >= 0; i--, j--) {
+                assertEquals(i, s1.pop());
+            }
+        }
+        // pushStack popStack
+        for (int i = 3000; i < 12000; ) {
+            Integer[] a = new Integer[100];
+            for (int j = 0; j < 100; i++, j++) {
+                a[j] = i;
+            }
+            s.pushStack(new Stack<>(a));
+        }
+        for (int i = 11999; i >= 4000; ) {
+            Stack<Integer> s1 = s.popStack(100);
+            for (int j = 99; j >= 0; i--, j--) {
+                assertEquals(i, s1.pop());
+            }
+        }
+        // push pop
+        for (int i = 4000; i < 13000; i++) {
+            s.push(i);
+        }
+        for (int i = 12999; i >= 5000; i--) {
+            assertEquals(i, s.pop());
+        }
+        assertEquals(5000, s.count());
+    }
 }
