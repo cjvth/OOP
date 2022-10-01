@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -199,23 +199,37 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#count()">count</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Stack.html" title="type parameter in Stack">E</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pop()">pop</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Removes and returns one element from top of the stack.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Stack.html" title="class in ru.nsu.cjvth.stack">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#popStack(int)">popStack</a></span>&#8203;(int&nbsp;n)</code></th>
+<td class="colLast">
+<div class="block">Move elements from top of the stack to a new stack and return it.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#push(E)">push</a></span>&#8203;(<a href="Stack.html" title="type parameter in Stack">E</a>&nbsp;item)</code></th>
 <td class="colLast">
 <div class="block">Add one item on top of the stack.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pushStack(ru.nsu.cjvth.stack.Stack)">pushStack</a></span>&#8203;(<a href="Stack.html" title="class in ru.nsu.cjvth.stack">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">E</a>&gt;&nbsp;stack)</code></th>
 <td class="colLast">
 <div class="block">Pushes items from another stack on top of this stack.</div>
 </td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#size()">size</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -291,13 +305,13 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="size()">
+<a id="count()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>size</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;size()</pre>
+<h4>count</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;count()</pre>
 </li>
 </ul>
 <a id="asArray(java.lang.Class)">
@@ -336,7 +350,7 @@ extends java.lang.Object</pre>
 <a id="pushStack(ru.nsu.cjvth.stack.Stack)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>pushStack</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;pushStack&#8203;(<a href="Stack.html" title="class in ru.nsu.cjvth.stack">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">E</a>&gt;&nbsp;stack)</pre>
@@ -344,6 +358,36 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>stack</code> - Stack with items to be added</dd>
+</dl>
+</li>
+</ul>
+<a id="pop()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>pop</h4>
+<pre class="methodSignature">public&nbsp;<a href="Stack.html" title="type parameter in Stack">E</a>&nbsp;pop()</pre>
+<div class="block">Removes and returns one element from top of the stack.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>element from top of the stack</dd>
+</dl>
+</li>
+</ul>
+<a id="popStack(int)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>popStack</h4>
+<pre class="methodSignature">public&nbsp;<a href="Stack.html" title="class in ru.nsu.cjvth.stack">Stack</a>&lt;<a href="Stack.html" title="type parameter in Stack">E</a>&gt;&nbsp;popStack&#8203;(int&nbsp;n)</pre>
+<div class="block">Move elements from top of the stack to a new stack and return it.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>n</code> - number of elements to be moved</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the new stack</dd>
 </dl>
 </li>
 </ul>
