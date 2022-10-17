@@ -250,14 +250,14 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#childrenList()">childrenList</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Iterate by children subtrees.</div>
+<div class="block">Return a list with child subtrees of the node.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findRoot()">findRoot</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Get the root ancestor of the node.</div>
+<div class="block">Return the root ancestor of the node.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -273,7 +273,9 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Return iterator of the tree.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -439,11 +441,7 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <li class="blockList">
 <h4>childrenList</h4>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;childrenList()</pre>
-<div class="block">Iterate by children subtrees.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>iterator of the children list</dd>
-</dl>
+<div class="block">Return a list with child subtrees of the node.</div>
 </li>
 </ul>
 <a id="addSubtree(ru.nsu.cjvth.Tree)">
@@ -454,10 +452,6 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <h4>addSubtree</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addSubtree&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;anotherTree)</pre>
 <div class="block">Add another tree as a child node.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>anotherTree</code> - tree to be added, must be a root</dd>
-</dl>
 </li>
 </ul>
 <a id="addElement(java.lang.Object)">
@@ -473,7 +467,7 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
  caller node</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>value</code> - element to be added</dd>
+<dd><code>value</code> - value of the created node</dd>
 </dl>
 </li>
 </ul>
@@ -484,11 +478,7 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <li class="blockList">
 <h4>findRoot</h4>
 <pre class="methodSignature">public&nbsp;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;findRoot()</pre>
-<div class="block">Get the root ancestor of the node.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the root</dd>
-</dl>
+<div class="block">Return the root ancestor of the node.</div>
 </li>
 </ul>
 <a id="removeSubtree(ru.nsu.cjvth.Tree)">
@@ -499,10 +489,6 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <h4>removeSubtree</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;removeSubtree&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;descendant)</pre>
 <div class="block">Remove a descendant subtree from the tree.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>descendant</code> - the subtree to be removed. Must be a descendant of the caller tree node</dd>
-</dl>
 </li>
 </ul>
 <a id="removeElement(ru.nsu.cjvth.Tree)">
@@ -526,6 +512,7 @@ implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvt
 <li class="blockList">
 <h4>iterator</h4>
 <pre class="methodSignature">public&nbsp;java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;iterator()</pre>
+<div class="block">Return iterator of the tree. You can change iteration method for the traversal</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>iterator</code>&nbsp;in interface&nbsp;<code>java.lang.Iterable&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;</code></dd>
