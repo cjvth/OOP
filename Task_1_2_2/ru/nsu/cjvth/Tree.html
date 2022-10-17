@@ -26,6 +26,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../";
 var useModuleDirectories = true;
 loadScripts(document, 'script');</script>
@@ -81,15 +87,15 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -126,9 +132,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>E</code> - type of the elements</dd>
 </dl>
+<dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><code>java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;E&gt;&gt;</code></dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Tree&lt;E&gt;</span>
-extends java.lang.Object</pre>
+extends java.lang.Object
+implements java.lang.Iterable&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;E&gt;&gt;</pre>
 <div class="block">Tree data structure. Supports adding and removing child nodes, iterating. Descendants are
  accessible through references. Every node has a value.</div>
 </li>
@@ -153,33 +164,10 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Tree.SearchMethod.html" title="enum in ru.nsu.cjvth">Tree.SearchMethod</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a></span></code></th>
 <td class="colLast">
 <div class="block">Search method for iterating the tree: Breadth-First and Depth-First.</div>
 </td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code><a href="Tree.html" title="type parameter in Tree">E</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#value">value</a></span></code></th>
-<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -204,6 +192,28 @@ extends java.lang.Object</pre>
 <div class="block">Create a tree with the root only.</div>
 </td>
 </tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(E,java.util.Collection)">Tree</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue,
+    java.util.Collection&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;rootChildren)</code></th>
+<td class="colLast">
+<div class="block">Create a tree with the root only.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(E,java.util.Collection,ru.nsu.cjvth.Tree.IterationMethod)">Tree</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue,
+    java.util.Collection&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;rootChildren,
+    <a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;im)</code></th>
+<td class="colLast">
+<div class="block">Create a tree with the root only.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(E,ru.nsu.cjvth.Tree.IterationMethod)">Tree</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue,
+    <a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;im)</code></th>
+<td class="colLast">
+<div class="block">Create a tree with the root only.</div>
+</td>
+</tr>
 </table>
 </li>
 </ul>
@@ -215,12 +225,94 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Method</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addElement(E)">addElement</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;value)</code></th>
+<td class="colLast">
+<div class="block">Add element as a new child subtree.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addSubtree(ru.nsu.cjvth.Tree)">addSubtree</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;anotherTree)</code></th>
+<td class="colLast">
+<div class="block">Add another tree as a child node.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#childrenList()">childrenList</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Iterate by children subtrees.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#findRoot()">findRoot</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get the root ancestor of the node.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getIterationMethod()">getIterationMethod</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="Tree.html" title="type parameter in Tree">E</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNodeValue()">getNodeValue</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#iterator()">iterator</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeElement(ru.nsu.cjvth.Tree)">removeElement</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;descendant)</code></th>
+<td class="colLast">
+<div class="block">Remove element of the node, but add its children as its parent's children.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeSubtree(ru.nsu.cjvth.Tree)">removeSubtree</a></span>&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;descendant)</code></th>
+<td class="colLast">
+<div class="block">Remove a descendant subtree from the tree.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setIterationMethod(ru.nsu.cjvth.Tree.IterationMethod)">setIterationMethod</a></span>&#8203;(<a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;iterationMethod)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNodeValue(E)">setNodeValue</a></span>&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;nodeValue)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
 <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.java.lang.Iterable">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;java.lang.Iterable</h3>
+<code>forEach, spliterator</code></li>
 </ul>
 </li>
 </ul>
@@ -231,25 +323,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="value">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>value</h4>
-<pre>public&nbsp;<a href="Tree.html" title="type parameter in Tree">E</a> value</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -262,15 +335,219 @@ extends java.lang.Object</pre>
 </a><a id="&lt;init&gt;(E)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>Tree</h4>
 <pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue)</pre>
-<div class="block">Create a tree with the root only.</div>
+<div class="block">Create a tree with the root only. Default iteration method - DFS</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>rootValue</code> - value of the root node</dd>
 </dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(java.lang.Object,ru.nsu.cjvth.Tree.IterationMethod)">
+<!--   -->
+</a><a id="&lt;init&gt;(E,ru.nsu.cjvth.Tree.IterationMethod)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>Tree</h4>
+<pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue,
+            <a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;im)</pre>
+<div class="block">Create a tree with the root only.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rootValue</code> - value of the root node</dd>
+<dd><code>im</code> - method of traversing the tree used in iterator</dd>
+</dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(java.lang.Object,java.util.Collection)">
+<!--   -->
+</a><a id="&lt;init&gt;(E,java.util.Collection)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>Tree</h4>
+<pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue,
+            java.util.Collection&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;rootChildren)</pre>
+<div class="block">Create a tree with the root only. Default iteration method - DFS</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rootValue</code> - value of the root node</dd>
+<dd><code>rootChildren</code> - child subtrees of the root node</dd>
+</dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(java.lang.Object,java.util.Collection,ru.nsu.cjvth.Tree.IterationMethod)">
+<!--   -->
+</a><a id="&lt;init&gt;(E,java.util.Collection,ru.nsu.cjvth.Tree.IterationMethod)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>Tree</h4>
+<pre>public&nbsp;Tree&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;rootValue,
+            java.util.Collection&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;rootChildren,
+            <a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;im)</pre>
+<div class="block">Create a tree with the root only.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rootValue</code> - value of the root node</dd>
+<dd><code>rootChildren</code> - child subtrees of the root node</dd>
+<dd><code>im</code> - method of traversing the tree used in iterator</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<!-- ============ METHOD DETAIL ========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a id="getNodeValue()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNodeValue</h4>
+<pre class="methodSignature">public&nbsp;<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;getNodeValue()</pre>
+</li>
+</ul>
+<a id="setNodeValue(java.lang.Object)">
+<!--   -->
+</a><a id="setNodeValue(E)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setNodeValue</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setNodeValue&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;nodeValue)</pre>
+</li>
+</ul>
+<a id="childrenList()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>childrenList</h4>
+<pre class="methodSignature">public&nbsp;java.util.List&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;childrenList()</pre>
+<div class="block">Iterate by children subtrees.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>iterator of the children list</dd>
+</dl>
+</li>
+</ul>
+<a id="addSubtree(ru.nsu.cjvth.Tree)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addSubtree</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;addSubtree&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;anotherTree)</pre>
+<div class="block">Add another tree as a child node.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>anotherTree</code> - tree to be added, must be a root</dd>
+</dl>
+</li>
+</ul>
+<a id="addElement(java.lang.Object)">
+<!--   -->
+</a><a id="addElement(E)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addElement</h4>
+<pre class="methodSignature">public&nbsp;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;addElement&#8203;(<a href="Tree.html" title="type parameter in Tree">E</a>&nbsp;value)</pre>
+<div class="block">Add element as a new child subtree. The child subtree gets the same iteration method as
+ caller node</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - element to be added</dd>
+</dl>
+</li>
+</ul>
+<a id="findRoot()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>findRoot</h4>
+<pre class="methodSignature">public&nbsp;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;findRoot()</pre>
+<div class="block">Get the root ancestor of the node.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the root</dd>
+</dl>
+</li>
+</ul>
+<a id="removeSubtree(ru.nsu.cjvth.Tree)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeSubtree</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;removeSubtree&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;descendant)</pre>
+<div class="block">Remove a descendant subtree from the tree.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>descendant</code> - the subtree to be removed. Must be a descendant of the caller tree node</dd>
+</dl>
+</li>
+</ul>
+<a id="removeElement(ru.nsu.cjvth.Tree)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>removeElement</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;removeElement&#8203;(<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&nbsp;descendant)</pre>
+<div class="block">Remove element of the node, but add its children as its parent's children.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>descendant</code> - the subtree, whose element is removed. Must be a descendant of the caller</dd>
+</dl>
+</li>
+</ul>
+<a id="iterator()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>iterator</h4>
+<pre class="methodSignature">public&nbsp;java.util.Iterator&lt;<a href="Tree.html" title="class in ru.nsu.cjvth">Tree</a>&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;&gt;&nbsp;iterator()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code>iterator</code>&nbsp;in interface&nbsp;<code>java.lang.Iterable&lt;<a href="Tree.html" title="type parameter in Tree">E</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a id="getIterationMethod()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getIterationMethod</h4>
+<pre class="methodSignature">public&nbsp;<a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;getIterationMethod()</pre>
+</li>
+</ul>
+<a id="setIterationMethod(ru.nsu.cjvth.Tree.IterationMethod)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>setIterationMethod</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setIterationMethod&#8203;(<a href="Tree.IterationMethod.html" title="enum in ru.nsu.cjvth">Tree.IterationMethod</a>&nbsp;iterationMethod)</pre>
 </li>
 </ul>
 </li>
@@ -324,15 +601,15 @@ extends java.lang.Object</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">
