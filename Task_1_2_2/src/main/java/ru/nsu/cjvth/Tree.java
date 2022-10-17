@@ -210,7 +210,11 @@ public class Tree<E> implements Iterable<Tree<E>> {
 
     @Override
     public Iterator<Tree<E>> iterator() {
-        return new TreeItrDfs(this);
+        if (iterationMethod == IterationMethod.DFS) {
+            return new TreeIteratorDfs(this);
+        } else {
+            return new TreeIteratorBfs(this);
+        }
     }
 
     public IterationMethod getIterationMethod() {
@@ -229,17 +233,17 @@ public class Tree<E> implements Iterable<Tree<E>> {
         DFS
     }
 
-    private class TreeItrDfs implements Iterator<Tree<E>> {
+    private class TreeIteratorDfs implements Iterator<Tree<E>> {
 
         private final Deque<Iterator<Tree<E>>> stack;
         private final Tree<E> root;
         private final long savedModifyCount;
 
-        public TreeItrDfs(Tree<E> tree) {
+        public TreeIteratorDfs(Tree<E> tree) {
             this.root = tree;
             stack = new ArrayDeque<>();
             savedModifyCount = tree.modifyCount;
-            stack.push(List.of(tree).iterator());
+            stack.addLast(List.of(tree).iterator());
         }
 
         @Override
@@ -260,10 +264,47 @@ public class Tree<E> implements Iterable<Tree<E>> {
             }
             Tree<E> elem = stack.getLast().next();
             if (elem.children.size() > 0) {
-                stack.add(elem.children.iterator());
+                stack.addLast(elem.children.iterator());
             }
             return elem;
         }
 
+    }
+
+    private class TreeIteratorBfs implements Iterator<Tree<E>> {
+
+        private final Deque<Iterator<Tree<E>>> queue;
+        private final Tree<E> root;
+        private final long savedModifyCount;
+
+        private TreeIteratorBfs(Tree<E> tree) {
+            this.root = tree;
+            this.queue = new ArrayDeque<>();
+            this.savedModifyCount = tree.modifyCount;
+            queue.add(List.of(tree).iterator());
+        }
+
+        @Override
+        public boolean hasNext() {
+            while (!queue.getFirst().hasNext() && queue.size() > 1) {
+                queue.pop();
+            }
+            return queue.getFirst().hasNext();
+        }
+
+        @Override
+        public Tree<E> next() {
+            if (root.modifyCount != savedModifyCount) {
+                throw new ConcurrentModificationException();
+            }
+            while (!queue.getFirst().hasNext() && queue.size() > 1) {
+                queue.pop();
+            }
+            Tree<E> elem = queue.getFirst().next();
+            if (elem.children.size() > 0) {
+                queue.add(elem.children.iterator());
+            }
+            return elem;
+        }
     }
 }
