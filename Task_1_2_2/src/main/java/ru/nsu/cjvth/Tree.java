@@ -1,6 +1,10 @@
 package ru.nsu.cjvth;
 
+import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -11,14 +15,14 @@ import java.util.NoSuchElementException;
  *
  * @param <E> type of the elements
  */
-public class Tree<E> {
+public class Tree<E> implements Iterable<Tree<E>> {
 
     private final LinkedList<Tree<E>> children;
-    public E nodeValue;
+    private E nodeValue;
     /**
      * Tree traverse algorithm used in iterator.
      */
-    public IterationMethod iterationMethod;
+    private IterationMethod iterationMethod;
     private long modifyCount = 0;
     private Tree<E> parent;
 
@@ -74,6 +78,15 @@ public class Tree<E> {
         iterationMethod = im;
     }
 
+    public E getNodeValue() {
+        return nodeValue;
+    }
+
+    public void setNodeValue(E nodeValue) {
+        modified();
+        this.nodeValue = nodeValue;
+    }
+
     private void modified() {
         modifyCount++;
         if (parent != null) {
@@ -106,15 +119,17 @@ public class Tree<E> {
     }
 
     /**
-     * Add element as a new child subtree.
+     * Add element as a new child subtree. The child subtree gets the same iteration method as
+     * caller node
      *
      * @param value element to be added
      */
-    public void addElement(E value) {
+    public Tree<E> addElement(E value) {
         modified();
-        Tree<E> subtree = new Tree<>(value);
+        Tree<E> subtree = new Tree<>(value, iterationMethod);
         subtree.parent = this;
         children.add(subtree);
+        return subtree;
     }
 
 
@@ -193,11 +208,62 @@ public class Tree<E> {
         }
     }
 
+    @Override
+    public Iterator<Tree<E>> iterator() {
+        return new TreeItrDfs(this);
+    }
+
+    public IterationMethod getIterationMethod() {
+        return iterationMethod;
+    }
+
+    public void setIterationMethod(IterationMethod iterationMethod) {
+        this.iterationMethod = iterationMethod;
+    }
+
     /**
      * Search method for iterating the tree: Breadth-First and Depth-First.
      */
     public enum IterationMethod {
         BFS,
         DFS
+    }
+
+    private class TreeItrDfs implements Iterator<Tree<E>> {
+
+        private final Deque<Iterator<Tree<E>>> stack;
+        private final Tree<E> root;
+        private final long savedModifyCount;
+
+        public TreeItrDfs(Tree<E> tree) {
+            this.root = tree;
+            stack = new ArrayDeque<>();
+            savedModifyCount = tree.modifyCount;
+            stack.push(List.of(tree).iterator());
+        }
+
+        @Override
+        public boolean hasNext() {
+            while (!stack.getLast().hasNext() && stack.size() > 1) {
+                stack.removeLast();
+            }
+            return stack.getLast().hasNext();
+        }
+
+        @Override
+        public Tree<E> next() {
+            if (root.modifyCount != savedModifyCount) {
+                throw new ConcurrentModificationException();
+            }
+            while (!stack.getLast().hasNext() && stack.size() > 1) {
+                stack.removeLast();
+            }
+            Tree<E> elem = stack.getLast().next();
+            if (elem.children.size() > 0) {
+                stack.add(elem.children.iterator());
+            }
+            return elem;
+        }
+
     }
 }
