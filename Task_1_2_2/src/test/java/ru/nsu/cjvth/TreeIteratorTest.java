@@ -59,8 +59,8 @@ class TreeIteratorTest {
         testIteratorChildrenListConcurrentModification(IterationMethod.DFS);
     }
 
+    // Used to test how iterator pops sub-iterators stack elements without hasNext()
     @Test
-        // Used to test how iterator pops sub-iterators stack elements without hasNext()
     void testDfsIteratorNoHasNext() {
         Tree<Integer> t = new Tree<>(0);
         Tree<Integer> t1 = t.addElement(1);
@@ -122,7 +122,6 @@ class TreeIteratorTest {
     }
 
     @Test
-        // Used to test how iterator pops sub-iterators stack elements without hasNext()
     void testBfsIteratorNoHasNext() {
         Tree<Integer> t = new Tree<>(0, IterationMethod.BFS);
         Tree<Integer> t1 = t.addElement(1);

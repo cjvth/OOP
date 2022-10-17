@@ -121,11 +121,11 @@ class TreeTest {
 
     @Test
     void testFindRoot() {
-        Tree<Integer> t = new Tree<>(0);
-        Tree<Integer> t1 = new Tree<>(1);
-        Tree<Integer> t2 = new Tree<>(2);
-        Tree<Integer> t3 = new Tree<>(3);
-        Tree<Integer> t4 = new Tree<>(4);
+        final Tree<Integer> t = new Tree<>(0);
+        final Tree<Integer> t1 = new Tree<>(1);
+        final Tree<Integer> t2 = new Tree<>(2);
+        final Tree<Integer> t3 = new Tree<>(3);
+        final Tree<Integer> t4 = new Tree<>(4);
         t.addSubtree(t1);
         t.addSubtree(t2);
         t2.addSubtree(t3);
@@ -135,12 +135,12 @@ class TreeTest {
 
     @Test
     void testRemoveSubtree() {
-        Tree<Integer> t = new Tree<>(0);
-        Tree<Integer> t1 = new Tree<>(1);
-        Tree<Integer> t2 = new Tree<>(2);
-        Tree<Integer> t3 = new Tree<>(3);
-        Tree<Integer> t4 = new Tree<>(4);
-        Tree<Integer> t5 = new Tree<>(5);
+        final Tree<Integer> t = new Tree<>(0);
+        final Tree<Integer> t1 = new Tree<>(1);
+        final Tree<Integer> t2 = new Tree<>(2);
+        final Tree<Integer> t3 = new Tree<>(3);
+        final Tree<Integer> t4 = new Tree<>(4);
+        final Tree<Integer> t5 = new Tree<>(5);
         t.addSubtree(t1);
         t.addSubtree(t2);
         t2.addSubtree(t3);
@@ -160,10 +160,10 @@ class TreeTest {
 
     @Test
     void testRemoveSubtreeNonDescendant() {
-        Tree<Integer> t = new Tree<>(0);
-        Tree<Integer> t1 = new Tree<>(1);
-        Tree<Integer> t2 = new Tree<>(2);
-        Tree<Integer> t3 = new Tree<>(3);
+        final Tree<Integer> t = new Tree<>(0);
+        final Tree<Integer> t1 = new Tree<>(1);
+        final Tree<Integer> t2 = new Tree<>(2);
+        final Tree<Integer> t3 = new Tree<>(3);
         t.addSubtree(t1);
         t.addSubtree(t2);
         t2.addSubtree(t3);
@@ -172,13 +172,13 @@ class TreeTest {
 
     @Test
     void testRemoveElement() {
-        Tree<Integer> t = new Tree<>(0);
-        Tree<Integer> t1 = new Tree<>(1);
-        Tree<Integer> t2 = new Tree<>(2);
-        Tree<Integer> t3 = new Tree<>(3);
-        Tree<Integer> t4 = new Tree<>(4);
-        Tree<Integer> t5 = new Tree<>(5);
-        Tree<Integer> t6 = new Tree<>(6);
+        final Tree<Integer> t = new Tree<>(0);
+        final Tree<Integer> t1 = new Tree<>(1);
+        final Tree<Integer> t2 = new Tree<>(2);
+        final Tree<Integer> t3 = new Tree<>(3);
+        final Tree<Integer> t4 = new Tree<>(4);
+        final Tree<Integer> t5 = new Tree<>(5);
+        final Tree<Integer> t6 = new Tree<>(6);
         t.addSubtree(t1);
         t.addSubtree(t2);
         t2.addSubtree(t3);
@@ -200,10 +200,10 @@ class TreeTest {
 
     @Test
     void testRemoveElementNonDescendant() {
-        Tree<Integer> t = new Tree<>(0);
-        Tree<Integer> t1 = new Tree<>(1);
-        Tree<Integer> t2 = new Tree<>(2);
-        Tree<Integer> t3 = new Tree<>(3);
+        final Tree<Integer> t = new Tree<>(0);
+        final Tree<Integer> t1 = new Tree<>(1);
+        final Tree<Integer> t2 = new Tree<>(2);
+        final Tree<Integer> t3 = new Tree<>(3);
         t.addSubtree(t1);
         t.addSubtree(t2);
         t2.addSubtree(t3);
