@@ -95,9 +95,7 @@ public class Tree<E> implements Iterable<Tree<E>> {
     }
 
     /**
-     * Iterate by children subtrees.
-     *
-     * @return iterator of the children list
+     * Return a list with child subtrees of the node.
      */
     public List<Tree<E>> childrenList() {
         //noinspection unchecked
@@ -106,8 +104,6 @@ public class Tree<E> implements Iterable<Tree<E>> {
 
     /**
      * Add another tree as a child node.
-     *
-     * @param anotherTree tree to be added, must be a root
      */
     public void addSubtree(Tree<E> anotherTree) {
         if (anotherTree.parent != null) {
@@ -122,7 +118,7 @@ public class Tree<E> implements Iterable<Tree<E>> {
      * Add element as a new child subtree. The child subtree gets the same iteration method as
      * caller node
      *
-     * @param value element to be added
+     * @param value value of the created node
      */
     public Tree<E> addElement(E value) {
         modified();
@@ -134,9 +130,7 @@ public class Tree<E> implements Iterable<Tree<E>> {
 
 
     /**
-     * Get the root ancestor of the node.
-     *
-     * @return the root
+     * Return the root ancestor of the node.
      */
     public Tree<E> findRoot() {
         Tree<E> root = this;
@@ -148,8 +142,6 @@ public class Tree<E> implements Iterable<Tree<E>> {
 
     /**
      * Remove a descendant subtree from the tree.
-     *
-     * @param descendant the subtree to be removed. Must be a descendant of the caller tree node
      */
     public void removeSubtree(Tree<E> descendant) {
         Tree<E> backSearch = descendant;
@@ -208,6 +200,9 @@ public class Tree<E> implements Iterable<Tree<E>> {
         }
     }
 
+    /**
+     * Return iterator of the tree. You can change iteration method for the traversal
+     */
     @Override
     public Iterator<Tree<E>> iterator() {
         if (iterationMethod == IterationMethod.DFS) {
