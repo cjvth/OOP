@@ -1,6 +1,7 @@
 package ru.nsu.cjvth;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.Deque;
@@ -17,7 +18,7 @@ import java.util.NoSuchElementException;
  */
 public class Tree<E> implements Iterable<Tree<E>> {
 
-    private final LinkedList<Tree<E>> children;
+    private final List<Tree<E>> children;
     private E nodeValue;
     /**
      * Tree traverse algorithm used in iterator.
@@ -98,8 +99,7 @@ public class Tree<E> implements Iterable<Tree<E>> {
      * Return a list with child subtrees of the node.
      */
     public List<Tree<E>> childrenList() {
-        //noinspection unchecked
-        return (List<Tree<E>>) children.clone();
+        return new ArrayList<>(children);
     }
 
     /**
