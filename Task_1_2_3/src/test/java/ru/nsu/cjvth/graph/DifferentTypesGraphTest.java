@@ -9,7 +9,26 @@ import org.junit.jupiter.api.Test;
 class DifferentTypesGraphTest {
 
     @Test
-    void testStringsOnly() {
+    void testObjectIteration() {
+        Graph<Object, Integer> graph = new AdjacencyMatrixGraph<>();
+        graph.putVertex("1", 1);
+        graph.putVertex("3", 3);
+        graph.putVertex("2", 2);
+        assertIterableEquals(List.of("1", "3", "2"), graph.vertexes());
+    }
+
+    @Test
+    void testStringList() {
+        Graph<String, Integer> graph = new AdjacencyMatrixGraph<>();
+        graph.putVertex("1", 1);
+        graph.putVertex("3", 3);
+        graph.putVertex("2", 2);
+        List<String> l = graph.vertexes();
+        System.out.println(l);
+    }
+
+    @Test
+    void testObjectString() {
         Graph<String, Integer> graph = new AdjacencyMatrixGraph<>();
         graph.putVertex("1", 1);
         graph.putVertex("3", 3);
