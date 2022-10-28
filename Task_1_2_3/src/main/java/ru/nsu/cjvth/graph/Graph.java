@@ -1,14 +1,15 @@
 package ru.nsu.cjvth.graph;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Graph data type. Supports adding named vertices and double-weighted edges between them.
+ * Directed graph. Supports adding named vertices and double-weighted edges between them.
  *
  * @param <N> Type of vertex names
- * @param <E> Type of vertex values
+ * @param <V> Type of vertex values
  */
-public interface Graph<N, E> {
+public interface Graph<N, V> {
 
     /**
      * Return ordered list of vertices names.
@@ -18,24 +19,29 @@ public interface Graph<N, E> {
     /**
      * Add a new named vertex or change the value of existing vertex.
      */
-    void pushVertex(N name, E value);
+    void putVertex(N name, V value);
 
     /**
-     * Get value of a vertex.
+     * Get value of a vertex or `null` if no such vertex exists.
      */
-    E getVertexValue(N vertex);
+    V getVertexValue(N vertex);
+
+    /**
+     * Remove vertex of given name from the graph.
+     */
+    void removeVertex(N vertex);
 
     /**
      * Add a new edge between two vertexes or set the value of existing vertex.
      *
      * @param weight weight of the edge
      */
-    void pushEdge(N vertex1, N vertex2, double weight);
+    void putEdge(N vertex1, N vertex2, double weight);
 
     /**
      * Add a new edge between two vertexes with zero weight or not change existing edge.
      */
-    void pushEdge(N vertex1, N vertex2);
+    void putEdge(N vertex1, N vertex2);
 
     /**
      * Get weight of an edge between two vertices.
@@ -45,12 +51,19 @@ public interface Graph<N, E> {
     Double getEdge(N vertex1, N vertex2);
 
     /**
-     * Remove an edge between two vertices.
+     * Remove the edge between two vertices.
      */
     void removeEdge(N vertex1, N vertex2);
 
     /**
-     * Sort vertexes by distance from the selected vertex. Graph must not contain negative-weighted
+     * Calculate the shortest path from selected vertex to all vertexes using Bellman-Ford
+     * algorithm. If there's no path to some vertex, the result is `Double.POSITIVE_INFINITY`. If
+     * you can reach it with a negative cycle, then `Double.NEGATIVE_INFINITY`.
+     */
+    Map<N, Double> calculateDistancesFrom(N selectedVertex);
+
+    /**
+     * Sort vertexes by distance from selected vertex. Vertexes that are
      * edges
      */
     void sortByDistanceFrom(N selectedVertex);
