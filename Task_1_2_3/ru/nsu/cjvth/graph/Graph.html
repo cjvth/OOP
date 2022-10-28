@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6,"i8":6,"i9":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -114,7 +114,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">ru.nsu.cjvth.graph</a></div>
-<h2 title="Interface Graph" class="title">Interface Graph&lt;N,&#8203;E&gt;</h2>
+<h2 title="Interface Graph" class="title">Interface Graph&lt;N,&#8203;V&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -123,11 +123,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>N</code> - Type of vertex names</dd>
-<dd><code>E</code> - Type of vertex values</dd>
+<dd><code>V</code> - Type of vertex values</dd>
+</dl>
+<dl>
+<dt>All Known Implementing Classes:</dt>
+<dd><code><a href="AdjacencyMatrixGraph.html" title="class in ru.nsu.cjvth.graph">AdjacencyMatrixGraph</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">Graph&lt;N,&#8203;E&gt;</span></pre>
-<div class="block">Graph data type. Supports adding named vertices and double-weighted edges between them.</div>
+<pre>public interface <span class="typeNameLabel">Graph&lt;N,&#8203;V&gt;</span></pre>
+<div class="block">Directed graph. Supports adding named vertices and double-weighted edges between them.</div>
 </li>
 </ul>
 </div>
@@ -149,6 +153,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>java.util.Map&lt;<a href="Graph.html" title="type parameter in Graph">N</a>,&#8203;java.lang.Double&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#calculateDistancesFrom(N)">calculateDistancesFrom</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;selectedVertex)</code></th>
+<td class="colLast">
+<div class="block">Calculate the shortest path from selected vertex to all vertexes using Bellman-Ford
+ algorithm.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.Double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEdge(N,N)">getEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
        <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</code></th>
@@ -156,54 +168,61 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Get weight of an edge between two vertices.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="Graph.html" title="type parameter in Graph">E</a></code></td>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="Graph.html" title="type parameter in Graph">V</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertexValue(N)">getVertexValue</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</code></th>
 <td class="colLast">
-<div class="block">Get value of a vertex.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pushEdge(N,N)">pushEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
-        <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</code></th>
-<td class="colLast">
-<div class="block">Add a new edge between two vertexes with zero weight or not change existing edge.</div>
+<div class="block">Get value of a vertex or `null` if no such vertex exists.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pushEdge(N,N,double)">pushEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
-        <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2,
-        double&nbsp;weight)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#putEdge(N,N)">putEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
+       <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</code></th>
 <td class="colLast">
-<div class="block">Add a new edge between two vertexes or set the value of existing vertex.</div>
+<div class="block">Add a new edge between two vertexes with zero weight or not change existing edge.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#pushVertex(N,E)">pushVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;name,
-          <a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#putEdge(N,N,double)">putEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
+       <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2,
+       double&nbsp;weight)</code></th>
 <td class="colLast">
-<div class="block">Add a new named vertex or change the value of existing vertex.</div>
+<div class="block">Add a new edge between two vertexes or set the value of existing vertex.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeEdge(N,N)">removeEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
-          <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#putVertex(N,V)">putVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;name,
+         <a href="Graph.html" title="type parameter in Graph">V</a>&nbsp;value)</code></th>
 <td class="colLast">
-<div class="block">Remove an edge between two vertices.</div>
+<div class="block">Add a new named vertex or change the value of existing vertex.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sortByDistanceFrom(N)">sortByDistanceFrom</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;selectedVertex)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeEdge(N,N)">removeEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
+          <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</code></th>
 <td class="colLast">
-<div class="block">Sort vertexes by distance from the selected vertex.</div>
+<div class="block">Remove the edge between two vertices.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeVertex(N)">removeVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</code></th>
+<td class="colLast">
+<div class="block">Remove vertex of given name from the graph.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sortByDistanceFrom(N)">sortByDistanceFrom</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;selectedVertex)</code></th>
+<td class="colLast">
+<div class="block">Sort vertexes by distance from selected vertex.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="Graph.html" title="type parameter in Graph">N</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertexes()">vertexes</a></span>()</code></th>
 <td class="colLast">
@@ -237,16 +256,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Return ordered list of vertices names.</div>
 </li>
 </ul>
-<a id="pushVertex(java.lang.Object,java.lang.Object)">
+<a id="putVertex(java.lang.Object,java.lang.Object)">
 <!--   -->
-</a><a id="pushVertex(N,E)">
+</a><a id="putVertex(N,V)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>pushVertex</h4>
-<pre class="methodSignature">void&nbsp;pushVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;name,
-                <a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;value)</pre>
+<h4>putVertex</h4>
+<pre class="methodSignature">void&nbsp;putVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;name,
+               <a href="Graph.html" title="type parameter in Graph">V</a>&nbsp;value)</pre>
 <div class="block">Add a new named vertex or change the value of existing vertex.</div>
 </li>
 </ul>
@@ -258,21 +277,33 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>getVertexValue</h4>
-<pre class="methodSignature"><a href="Graph.html" title="type parameter in Graph">E</a>&nbsp;getVertexValue&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</pre>
-<div class="block">Get value of a vertex.</div>
+<pre class="methodSignature"><a href="Graph.html" title="type parameter in Graph">V</a>&nbsp;getVertexValue&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</pre>
+<div class="block">Get value of a vertex or `null` if no such vertex exists.</div>
 </li>
 </ul>
-<a id="pushEdge(java.lang.Object,java.lang.Object,double)">
+<a id="removeVertex(java.lang.Object)">
 <!--   -->
-</a><a id="pushEdge(N,N,double)">
+</a><a id="removeVertex(N)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>pushEdge</h4>
-<pre class="methodSignature">void&nbsp;pushEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
-              <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2,
-              double&nbsp;weight)</pre>
+<h4>removeVertex</h4>
+<pre class="methodSignature">void&nbsp;removeVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</pre>
+<div class="block">Remove vertex of given name from the graph.</div>
+</li>
+</ul>
+<a id="putEdge(java.lang.Object,java.lang.Object,double)">
+<!--   -->
+</a><a id="putEdge(N,N,double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>putEdge</h4>
+<pre class="methodSignature">void&nbsp;putEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
+             <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2,
+             double&nbsp;weight)</pre>
 <div class="block">Add a new edge between two vertexes or set the value of existing vertex.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -280,16 +311,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 </li>
 </ul>
-<a id="pushEdge(java.lang.Object,java.lang.Object)">
+<a id="putEdge(java.lang.Object,java.lang.Object)">
 <!--   -->
-</a><a id="pushEdge(N,N)">
+</a><a id="putEdge(N,N)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>pushEdge</h4>
-<pre class="methodSignature">void&nbsp;pushEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
-              <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</pre>
+<h4>putEdge</h4>
+<pre class="methodSignature">void&nbsp;putEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
+             <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</pre>
 <div class="block">Add a new edge between two vertexes with zero weight or not change existing edge.</div>
 </li>
 </ul>
@@ -320,7 +351,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>removeEdge</h4>
 <pre class="methodSignature">void&nbsp;removeEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
                 <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</pre>
-<div class="block">Remove an edge between two vertices.</div>
+<div class="block">Remove the edge between two vertices.</div>
+</li>
+</ul>
+<a id="calculateDistancesFrom(java.lang.Object)">
+<!--   -->
+</a><a id="calculateDistancesFrom(N)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>calculateDistancesFrom</h4>
+<pre class="methodSignature">java.util.Map&lt;<a href="Graph.html" title="type parameter in Graph">N</a>,&#8203;java.lang.Double&gt;&nbsp;calculateDistancesFrom&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;selectedVertex)</pre>
+<div class="block">Calculate the shortest path from selected vertex to all vertexes using Bellman-Ford
+ algorithm. If there's no path to some vertex, the result is `Double.POSITIVE_INFINITY`. If
+ you can reach it with a negative cycle, then `Double.NEGATIVE_INFINITY`.</div>
 </li>
 </ul>
 <a id="sortByDistanceFrom(java.lang.Object)">
@@ -332,7 +377,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>sortByDistanceFrom</h4>
 <pre class="methodSignature">void&nbsp;sortByDistanceFrom&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;selectedVertex)</pre>
-<div class="block">Sort vertexes by distance from the selected vertex. Graph must not contain negative-weighted
+<div class="block">Sort vertexes by distance from selected vertex. Vertexes that are
  edges</div>
 </li>
 </ul>
