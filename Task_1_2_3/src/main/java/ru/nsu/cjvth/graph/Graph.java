@@ -27,7 +27,7 @@ public interface Graph<N, V> {
     V getVertexValue(N vertex);
 
     /**
-     * Remove vertex of given name from the graph.
+     * Remove vertex of given name from the graph if it exists.
      */
     void removeVertex(N vertex);
 
@@ -51,7 +51,7 @@ public interface Graph<N, V> {
     Double getEdge(N vertex1, N vertex2);
 
     /**
-     * Remove the edge between two vertices.
+     * Remove the edge between two vertices if it exists.
      */
     void removeEdge(N vertex1, N vertex2);
 
