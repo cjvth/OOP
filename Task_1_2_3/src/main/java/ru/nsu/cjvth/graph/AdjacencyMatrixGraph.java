@@ -62,7 +62,9 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
-        edgeTable.set(vertex1, vertex2, 0.);
+        if (edgeTable.get(vertex1, vertex2) == null) {
+            edgeTable.set(vertex1, vertex2, 0.);
+        }
     }
 
     @Override
