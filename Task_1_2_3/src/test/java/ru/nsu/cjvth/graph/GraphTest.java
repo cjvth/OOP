@@ -44,13 +44,25 @@ interface GraphTest {
         assertFalse(l.contains("1"));
         assertNull(graph.getVertexValue("1"));
     }
-}
 
-class AdjacencyMatrixGraphTest implements
-    GraphTest {
-
-    @Override
-    public AdjacencyMatrixGraph<Object, Integer> createGraph() {
-        return new AdjacencyMatrixGraph<>();
+    @Test
+    default void testAddGetEdge() {
+        Graph<Object, Integer> graph = createGraph();
+        graph.putVertex("1", 1);
+        graph.putVertex("2", 2);
+        graph.putVertex("3", 3);
+        graph.putEdge("1", "2", 2);
+        graph.putEdge("1", "1", 1);
+        graph.putEdge("2", "3");
+        graph.putEdge("3", "2", 6);
+        assertEquals(1, graph.getEdge("1", "1"));
+        assertEquals(2, graph.getEdge("1", "2"));
+        assertNull(graph.getEdge("1", "3"));
+        assertNull(graph.getEdge("2", "1"));
+        assertNull(graph.getEdge("2", "2"));
+        assertEquals(0, graph.getEdge("2", "3"));
+        assertNull(graph.getEdge("3", "1"));
+        assertEquals(6, graph.getEdge("3", "2"));
+        assertNull(graph.getEdge("3", "3"));
     }
 }
