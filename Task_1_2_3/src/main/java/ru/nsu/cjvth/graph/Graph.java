@@ -63,8 +63,9 @@ public interface Graph<N, V> {
     Map<N, Double> calculateDistancesFrom(N selectedVertex);
 
     /**
-     * Sort vertexes by distance from selected vertex. Vertexes that are
-     * edges
+     * Sort vertexes by distance from selected vertex. Vertexes that can be reached through a
+     * negative-weight cycle are put in the beginning of the order. Vertexes that are not reachable
+     * from the given vertex are put in the end.
      */
     void sortByDistanceFrom(N selectedVertex);
 }

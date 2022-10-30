@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 /**
@@ -111,9 +112,12 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
             for (var v1 : vertexOrder) {
                 for (var v2 : vertexOrder) {
                     Double edge = edgeTable.get(v1, v2);
-                    if (edge != null && dist.get(v2) > Double.NEGATIVE_INFINITY) {
-                        dist.put(v2, Double.NEGATIVE_INFINITY);
-                        changed = true;
+                    if (edge != null) {
+                        Double newDist = dist.get(v1) + edge;
+                        if (dist.get(v2) > newDist) {
+                            dist.put(v2, Double.NEGATIVE_INFINITY);
+                            changed = true;
+                        }
                     }
                 }
             }
@@ -123,6 +127,11 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
 
     @Override
     public void sortByDistanceFrom(N selectedVertex) {
-
+        Map<N, Double> distances = calculateDistancesFrom(selectedVertex);
+        var entries = new ArrayList<>(distances.entrySet());
+        entries.sort(Entry.comparingByValue());
+        for (int i = 0; i < entries.size(); i++) {
+            vertexOrder.set(i, entries.get(i).getKey());
+        }
     }
 }
