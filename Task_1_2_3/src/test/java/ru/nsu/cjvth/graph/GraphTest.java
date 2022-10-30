@@ -7,10 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 interface GraphTest {
 
@@ -165,5 +172,72 @@ interface GraphTest {
         assertDoesNotThrow(() -> graph.removeEdge(1, 2));
         assertDoesNotThrow(() -> graph.removeEdge(1, 2));
         assertDoesNotThrow(() -> graph.removeEdge(1, 3));
+    }
+
+    @ParameterizedTest(name = "Testing with file {0}")
+    @ValueSource(strings = {"common1.in", "common2.in",
+        "negativeCycle1.in", "negativeCycle2.in"})
+    default void testCalculateDistances(String fileName) throws IOException {
+        Graph<Object, Integer> graph = createGraph();
+        try (var scanner = new Scanner(new File("tests/calculateDistances/".concat(fileName)))) {
+            int vertexesCount = scanner.nextInt();
+            for (int i = 0; i < vertexesCount; i++) {
+                graph.putVertex(i, 0);
+            }
+            int edgesCount = scanner.nextInt();
+            for (int i = 0; i < edgesCount; i++) {
+                int from = scanner.nextInt();
+                int to = scanner.nextInt();
+                double weight = scanner.nextDouble();
+                graph.putEdge(from, to, weight);
+            }
+            int calculations = scanner.nextInt();
+            for (int i = 0; i < calculations; i++) {
+                int from = scanner.nextInt();
+                Map<Object, Double> distances = graph.calculateDistancesFrom(from);
+                for (int j = 0; j < vertexesCount; j++) {
+                    String stringDist = scanner.next();
+                    double dist = switch (stringDist) {
+                        case "+" -> Double.POSITIVE_INFINITY;
+                        case "-" -> Double.NEGATIVE_INFINITY;
+                        default -> Double.parseDouble(stringDist);
+                    };
+                    assertEquals(dist, distances.get(j));
+                }
+            }
+        }
+    }
+
+    @ParameterizedTest(name = "Testing with file {0}")
+    @ValueSource(strings = {"common1.in", "common2.in",
+        "negativeCycle1.in", "negativeCycle2.in"})
+    default void testSortByDistanceFrom(String fileName) throws IOException {
+        Graph<Object, Integer> graph = createGraph();
+        try (var scanner = new Scanner(new File("tests/calculateDistances/".concat(fileName)))) {
+            int vertexesCount = scanner.nextInt();
+            for (int i = 0; i < vertexesCount; i++) {
+                graph.putVertex(i, 0);
+            }
+            int edgesCount = scanner.nextInt();
+            for (int i = 0; i < edgesCount; i++) {
+                int from = scanner.nextInt();
+                int to = scanner.nextInt();
+                double weight = scanner.nextDouble();
+                graph.putEdge(from, to, weight);
+            }
+            for (int i = 0; i < vertexesCount; i++) {
+                Map<Object, Double> distances = graph.calculateDistancesFrom(i);
+                graph.sortByDistanceFrom(i);
+                Object prev = null;
+                Object cur;
+                for (Object vertex : graph.vertexes()) {
+                    cur = vertex;
+                    if (prev != null) {
+                        assertTrue(distances.get(prev) <= distances.get(cur));
+                    }
+                    prev = cur;
+                }
+            }
+        }
     }
 }
