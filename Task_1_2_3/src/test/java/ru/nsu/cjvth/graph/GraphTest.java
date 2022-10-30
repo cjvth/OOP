@@ -197,11 +197,18 @@ interface GraphTest {
                 Map<Object, Double> distances = graph.calculateDistancesFrom(from);
                 for (int j = 0; j < vertexesCount; j++) {
                     String stringDist = scanner.next();
-                    double dist = switch (stringDist) {
-                        case "+" -> Double.POSITIVE_INFINITY;
-                        case "-" -> Double.NEGATIVE_INFINITY;
-                        default -> Double.parseDouble(stringDist);
-                    };
+                    double dist;
+                    switch (stringDist) {
+                        case "+":
+                            dist = Double.POSITIVE_INFINITY;
+                            break;
+                        case "-":
+                            dist = Double.NEGATIVE_INFINITY;
+                            break;
+                        default:
+                            dist = Double.parseDouble(stringDist);
+                            break;
+                    }
                     assertEquals(dist, distances.get(j));
                 }
             }
