@@ -127,7 +127,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="AdjacencyMatrixGraph.html" title="class in ru.nsu.cjvth.graph">AdjacencyMatrixGraph</a></code></dd>
+<dd><code><a href="AdjacencyMatrixGraph.html" title="class in ru.nsu.cjvth.graph">AdjacencyMatrixGraph</a></code>, <code><a href="IncidenceMatrixGraph.html" title="class in ru.nsu.cjvth.graph">IncidenceMatrixGraph</a></code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">Graph&lt;N,&#8203;V&gt;</span></pre>
@@ -205,14 +205,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeEdge(N,N)">removeEdge</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
           <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</code></th>
 <td class="colLast">
-<div class="block">Remove the edge between two vertices.</div>
+<div class="block">Remove the edge between two vertices if it exists.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeVertex(N)">removeVertex</a></span>&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</code></th>
 <td class="colLast">
-<div class="block">Remove vertex of given name from the graph.</div>
+<div class="block">Remove vertex of given name and all edges incident with it from the graph if that edge
+ exists.</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
@@ -290,7 +291,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>removeVertex</h4>
 <pre class="methodSignature">void&nbsp;removeVertex&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex)</pre>
-<div class="block">Remove vertex of given name from the graph.</div>
+<div class="block">Remove vertex of given name and all edges incident with it from the graph if that edge
+ exists.</div>
 </li>
 </ul>
 <a id="putEdge(java.lang.Object,java.lang.Object,double)">
@@ -351,7 +353,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>removeEdge</h4>
 <pre class="methodSignature">void&nbsp;removeEdge&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex1,
                 <a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;vertex2)</pre>
-<div class="block">Remove the edge between two vertices.</div>
+<div class="block">Remove the edge between two vertices if it exists.</div>
 </li>
 </ul>
 <a id="calculateDistancesFrom(java.lang.Object)">
@@ -377,8 +379,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>sortByDistanceFrom</h4>
 <pre class="methodSignature">void&nbsp;sortByDistanceFrom&#8203;(<a href="Graph.html" title="type parameter in Graph">N</a>&nbsp;selectedVertex)</pre>
-<div class="block">Sort vertexes by distance from selected vertex. Vertexes that are
- edges</div>
+<div class="block">Sort vertexes by distance from selected vertex. Vertexes that can be reached through a
+ negative-weight cycle are put in the beginning of the order. Vertexes that are not reachable
+ from the given vertex are put in the end.</div>
 </li>
 </ul>
 </li>
