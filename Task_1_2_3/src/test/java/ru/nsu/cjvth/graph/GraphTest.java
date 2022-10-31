@@ -76,11 +76,10 @@ interface GraphTest {
         graph.putVertex("3", 3);
         graph.putEdge("1", "2", 2);
         graph.putEdge("3", "2", 123421);
-        graph.putEdge("1", "1", 1);
         graph.putEdge("2", "3");
         graph.putEdge("3", "2", 6);
         graph.putEdge("1", "2");
-        assertEquals(1, graph.getEdge("1", "1"));
+        assertNull(graph.getEdge("1", "1"));
         assertEquals(2, graph.getEdge("1", "2"));
         assertNull(graph.getEdge("1", "3"));
         assertNull(graph.getEdge("2", "1"));
@@ -99,7 +98,7 @@ interface GraphTest {
         graph.putVertex(3, 3);
         graph.putEdge(1, 2);
         graph.putEdge(1, 3);
-        graph.putEdge(2, 2);
+        graph.putEdge(2, 3);
         graph.putEdge(3, 1);
         graph.putEdge(3, 2);
         graph.removeVertex(2);
