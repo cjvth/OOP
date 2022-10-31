@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 /**
@@ -163,18 +164,85 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
 
     @Override
     public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
-        return null;
+        Map<N, Double> dist = new HashMap<>();
+        for (N v : vertexOrder) {
+            dist.put(v, Double.POSITIVE_INFINITY);
+        }
+        dist.put(selectedVertex, 0.);
+        boolean changed = true;
+        for (int i = 0; i < vertexOrder.size() && changed; i++) {
+            changed = false;
+            for (N v1 : vertexOrder) {
+                for (long e : edgeValues.keySet()) {
+                    if (incidenceMatrix.get(v1, e) != null) {
+                        for (N v2 : vertexOrder) {
+                            if (v1 != v2 && incidenceMatrix.get(v2, e) != null) {
+                                Edge edgeObject = edgeValues.get(e);
+                                if (edgeObject.vertex1 == v1 && edgeObject.forward != null) {
+                                    Double newDist = dist.get(v1) + edgeObject.forward;
+                                    if (dist.get(v2) > newDist) {
+                                        dist.put(v2, newDist);
+                                        changed = true;
+                                    }
+                                } else if (edgeObject.backward != null) {
+                                    Double newDist = dist.get(v1) + edgeObject.backward;
+                                    if (dist.get(v2) > newDist) {
+                                        dist.put(v2, newDist);
+                                        changed = true;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < vertexOrder.size() && changed; i++) {
+            changed = false;
+            for (N v1 : vertexOrder) {
+                for (long e : edgeValues.keySet()) {
+                    if (incidenceMatrix.get(v1, e) != null) {
+                        for (N v2 : vertexOrder) {
+                            if (v1 != v2 && incidenceMatrix.get(v2, e) != null) {
+                                Edge edgeObject = edgeValues.get(e);
+                                if (edgeObject.vertex1 == v1 && edgeObject.forward != null) {
+                                    Double newDist = dist.get(v1) + edgeObject.forward;
+                                    if (dist.get(v2) > newDist) {
+                                        dist.put(v2, Double.NEGATIVE_INFINITY);
+                                        changed = true;
+                                    }
+                                } else if (edgeObject.backward != null) {
+                                    Double newDist = dist.get(v1) + edgeObject.backward;
+                                    if (dist.get(v2) > newDist) {
+                                        dist.put(v2, Double.NEGATIVE_INFINITY);
+                                        changed = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return dist;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public void sortByDistanceFrom(N selectedVertex) {
-
+        Map<N, Double> distances = calculateDistancesFrom(selectedVertex);
+        var entries = new ArrayList<>(distances.entrySet());
+        entries.sort(Entry.comparingByValue());
+        for (int i = 0; i < entries.size(); i++) {
+            vertexOrder.set(i, entries.get(i).getKey());
+        }
     }
 
     private class Edge {
 
-        N vertex1;
-        N vertex2;
+        final N vertex1;
+        final N vertex2;
         Double forward;
         Double backward;
 

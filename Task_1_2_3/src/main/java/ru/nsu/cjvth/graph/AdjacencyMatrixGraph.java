@@ -94,15 +94,15 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     @Override
     public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
         Map<N, Double> dist = new HashMap<>();
-        for (var v : vertexOrder) {
+        for (N v : vertexOrder) {
             dist.put(v, Double.POSITIVE_INFINITY);
         }
         dist.put(selectedVertex, 0.);
         boolean changed = true;
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
-            for (var v1 : vertexOrder) {
-                for (var v2 : vertexOrder) {
+            for (N v1 : vertexOrder) {
+                for (N v2 : vertexOrder) {
                     Double edge = adjacencyMatrix.get(v1, v2);
                     if (edge != null) {
                         Double newDist = dist.get(v1) + edge;
@@ -116,8 +116,8 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         }
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
-            for (var v1 : vertexOrder) {
-                for (var v2 : vertexOrder) {
+            for (N v1 : vertexOrder) {
+                for (N v2 : vertexOrder) {
                     Double edge = adjacencyMatrix.get(v1, v2);
                     if (edge != null) {
                         Double newDist = dist.get(v1) + edge;
@@ -132,6 +132,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         return dist;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public void sortByDistanceFrom(N selectedVertex) {
         Map<N, Double> distances = calculateDistancesFrom(selectedVertex);
