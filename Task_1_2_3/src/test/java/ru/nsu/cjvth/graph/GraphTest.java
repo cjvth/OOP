@@ -91,6 +91,18 @@ interface GraphTest {
     }
 
     @Test
+    default void testEdgeBetweenSameVertexes() {
+        Graph<Object, Integer> graph = createGraph();
+        graph.putVertex(1, 1);
+        graph.putVertex(2, 2);
+        graph.putEdge(1, 2, 10);
+        assertThrows(IllegalArgumentException.class, () -> graph.putEdge(1, 1, 100));
+        assertThrows(IllegalArgumentException.class, () -> graph.putEdge(2, 2));
+        assertNull(graph.getEdge(1, 1));
+        assertDoesNotThrow(() -> graph.removeEdge(2, 2));
+    }
+
+    @Test
     default void testPutEdgeRemoveVertex() {
         Graph<Object, Integer> graph = createGraph();
         graph.putVertex(1, 1);

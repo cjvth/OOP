@@ -50,6 +50,9 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
+        if (vertex1 == vertex2) {
+            throw new IllegalArgumentException();
+        }
         adjacencyMatrix.set(vertex1, vertex2, weight);
     }
 
@@ -57,6 +60,9 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     public void putEdge(N vertex1, N vertex2) {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
+        }
+        if (vertex1 == vertex2) {
+            throw new IllegalArgumentException();
         }
         if (adjacencyMatrix.get(vertex1, vertex2) == null) {
             adjacencyMatrix.set(vertex1, vertex2, 0.);
@@ -68,6 +74,9 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
+        if (vertex1 == vertex2) {
+            return null;
+        }
         return adjacencyMatrix.get(vertex1, vertex2);
     }
 
@@ -75,6 +84,9 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     public void removeEdge(N vertex1, N vertex2) {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
+        }
+        if (vertex1 == vertex2) {
+            return;
         }
         adjacencyMatrix.set(vertex1, vertex2, null);
     }
