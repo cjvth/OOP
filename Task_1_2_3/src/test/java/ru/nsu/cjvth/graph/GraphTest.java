@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -91,6 +91,18 @@ interface GraphTest {
     }
 
     @Test
+    default void testEdgeBetweenUnknownVertexes() {
+        Graph<Object, Integer> graph = createGraph();
+        graph.putVertex(1, 1);
+        graph.putVertex(2, 2);
+        graph.putEdge(1, 2, 10);
+        assertThrows(NoSuchElementException.class, () -> graph.putEdge(1, 3, 100));
+        assertThrows(NoSuchElementException.class, () -> graph.putEdge(7, 2));
+        assertThrows(NoSuchElementException.class, () -> graph.getEdge(23, 25));
+        assertThrows(NoSuchElementException.class, () -> graph.removeEdge(0, 0));
+    }
+
+    @Test
     default void testEdgeBetweenSameVertexes() {
         Graph<Object, Integer> graph = createGraph();
         graph.putVertex(1, 1);
@@ -130,11 +142,41 @@ interface GraphTest {
         Graph<Object, Integer> graph = createGraph();
         graph.putVertex(1, 1);
         graph.putVertex(2, 2);
-        graph.putEdge(1, 2, 100);
+        graph.putVertex(3, 1);
+        graph.putEdge(2, 1);
+        graph.putEdge(1, 2);
+        graph.putEdge(1, 2);
+        graph.putEdge(2, 1, 100);
+        graph.removeEdge(1, 2);
+        assertNull(graph.getEdge(1, 2));
+        assertEquals(100., graph.getEdge(2, 1));
+        graph.putEdge(1, 3);
+        graph.putEdge(3, 1);
+        graph.removeEdge(1, 3);
+        assertNull(graph.getEdge(1, 3));
+        assertNotNull(graph.getEdge(3, 1));
+        graph.removeEdge(3, 1);
+        assertNull(graph.getEdge(3, 1));
+    }
+
+    @Test
+    default void testRemoveAndPutEdge() {
+        Graph<Object, Integer> graph = createGraph();
+        graph.putVertex(1, 1);
+        graph.putVertex(2, 2);
         graph.putEdge(1, 2);
         graph.putEdge(2, 1);
         graph.removeEdge(1, 2);
         assertNull(graph.getEdge(1, 2));
+        assertNotNull(graph.getEdge(2, 1));
+        graph.putEdge(1, 2);
+        assertNotNull(graph.getEdge(1, 2));
+        assertNotNull(graph.getEdge(2, 1));
+        graph.removeEdge(2, 1);
+        assertNotNull(graph.getEdge(1, 2));
+        assertNull(graph.getEdge(2, 1));
+        graph.putEdge(2, 1);
+        assertNotNull(graph.getEdge(1, 2));
         assertNotNull(graph.getEdge(2, 1));
     }
 
@@ -190,7 +232,7 @@ interface GraphTest {
         "negativeCycle1.in", "negativeCycle2.in"})
     default void testCalculateDistances(String fileName) throws IOException {
         Graph<Object, Integer> graph = createGraph();
-        try (var scanner = new Scanner(new File("tests/calculateDistances/".concat(fileName)))) {
+        try (var scanner = new Scanner(Paths.get("tests/calculateDistances/".concat(fileName)))) {
             int vertexesCount = scanner.nextInt();
             for (int i = 0; i < vertexesCount; i++) {
                 graph.putVertex(i, 0);
@@ -231,7 +273,7 @@ interface GraphTest {
         "negativeCycle1.in", "negativeCycle2.in"})
     default void testSortByDistanceFrom(String fileName) throws IOException {
         Graph<Object, Integer> graph = createGraph();
-        try (var scanner = new Scanner(new File("tests/calculateDistances/".concat(fileName)))) {
+        try (var scanner = new Scanner(Paths.get("tests/calculateDistances/".concat(fileName)))) {
             int vertexesCount = scanner.nextInt();
             for (int i = 0; i < vertexesCount; i++) {
                 graph.putVertex(i, 0);
