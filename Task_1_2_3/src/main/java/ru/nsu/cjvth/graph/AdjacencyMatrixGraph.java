@@ -13,15 +13,10 @@ import java.util.NoSuchElementException;
  */
 public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
 
-    List<N> vertexOrder;
-    Map<N, V> vertexValues;
-    KeyTable<Double> edgeTable;
+    private final List<N> vertexOrder = new LinkedList<>();
+    private final Map<N, V> vertexValues = new HashMap<>();
+    private final KeyTable<Double> adjacencyMatrix = new KeyTable<>();
 
-    AdjacencyMatrixGraph() {
-        vertexOrder = new LinkedList<>();
-        vertexValues = new HashMap<>();
-        edgeTable = new KeyTable<>();
-    }
 
     @Override
     public List<N> vertexes() {
@@ -32,7 +27,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     public void putVertex(N name, V value) {
         if (!vertexValues.containsKey(name)) {
             vertexOrder.add(name);
-            edgeTable.addRow(name);
+            adjacencyMatrix.addRow(name);
         }
         vertexValues.put(name, value);
     }
@@ -46,8 +41,8 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     public void removeVertex(N vertex) {
         vertexOrder.remove(vertex);
         vertexValues.remove(vertex);
-        edgeTable.removeRow(vertex);
-        edgeTable.removeCol(vertex);
+        adjacencyMatrix.removeRow(vertex);
+        adjacencyMatrix.removeCol(vertex);
     }
 
     @Override
@@ -55,7 +50,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
-        edgeTable.set(vertex1, vertex2, weight);
+        adjacencyMatrix.set(vertex1, vertex2, weight);
     }
 
     @Override
@@ -63,8 +58,8 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
-        if (edgeTable.get(vertex1, vertex2) == null) {
-            edgeTable.set(vertex1, vertex2, 0.);
+        if (adjacencyMatrix.get(vertex1, vertex2) == null) {
+            adjacencyMatrix.set(vertex1, vertex2, 0.);
         }
     }
 
@@ -73,7 +68,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
-        return edgeTable.get(vertex1, vertex2);
+        return adjacencyMatrix.get(vertex1, vertex2);
     }
 
     @Override
@@ -81,7 +76,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
             throw new NoSuchElementException();
         }
-        edgeTable.set(vertex1, vertex2, null);
+        adjacencyMatrix.set(vertex1, vertex2, null);
     }
 
     @Override
@@ -96,7 +91,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
             changed = false;
             for (var v1 : vertexOrder) {
                 for (var v2 : vertexOrder) {
-                    Double edge = edgeTable.get(v1, v2);
+                    Double edge = adjacencyMatrix.get(v1, v2);
                     if (edge != null) {
                         Double newDist = dist.get(v1) + edge;
                         if (dist.get(v2) > newDist) {
@@ -111,7 +106,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
             changed = false;
             for (var v1 : vertexOrder) {
                 for (var v2 : vertexOrder) {
-                    Double edge = edgeTable.get(v1, v2);
+                    Double edge = adjacencyMatrix.get(v1, v2);
                     if (edge != null) {
                         Double newDist = dist.get(v1) + edge;
                         if (dist.get(v2) > newDist) {
