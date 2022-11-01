@@ -229,7 +229,7 @@ interface GraphTest {
 
     @ParameterizedTest(name = "Testing with file {0}")
     @ValueSource(strings = {"common1.in", "common2.in",
-        "negativeCycle1.in", "negativeCycle2.in"})
+        "negativeCycle1.in", "negativeCycle2.in", "negativeCycle3Circle.in"})
     default void testCalculateDistances(String fileName) throws IOException {
         Graph<Object, Integer> graph = createGraph();
         try (var scanner = new Scanner(Paths.get("tests/calculateDistances/".concat(fileName)))) {
@@ -270,7 +270,7 @@ interface GraphTest {
 
     @ParameterizedTest(name = "Testing with file {0}")
     @ValueSource(strings = {"common1.in", "common2.in",
-        "negativeCycle1.in", "negativeCycle2.in"})
+        "negativeCycle1.in", "negativeCycle2.in", "negativeCycle3Circle.in"})
     default void testSortByDistanceFrom(String fileName) throws IOException {
         Graph<Object, Integer> graph = createGraph();
         try (var scanner = new Scanner(Paths.get("tests/calculateDistances/".concat(fileName)))) {

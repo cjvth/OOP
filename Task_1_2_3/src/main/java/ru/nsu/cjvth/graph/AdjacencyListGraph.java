@@ -9,14 +9,14 @@ import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 /**
- * Directed graph, edges are stored in a table at the intersection of two vertexes' row and col.
+ * Directed graph, edges from a vertex are stored in a list for that vertex. Recommended
+ * implementation for Graph as most efficient
  */
-public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
+public class AdjacencyListGraph<N, V> implements Graph<N, V> {
 
     private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
-    private final KeyTable<Double> adjacencyMatrix = new KeyTable<>();
-
+    private final Map<N, List<Edge>> adjacencyLists = new HashMap<>();
 
     @Override
     public List<N> vertexes() {
@@ -27,7 +27,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     public void putVertex(N name, V value) {
         if (!vertexValues.containsKey(name)) {
             vertexOrder.add(name);
-            adjacencyMatrix.addRow(name);
+            adjacencyLists.put(name, new LinkedList<>());
         }
         vertexValues.put(name, value);
     }
@@ -41,8 +41,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
     public void removeVertex(N vertex) {
         vertexOrder.remove(vertex);
         vertexValues.remove(vertex);
-        adjacencyMatrix.removeRow(vertex);
-        adjacencyMatrix.removeCol(vertex);
+        adjacencyLists.remove(vertex);
     }
 
     @Override
@@ -53,7 +52,13 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (from == to) {
             throw new IllegalArgumentException();
         }
-        adjacencyMatrix.set(from, to, weight);
+        for (Edge edge : adjacencyLists.get(from)) {
+            if (edge.to == to) {
+                edge.weight = weight;
+                return;
+            }
+        }
+        adjacencyLists.get(from).add(new Edge(to, weight));
     }
 
     @Override
@@ -64,9 +69,12 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (from == to) {
             throw new IllegalArgumentException();
         }
-        if (adjacencyMatrix.get(from, to) == null) {
-            adjacencyMatrix.set(from, to, 0.);
+        for (Edge edge : adjacencyLists.get(from)) {
+            if (edge.to == to) {
+                return;
+            }
         }
+        adjacencyLists.get(from).add(new Edge(to, 0.));
     }
 
     @Override
@@ -77,7 +85,12 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (from == to) {
             return null;
         }
-        return adjacencyMatrix.get(from, to);
+        for (Edge edge : adjacencyLists.get(from)) {
+            if (edge.to == to) {
+                return edge.weight;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -88,7 +101,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         if (from == to) {
             return;
         }
-        adjacencyMatrix.set(from, to, null);
+        adjacencyLists.get(from).removeIf(e -> e.to == to);
     }
 
     @Override
@@ -102,14 +115,11 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
             for (N v1 : vertexOrder) {
-                for (N v2 : vertexOrder) {
-                    Double edge = adjacencyMatrix.get(v1, v2);
-                    if (edge != null) {
-                        Double newDist = dist.get(v1) + edge;
-                        if (dist.get(v2) > newDist) {
-                            dist.put(v2, newDist);
-                            changed = true;
-                        }
+                for (Edge edge : adjacencyLists.get(v1)) {
+                    Double newDist = dist.get(v1) + edge.weight;
+                    if (dist.get(edge.to) > newDist) {
+                        dist.put(edge.to, newDist);
+                        changed = true;
                     }
                 }
             }
@@ -117,14 +127,11 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
             for (N v1 : vertexOrder) {
-                for (N v2 : vertexOrder) {
-                    Double edge = adjacencyMatrix.get(v1, v2);
-                    if (edge != null) {
-                        Double newDist = dist.get(v1) + edge;
-                        if (dist.get(v2) > newDist) {
-                            dist.put(v2, Double.NEGATIVE_INFINITY);
-                            changed = true;
-                        }
+                for (Edge edge : adjacencyLists.get(v1)) {
+                    Double newDist = dist.get(v1) + edge.weight;
+                    if (dist.get(edge.to) > newDist) {
+                        dist.put(edge.to, Double.NEGATIVE_INFINITY);
+                        changed = true;
                     }
                 }
             }
@@ -140,6 +147,16 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         entries.sort(Entry.comparingByValue());
         for (int i = 0; i < entries.size(); i++) {
             vertexOrder.set(i, entries.get(i).getKey());
+        }
+    }
+
+    private class Edge {
+        N to;
+        double weight;
+
+        public Edge(N to, double weight) {
+            this.to = to;
+            this.weight = weight;
         }
     }
 }

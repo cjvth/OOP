@@ -55,18 +55,18 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
     }
 
     @Override
-    public void putEdge(N vertex1, N vertex2, double weight) {
-        if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
+    public void putEdge(N from, N to, double weight) {
+        if (!vertexValues.containsKey(from) || !vertexValues.containsKey(to)) {
             throw new NoSuchElementException();
         }
-        if (vertex1 == vertex2) {
+        if (from == to) {
             throw new IllegalArgumentException();
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(vertex1, edge) != null
-                && incidenceMatrix.get(vertex2, edge) != null) {
+            if (incidenceMatrix.get(from, edge) != null
+                && incidenceMatrix.get(to, edge) != null) {
                 Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == vertex1) {
+                if (edgeObject.vertex1 == from) {
                     edgeObject.forward = weight;
                 } else {
                     edgeObject.backward = weight;
@@ -75,24 +75,24 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
             }
         }
         lastEdge++;
-        edgeValues.put(lastEdge, new Edge(vertex1, vertex2, weight));
-        incidenceMatrix.set(vertex1, lastEdge, true);
-        incidenceMatrix.set(vertex2, lastEdge, true);
+        edgeValues.put(lastEdge, new Edge(from, to, weight));
+        incidenceMatrix.set(from, lastEdge, true);
+        incidenceMatrix.set(to, lastEdge, true);
     }
 
     @Override
-    public void putEdge(N vertex1, N vertex2) {
-        if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
+    public void putEdge(N from, N to) {
+        if (!vertexValues.containsKey(from) || !vertexValues.containsKey(to)) {
             throw new NoSuchElementException();
         }
-        if (vertex1 == vertex2) {
+        if (from == to) {
             throw new IllegalArgumentException();
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(vertex1, edge) != null
-                && incidenceMatrix.get(vertex2, edge) != null) {
+            if (incidenceMatrix.get(from, edge) != null
+                && incidenceMatrix.get(to, edge) != null) {
                 Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == vertex1) {
+                if (edgeObject.vertex1 == from) {
                     if (edgeObject.forward == null) {
                         edgeObject.forward = 0.;
                     }
@@ -105,24 +105,24 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
             }
         }
         lastEdge++;
-        edgeValues.put(lastEdge, new Edge(vertex1, vertex2, 0.));
-        incidenceMatrix.set(vertex1, lastEdge, true);
-        incidenceMatrix.set(vertex2, lastEdge, true);
+        edgeValues.put(lastEdge, new Edge(from, to, 0.));
+        incidenceMatrix.set(from, lastEdge, true);
+        incidenceMatrix.set(to, lastEdge, true);
     }
 
     @Override
-    public Double getEdge(N vertex1, N vertex2) {
-        if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
+    public Double getEdge(N from, N to) {
+        if (!vertexValues.containsKey(from) || !vertexValues.containsKey(to)) {
             throw new NoSuchElementException();
         }
-        if (vertex1 == vertex2) {
+        if (from == to) {
             return null;
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(vertex1, edge) != null
-                && incidenceMatrix.get(vertex2, edge) != null) {
+            if (incidenceMatrix.get(from, edge) != null
+                && incidenceMatrix.get(to, edge) != null) {
                 Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == vertex1) {
+                if (edgeObject.vertex1 == from) {
                     return edgeObject.forward;
                 } else {
                     return edgeObject.backward;
@@ -133,18 +133,18 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
     }
 
     @Override
-    public void removeEdge(N vertex1, N vertex2) {
-        if (!vertexValues.containsKey(vertex1) || !vertexValues.containsKey(vertex2)) {
+    public void removeEdge(N from, N to) {
+        if (!vertexValues.containsKey(from) || !vertexValues.containsKey(to)) {
             throw new NoSuchElementException();
         }
-        if (vertex1 == vertex2) {
+        if (from == to) {
             return;
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(vertex1, edge) != null
-                && incidenceMatrix.get(vertex2, edge) != null) {
+            if (incidenceMatrix.get(from, edge) != null
+                && incidenceMatrix.get(to, edge) != null) {
                 Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == vertex1) {
+                if (edgeObject.vertex1 == from) {
                     edgeObject.forward = null;
                     if (edgeObject.backward == null) {
                         edgeValues.remove(edge);
