@@ -2,7 +2,6 @@ package ru.nsu.cjvth.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -13,7 +12,6 @@ import java.util.function.Function;
  */
 public class AdjacencyMatrixGraph<N, V> extends AbstractGraph<N, V> {
 
-    private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
     private final KeyTable<Double> adjacencyMatrix = new KeyTable<>();
 

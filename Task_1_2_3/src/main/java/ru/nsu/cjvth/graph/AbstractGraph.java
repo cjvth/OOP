@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 abstract class AbstractGraph<N, V> implements Graph<N, V> {
 
-    private final List<N> vertexOrder = new LinkedList<>();
+    protected final List<N> vertexOrder = new LinkedList<>();
 
     protected abstract boolean bellmanFord(Map<N, Double> dist,
         Function<Double, Double> distHandler);
