@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.function.Function;
 
@@ -13,7 +12,7 @@ import java.util.function.Function;
  * Directed graph, edges from a vertex are stored in a list for that vertex. Recommended
  * implementation for Graph as most efficient
  */
-public class AdjacencyListGraph<N, V> implements Graph<N, V> {
+public class AdjacencyListGraph<N, V> extends AbstractGraph<N, V> {
 
     private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
@@ -105,7 +104,7 @@ public class AdjacencyListGraph<N, V> implements Graph<N, V> {
         adjacencyLists.get(from).removeIf(e -> e.to == to);
     }
 
-    private boolean bellmanFord(Map<N, Double> dist, Function<Double, Double> distHandler) {
+    protected boolean bellmanFord(Map<N, Double> dist, Function<Double, Double> distHandler) {
         boolean changed = true;
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
@@ -120,32 +119,6 @@ public class AdjacencyListGraph<N, V> implements Graph<N, V> {
             }
         }
         return changed;
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
-        Map<N, Double> dist = new HashMap<>();
-        for (N v : vertexOrder) {
-            dist.put(v, Double.POSITIVE_INFINITY);
-        }
-        dist.put(selectedVertex, 0.);
-        boolean iter1 = bellmanFord(dist, (x) -> x);
-        if (iter1) {
-            bellmanFord(dist, (x) -> Double.NEGATIVE_INFINITY);
-        }
-        return dist;
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public void sortByDistanceFrom(N selectedVertex) {
-        Map<N, Double> distances = calculateDistancesFrom(selectedVertex);
-        var entries = new ArrayList<>(distances.entrySet());
-        entries.sort(Entry.comparingByValue());
-        for (int i = 0; i < entries.size(); i++) {
-            vertexOrder.set(i, entries.get(i).getKey());
-        }
     }
 
     private class Edge {
