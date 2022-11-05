@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -87,13 +87,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -134,8 +134,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">IncidenceMatrixGraph&lt;N,&#8203;V&gt;</span>
-extends java.lang.Object
-implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;N,&#8203;V&gt;</pre>
+extends java.lang.Object</pre>
 <div class="block">Directed graph, edges are stored in a table at the intersection of vertex's row and edge's col.</div>
 </li>
 </ul>
@@ -143,6 +142,29 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
+<!-- =========== FIELD SUMMARY =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.summary">
+<!--   -->
+</a>
+<h3>Field Summary</h3>
+<table class="memberSummary">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colSecond" scope="col">Field</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected java.util.List&lt;N&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertexOrder">vertexOrder</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <section role="region">
 <ul class="blockList">
@@ -179,14 +201,20 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.util.Map&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;java.lang.Double&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#calculateDistancesFrom(N)">calculateDistancesFrom</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;selectedVertex)</code></th>
+<td class="colFirst"><code>protected boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bellmanFord(java.util.Map,java.util.function.Function)">bellmanFord</a></span>&#8203;(java.util.Map&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;java.lang.Double&gt;&nbsp;dist,
+           java.util.function.Function&lt;java.lang.Double,&#8203;java.lang.Double&gt;&nbsp;distHandler)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.util.Map&lt;N,&#8203;java.lang.Double&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#calculateDistancesFrom(N)">calculateDistancesFrom</a></span>&#8203;(N&nbsp;selectedVertex)</code></th>
 <td class="colLast">
 <div class="block">Calculate the shortest path from selected vertex to all vertexes using Bellman-Ford
  algorithm.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.Double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEdge(N,N)">getEdge</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;from,
        <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;to)</code></th>
@@ -194,14 +222,14 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block">Get weight of an edge between two vertices.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVertexValue(N)">getVertexValue</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;vertex)</code></th>
 <td class="colLast">
 <div class="block">Get value of a vertex.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#putEdge(N,N)">putEdge</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;from,
        <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;to)</code></th>
@@ -209,7 +237,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block">Add a new directed edge between two vertexes with zero weight or not change existing edge.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#putEdge(N,N,double)">putEdge</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;from,
        <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;to,
@@ -218,7 +246,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block">Add a new directed edge between two vertexes or set the value of existing edge.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#putVertex(N,V)">putVertex</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;name,
          <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&nbsp;value)</code></th>
@@ -226,7 +254,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block">Add a new vertex or change the value of existing vertex.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeEdge(N,N)">removeEdge</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;from,
           <a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;to)</code></th>
@@ -234,7 +262,7 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block">Remove the edge between two vertices if it exists.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeVertex(N)">removeVertex</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;vertex)</code></th>
 <td class="colLast">
@@ -242,14 +270,14 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
  exists.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sortByDistanceFrom(N)">sortByDistanceFrom</a></span>&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;selectedVertex)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sortByDistanceFrom(N)">sortByDistanceFrom</a></span>&#8203;(N&nbsp;selectedVertex)</code></th>
 <td class="colLast">
 <div class="block">Sort vertexes by shortest path from the selected vertex.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertexes()">vertexes</a></span>()</code></th>
 <td class="colLast">
@@ -273,6 +301,25 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a id="vertexOrder">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>vertexOrder</h4>
+<pre>protected final&nbsp;java.util.List&lt;N&gt; vertexOrder</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <section role="region">
 <ul class="blockList">
@@ -309,8 +356,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#vertexes()">Graph</a></code></span></div>
 <div class="block">Return order of vertices.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#vertexes()">vertexes</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>ordered list of vertex names</dd>
 </dl>
@@ -329,8 +374,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#putVertex(N,V)">Graph</a></code></span></div>
 <div class="block">Add a new vertex or change the value of existing vertex.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#putVertex(N,V)">putVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>name</code> - name of the new or changed vertex</dd>
 <dd><code>value</code> - new value of that vertex</dd>
@@ -349,8 +392,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#getVertexValue(N)">Graph</a></code></span></div>
 <div class="block">Get value of a vertex.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#getVertexValue(N)">getVertexValue</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>vertex</code> - name of the vertex</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -371,8 +412,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block">Remove vertex of given name and all edges incident with it from the graph if that edge
  exists.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#removeVertex(N)">removeVertex</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>vertex</code> - name of the vertex</dd>
 </dl>
@@ -392,8 +431,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#putEdge(N,N,double)">Graph</a></code></span></div>
 <div class="block">Add a new directed edge between two vertexes or set the value of existing edge.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#putEdge(N,N,double)">putEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>from</code> - name of the vertex the edge directed from</dd>
 <dd><code>to</code> - name of the vertex the edge directed to</dd>
@@ -414,8 +451,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#putEdge(N,N)">Graph</a></code></span></div>
 <div class="block">Add a new directed edge between two vertexes with zero weight or not change existing edge.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#putEdge(N,N)">putEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>from</code> - name of the vertex the edge directed from</dd>
 <dd><code>to</code> - name of the vertex the edge directed to</dd>
@@ -435,8 +470,6 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#getEdge(N,N)">Graph</a></code></span></div>
 <div class="block">Get weight of an edge between two vertices.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#getEdge(N,N)">getEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>from</code> - name of the vertex the edge directed from</dd>
 <dd><code>to</code> - name of the vertex the edge directed to</dd>
@@ -458,12 +491,20 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#removeEdge(N,N)">Graph</a></code></span></div>
 <div class="block">Remove the edge between two vertices if it exists.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#removeEdge(N,N)">removeEdge</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>from</code> - name of the vertex the edge directed from</dd>
 <dd><code>to</code> - name of the vertex the edge directed to</dd>
 </dl>
+</li>
+</ul>
+<a id="bellmanFord(java.util.Map,java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>bellmanFord</h4>
+<pre class="methodSignature">protected&nbsp;boolean&nbsp;bellmanFord&#8203;(java.util.Map&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;java.lang.Double&gt;&nbsp;dist,
+                              java.util.function.Function&lt;java.lang.Double,&#8203;java.lang.Double&gt;&nbsp;distHandler)</pre>
 </li>
 </ul>
 <a id="calculateDistancesFrom(java.lang.Object)">
@@ -474,13 +515,13 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <ul class="blockList">
 <li class="blockList">
 <h4>calculateDistancesFrom</h4>
-<pre class="methodSignature">public&nbsp;java.util.Map&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;java.lang.Double&gt;&nbsp;calculateDistancesFrom&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;selectedVertex)</pre>
+<pre class="methodSignature">public&nbsp;java.util.Map&lt;N,&#8203;java.lang.Double&gt;&nbsp;calculateDistancesFrom&#8203;(N&nbsp;selectedVertex)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#calculateDistancesFrom(N)">Graph</a></code></span></div>
 <div class="block">Calculate the shortest path from selected vertex to all vertexes using Bellman-Ford
  algorithm.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#calculateDistancesFrom(N)">calculateDistancesFrom</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
+<dd><code><a href="Graph.html#calculateDistancesFrom(N)">calculateDistancesFrom</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;N,&#8203;V&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>selectedVertex</code> - vertex from which the shortest paths are calculated</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -499,14 +540,14 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <ul class="blockListLast">
 <li class="blockList">
 <h4>sortByDistanceFrom</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;sortByDistanceFrom&#8203;(<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>&nbsp;selectedVertex)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;sortByDistanceFrom&#8203;(N&nbsp;selectedVertex)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="Graph.html#sortByDistanceFrom(N)">Graph</a></code></span></div>
 <div class="block">Sort vertexes by shortest path from the selected vertex. Vertexes that can be reached through
  a negative-weight cycle are put in the beginning of the order. Vertexes that are not
  reachable from the given vertex are put in the end.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Graph.html#sortByDistanceFrom(N)">sortByDistanceFrom</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">N</a>,&#8203;<a href="IncidenceMatrixGraph.html" title="type parameter in IncidenceMatrixGraph">V</a>&gt;</code></dd>
+<dd><code><a href="Graph.html#sortByDistanceFrom(N)">sortByDistanceFrom</a></code>&nbsp;in interface&nbsp;<code><a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a>&lt;N,&#8203;V&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>selectedVertex</code> - vertex from which the shortest paths are calculated</dd>
 </dl>
@@ -563,13 +604,13 @@ implements <a href="Graph.html" title="interface in ru.nsu.cjvth.graph">Graph</a
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
