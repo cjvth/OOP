@@ -6,14 +6,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 /**
  * Directed graph, edges are stored in a table at the intersection of vertex's row and edge's col.
  */
-public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
+public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
 
     private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
@@ -163,7 +162,7 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
         }
     }
 
-    private boolean bellmanFord(Map<N, Double> dist, Function<Double, Double> distHandler) {
+    protected boolean bellmanFord(Map<N, Double> dist, Function<Double, Double> distHandler) {
         boolean changed = true;
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
@@ -194,32 +193,6 @@ public class IncidenceMatrixGraph<N, V> implements Graph<N, V> {
             }
         }
         return changed;
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
-        Map<N, Double> dist = new HashMap<>();
-        for (N v : vertexOrder) {
-            dist.put(v, Double.POSITIVE_INFINITY);
-        }
-        dist.put(selectedVertex, 0.);
-        boolean iter1 = bellmanFord(dist, (x) -> x);
-        if (iter1) {
-            bellmanFord(dist, (x) -> Double.NEGATIVE_INFINITY);
-        }
-        return dist;
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    @Override
-    public void sortByDistanceFrom(N selectedVertex) {
-        Map<N, Double> distances = calculateDistancesFrom(selectedVertex);
-        var entries = new ArrayList<>(distances.entrySet());
-        entries.sort(Entry.comparingByValue());
-        for (int i = 0; i < entries.size(); i++) {
-            vertexOrder.set(i, entries.get(i).getKey());
-        }
     }
 
     private class Edge {
