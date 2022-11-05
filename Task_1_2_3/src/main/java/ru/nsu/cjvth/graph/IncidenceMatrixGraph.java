@@ -16,8 +16,8 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
 
     private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
-    private final Map<Long, Edge> edgeValues = new HashMap<>();
-    private final KeyTable<Boolean> incidenceMatrix = new KeyTable<>();
+    private final Map<Long, Double> edgeValues = new HashMap<>();
+    private final KeyTable<Integer> incidenceMatrix = new KeyTable<>();
     private long lastEdge = 0;
 
     @Override
@@ -63,21 +63,16 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             throw new IllegalArgumentException();
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) != null
-                && incidenceMatrix.get(to, edge) != null) {
-                Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == from) {
-                    edgeObject.forward = weight;
-                } else {
-                    edgeObject.backward = weight;
-                }
+            if (incidenceMatrix.get(from, edge) == -1
+                && incidenceMatrix.get(to, edge) == 1) {
+                edgeValues.put(edge, weight);
                 return;
             }
         }
         lastEdge++;
-        edgeValues.put(lastEdge, new Edge(from, to, weight));
-        incidenceMatrix.set(from, lastEdge, true);
-        incidenceMatrix.set(to, lastEdge, true);
+        edgeValues.put(lastEdge, weight);
+        incidenceMatrix.set(from, lastEdge, -1);
+        incidenceMatrix.set(to, lastEdge, 1);
     }
 
     @Override
@@ -89,25 +84,16 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             throw new IllegalArgumentException();
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) != null
-                && incidenceMatrix.get(to, edge) != null) {
-                Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == from) {
-                    if (edgeObject.forward == null) {
-                        edgeObject.forward = 0.;
-                    }
-                } else {
-                    if (edgeObject.backward == null) {
-                        edgeObject.backward = 0.;
-                    }
-                }
+            if (incidenceMatrix.get(from, edge) == -1
+                && incidenceMatrix.get(to, edge) == 1) {
+                edgeValues.put(edge, 0.);
                 return;
             }
         }
         lastEdge++;
-        edgeValues.put(lastEdge, new Edge(from, to, 0.));
-        incidenceMatrix.set(from, lastEdge, true);
-        incidenceMatrix.set(to, lastEdge, true);
+        edgeValues.put(lastEdge, 0.);
+        incidenceMatrix.set(from, lastEdge, -1);
+        incidenceMatrix.set(to, lastEdge, 1);
     }
 
     @Override
@@ -119,14 +105,9 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             return null;
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) != null
-                && incidenceMatrix.get(to, edge) != null) {
-                Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == from) {
-                    return edgeObject.forward;
-                } else {
-                    return edgeObject.backward;
-                }
+            if (incidenceMatrix.get(from, edge) == -1
+                && incidenceMatrix.get(to, edge) == 1) {
+                return edgeValues.get(edge);
             }
         }
         return null;
@@ -141,22 +122,10 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             return;
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) != null
-                && incidenceMatrix.get(to, edge) != null) {
-                Edge edgeObject = edgeValues.get(edge);
-                if (edgeObject.vertex1 == from) {
-                    edgeObject.forward = null;
-                    if (edgeObject.backward == null) {
-                        edgeValues.remove(edge);
-                        incidenceMatrix.removeCol(edge);
-                    }
-                } else {
-                    edgeObject.backward = null;
-                    if (edgeObject.forward == null) {
-                        edgeValues.remove(edge);
-                        incidenceMatrix.removeCol(edge);
-                    }
-                }
+            if (incidenceMatrix.get(from, edge) == -1
+                && incidenceMatrix.get(to, edge) == 1) {
+                edgeValues.remove(edge);
+                incidenceMatrix.removeCol(edge);
                 return;
             }
         }
@@ -167,23 +136,14 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
             for (N v1 : vertexOrder) {
-                for (long e : edgeValues.keySet()) {
-                    if (incidenceMatrix.get(v1, e) != null) {
+                for (long edge : edgeValues.keySet()) {
+                    if (incidenceMatrix.get(v1, edge) == -1) {
                         for (N v2 : vertexOrder) {
-                            if (v1 != v2 && incidenceMatrix.get(v2, e) != null) {
-                                Edge edgeObject = edgeValues.get(e);
-                                if (edgeObject.vertex1 == v1 && edgeObject.forward != null) {
-                                    Double newDist = dist.get(v1) + edgeObject.forward;
-                                    if (dist.get(v2) > newDist) {
-                                        dist.put(v2, distHandler.apply(newDist));
-                                        changed = true;
-                                    }
-                                } else if (edgeObject.backward != null) {
-                                    Double newDist = dist.get(v1) + edgeObject.backward;
-                                    if (dist.get(v2) > newDist) {
-                                        dist.put(v2, distHandler.apply(newDist));
-                                        changed = true;
-                                    }
+                            if (v1 != v2 && incidenceMatrix.get(v2, edge) == 1) {
+                                Double newDist = dist.get(v1) + edgeValues.get(edge);
+                                if (dist.get(v2) > newDist) {
+                                    dist.put(v2, distHandler.apply(newDist));
+                                    changed = true;
                                 }
                                 break;
                             }
@@ -193,20 +153,5 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             }
         }
         return changed;
-    }
-
-    private class Edge {
-
-        final N vertex1;
-        final N vertex2;
-        Double forward;
-        Double backward;
-
-        Edge(N vertex1, N vertex2, double forward) {
-            this.vertex1 = vertex1;
-            this.vertex2 = vertex2;
-            this.forward = forward;
-            this.backward = null;
-        }
     }
 }
