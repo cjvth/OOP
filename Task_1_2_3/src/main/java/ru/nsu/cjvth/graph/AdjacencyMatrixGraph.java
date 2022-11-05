@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 /**
  * Directed graph, edges are stored in a table at the intersection of two vertexes' row and col.
@@ -91,13 +92,7 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
         adjacencyMatrix.set(from, to, null);
     }
 
-    @Override
-    public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
-        Map<N, Double> dist = new HashMap<>();
-        for (N v : vertexOrder) {
-            dist.put(v, Double.POSITIVE_INFINITY);
-        }
-        dist.put(selectedVertex, 0.);
+    private boolean bellmanFord(Map<N, Double> dist, Function<Double, Double> distHandler) {
         boolean changed = true;
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
@@ -107,27 +102,27 @@ public class AdjacencyMatrixGraph<N, V> implements Graph<N, V> {
                     if (edge != null) {
                         Double newDist = dist.get(v1) + edge;
                         if (dist.get(v2) > newDist) {
-                            dist.put(v2, newDist);
+                            dist.put(v2, distHandler.apply(newDist));
                             changed = true;
                         }
                     }
                 }
             }
         }
-        for (int i = 0; i < vertexOrder.size() && changed; i++) {
-            changed = false;
-            for (N v1 : vertexOrder) {
-                for (N v2 : vertexOrder) {
-                    Double edge = adjacencyMatrix.get(v1, v2);
-                    if (edge != null) {
-                        Double newDist = dist.get(v1) + edge;
-                        if (dist.get(v2) > newDist) {
-                            dist.put(v2, Double.NEGATIVE_INFINITY);
-                            changed = true;
-                        }
-                    }
-                }
-            }
+        return changed;
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
+        Map<N, Double> dist = new HashMap<>();
+        for (N v : vertexOrder) {
+            dist.put(v, Double.POSITIVE_INFINITY);
+        }
+        dist.put(selectedVertex, 0.);
+        boolean iter1 = bellmanFord(dist, (x) -> x);
+        if (iter1) {
+            bellmanFord(dist, (x) -> Double.NEGATIVE_INFINITY);
         }
         return dist;
     }
