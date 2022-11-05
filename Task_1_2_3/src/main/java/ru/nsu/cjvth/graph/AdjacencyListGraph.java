@@ -14,7 +14,6 @@ import java.util.function.Function;
  */
 public class AdjacencyListGraph<N, V> extends AbstractGraph<N, V> {
 
-    private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
     private final Map<N, List<Edge>> adjacencyLists = new HashMap<>();
 

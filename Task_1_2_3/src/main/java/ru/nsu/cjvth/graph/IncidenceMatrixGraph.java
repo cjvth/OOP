@@ -3,7 +3,6 @@ package ru.nsu.cjvth.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -14,7 +13,6 @@ import java.util.function.Function;
  */
 public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
 
-    private final List<N> vertexOrder = new LinkedList<>();
     private final Map<N, V> vertexValues = new HashMap<>();
     private final Map<Long, Double> edgeValues = new HashMap<>();
     private final KeyTable<Integer> incidenceMatrix = new KeyTable<>();
@@ -63,8 +61,8 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             throw new IllegalArgumentException();
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) == -1
-                && incidenceMatrix.get(to, edge) == 1) {
+            if (Integer.valueOf(-1).equals(incidenceMatrix.get(from, edge))
+                && Integer.valueOf(1).equals(incidenceMatrix.get(to, edge))) {
                 edgeValues.put(edge, weight);
                 return;
             }
@@ -84,9 +82,8 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             throw new IllegalArgumentException();
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) == -1
-                && incidenceMatrix.get(to, edge) == 1) {
-                edgeValues.put(edge, 0.);
+            if (Integer.valueOf(-1).equals(incidenceMatrix.get(from, edge))
+                && Integer.valueOf(1).equals(incidenceMatrix.get(to, edge))) {
                 return;
             }
         }
@@ -105,8 +102,8 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             return null;
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) == -1
-                && incidenceMatrix.get(to, edge) == 1) {
+            if (Integer.valueOf(-1).equals(incidenceMatrix.get(from, edge))
+                && Integer.valueOf(1).equals(incidenceMatrix.get(to, edge))) {
                 return edgeValues.get(edge);
             }
         }
@@ -122,8 +119,8 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             return;
         }
         for (long edge : edgeValues.keySet()) {
-            if (incidenceMatrix.get(from, edge) == -1
-                && incidenceMatrix.get(to, edge) == 1) {
+            if (Integer.valueOf(-1).equals(incidenceMatrix.get(from, edge))
+                && Integer.valueOf(1).equals(incidenceMatrix.get(to, edge))) {
                 edgeValues.remove(edge);
                 incidenceMatrix.removeCol(edge);
                 return;
@@ -137,9 +134,10 @@ public class IncidenceMatrixGraph<N, V> extends AbstractGraph<N, V> {
             changed = false;
             for (N v1 : vertexOrder) {
                 for (long edge : edgeValues.keySet()) {
-                    if (incidenceMatrix.get(v1, edge) == -1) {
+                    if (Integer.valueOf(-1).equals(incidenceMatrix.get(v1, edge))) {
                         for (N v2 : vertexOrder) {
-                            if (v1 != v2 && incidenceMatrix.get(v2, edge) == 1) {
+                            if (v1 != v2
+                                && Integer.valueOf(1).equals(incidenceMatrix.get(v2, edge))) {
                                 Double newDist = dist.get(v1) + edgeValues.get(edge);
                                 if (dist.get(v2) > newDist) {
                                     dist.put(v2, distHandler.apply(newDist));
