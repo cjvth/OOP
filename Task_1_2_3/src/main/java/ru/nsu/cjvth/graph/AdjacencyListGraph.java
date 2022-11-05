@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
 
 /**
  * Directed graph, edges from a vertex are stored in a list for that vertex. Recommended
@@ -104,13 +105,7 @@ public class AdjacencyListGraph<N, V> implements Graph<N, V> {
         adjacencyLists.get(from).removeIf(e -> e.to == to);
     }
 
-    @Override
-    public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
-        Map<N, Double> dist = new HashMap<>();
-        for (N v : vertexOrder) {
-            dist.put(v, Double.POSITIVE_INFINITY);
-        }
-        dist.put(selectedVertex, 0.);
+    private boolean bellmanFord(Map<N, Double> dist, Function<Double, Double> distHandler) {
         boolean changed = true;
         for (int i = 0; i < vertexOrder.size() && changed; i++) {
             changed = false;
@@ -118,23 +113,26 @@ public class AdjacencyListGraph<N, V> implements Graph<N, V> {
                 for (Edge edge : adjacencyLists.get(v1)) {
                     Double newDist = dist.get(v1) + edge.weight;
                     if (dist.get(edge.to) > newDist) {
-                        dist.put(edge.to, newDist);
+                        dist.put(edge.to, distHandler.apply(newDist));
                         changed = true;
                     }
                 }
             }
         }
-        for (int i = 0; i < vertexOrder.size() && changed; i++) {
-            changed = false;
-            for (N v1 : vertexOrder) {
-                for (Edge edge : adjacencyLists.get(v1)) {
-                    Double newDist = dist.get(v1) + edge.weight;
-                    if (dist.get(edge.to) > newDist) {
-                        dist.put(edge.to, Double.NEGATIVE_INFINITY);
-                        changed = true;
-                    }
-                }
-            }
+        return changed;
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public Map<N, Double> calculateDistancesFrom(N selectedVertex) {
+        Map<N, Double> dist = new HashMap<>();
+        for (N v : vertexOrder) {
+            dist.put(v, Double.POSITIVE_INFINITY);
+        }
+        dist.put(selectedVertex, 0.);
+        boolean iter1 = bellmanFord(dist, (x) -> x);
+        if (iter1) {
+            bellmanFord(dist, (x) -> Double.NEGATIVE_INFINITY);
         }
         return dist;
     }
