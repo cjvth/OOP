@@ -93,31 +93,10 @@ public class Substring {
         if (len == 0) {
             return prefixes;
         }
-        // Z-function for first char in prefix
         prefixes[0] = len;
-        // Z-function is 0 for chars in prefix until they are not same as first
-        int i;
-        for (i = 1; i < len; i++) {
-            if (array[i] == array[0]) {
-                break;
-            }
-            prefixes[i] = 0;
-        }
-        // Z-function for first prefix with matching first char
-        for (int j = i, k = 0; j < len; j++, k++) {
-            if (array[j] != array[k]) {
-                break;
-            }
-            prefixes[i]++;
-        }
-        if (i == len) {
-            return prefixes;
-        }
-        // Now we can use borders of the rightest match
-        int lastBegin = i;
-        int lastEnd = i + prefixes[i];
-        i++;
-        for (; i < len; i++) {
+        int lastBegin = -1;
+        int lastEnd = -1;
+        for (int i = 1; i < len; i++) {
             if (i >= lastEnd) {
                 for (int j = i, k = 0; j < len; j++, k++) {
                     if (array[j] != array[k]) {
