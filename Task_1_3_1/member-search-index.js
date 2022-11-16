@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"ru.nsu.cjvth.substring","c":"Substring","l":"arrayZfunction(char[])"},{"p":"ru.nsu.cjvth.substring","c":"Substring","l":"getSubstringEntries(String, Reader)","url":"getSubstringEntries(java.lang.String,java.io.Reader)"},{"p":"ru.nsu.cjvth.substring","c":"Substring","l":"Substring()","url":"%3Cinit%3E()"}]
