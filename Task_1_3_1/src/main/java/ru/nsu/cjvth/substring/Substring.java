@@ -3,10 +3,7 @@ package ru.nsu.cjvth.substring;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,50 +29,57 @@ public class Substring {
         char[] array = template.toCharArray();
         int[] prefixes = arrayZfunction(array);
 
-        Deque<Integer> queue = new ArrayDeque<>();
-        for (int i = 0; i < len; i++) {
-            queue.add(reader.read());
-        }
+        char[] buffer = new char[2 * len];
+
+        int countRead = reader.read(buffer, len, len);
+        boolean stop = false;
+
         int pos = 0;
         int lastBegin = -1;
         int lastEnd = -1;
-        while (queue.getFirst() != -1) {
-            if (pos >= lastEnd) {
-                int pref = 0;
-                for (int i : queue) {
-                    if (i != array[pref]) {
-                        break;
+        int maxIndex;
+        while (countRead == len || !stop) {
+            System.arraycopy(buffer, len, buffer, 0, len);
+            if (countRead == len) {
+                countRead = reader.read(buffer, len, len);
+                if (countRead == -1) {
+                    countRead = 0;
+                }
+                maxIndex = len + countRead;
+            } else {
+                stop = true;
+                maxIndex = countRead;
+            }
+            int iterationLimit = stop ? countRead : len;
+            for (int i = 0; i < iterationLimit; i++, pos++) {
+                if (pos >= lastEnd) {
+                    int pref = 0;
+                    for (int j = i; j < i + len && j < maxIndex; j++) {
+                        if (buffer[j] != array[pref]) {
+                            break;
+                        }
+                        pref++;
                     }
-                    pref++;
-                }
-                lastBegin = pos;
-                lastEnd = pos + pref;
-                if (pref == len) {
-                    entries.add(pos);
-                }
-            } else if (pos + prefixes[pos - lastBegin] >= lastEnd) {
-                // Unfortunately, I can't get needed element by index, so iterating
-                Iterator<Integer> iter = queue.iterator();
-                int pref = lastEnd - pos;
-                for (int i = 0; i < pref; i++) {
-                    iter.next(); // pref is less than queue's size
-                }
-                while (iter.hasNext()) {
-                    if (iter.next() != array[pref]) {
-                        break;
+                    lastBegin = pos;
+                    lastEnd = pos + pref;
+                    if (pref == len) {
+                        entries.add(pos);
                     }
-                    pref++;
-                }
-                lastBegin = pos;
-                lastEnd = pos + pref;
-                if (pref == len) {
-                    entries.add(pos);
+                } else if (pos + prefixes[pos - lastBegin] >= lastEnd) {
+                    int pref = lastEnd - pos;
+                    for (int j = i + pref; j < i + len && j < maxIndex; j++) {
+                        if (buffer[j] != array[pref]) {
+                            break;
+                        }
+                        pref++;
+                    }
+                    lastBegin = pos;
+                    lastEnd = pos + pref;
+                    if (pref == len) {
+                        entries.add(pos);
+                    }
                 }
             }
-            // if pos + prefixes[pos - lastBegin] < lastEnd then the prefix is less than len
-            pos++;
-            queue.removeFirst();
-            queue.addLast(reader.read());
         }
         return entries;
     }

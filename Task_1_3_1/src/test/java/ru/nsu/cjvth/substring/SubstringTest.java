@@ -78,6 +78,22 @@ class SubstringTest {
     }
 
     @Test
+    void test3BufferStringSubstring() throws IOException {
+        String string = "abadab";
+        List<Integer> result = Substring.getSubstringEntries("ab",
+            new StringReader(string));
+        assertIterableEquals(List.of(0, 4), result);
+    }
+
+    @Test
+    void test4BufferStringSubstring() throws IOException {
+        String string = "dbabadab";
+        List<Integer> result = Substring.getSubstringEntries("ab",
+            new StringReader(string));
+        assertIterableEquals(List.of(2, 6), result);
+    }
+
+    @Test
     void testSimpleSubstring() throws IOException {
         String string = "abobabababo";
         List<Integer> result = Substring.getSubstringEntries("aba",
