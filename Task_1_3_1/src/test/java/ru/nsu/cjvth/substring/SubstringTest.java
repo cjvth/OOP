@@ -71,10 +71,10 @@ class SubstringTest {
 
     @Test
     void testSingleTemplateSubstring() throws IOException {
-        String string = "aaaaaaa";
+        String string = "aabbaaa";
         List<Integer> result = Substring.getSubstringEntries("a",
             new StringReader(string));
-        assertIterableEquals(List.of(0, 1, 2, 3, 4, 5, 6), result);
+        assertIterableEquals(List.of(0, 1, 4, 5, 6), result);
     }
 
     @Test
