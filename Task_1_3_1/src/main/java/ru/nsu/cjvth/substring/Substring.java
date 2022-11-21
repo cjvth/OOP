@@ -52,20 +52,7 @@ public class Substring {
             }
             int iterationLimit = stop ? countRead : len;
             for (int i = 0; i < iterationLimit; i++, pos++) {
-                if (pos >= lastEnd) {
-                    int pref = 0;
-                    for (int j = i; j < i + len && j < maxIndex; j++) {
-                        if (buffer[j] != array[pref]) {
-                            break;
-                        }
-                        pref++;
-                    }
-                    lastBegin = pos;
-                    lastEnd = pos + pref;
-                    if (pref == len) {
-                        entries.add(pos);
-                    }
-                } else if (pos + prefixes[pos - lastBegin] >= lastEnd) {
+                if (pos + prefixes[pos - lastBegin] >= lastEnd) {
                     int pref = lastEnd - pos;
                     for (int j = i + pref; j < i + len && j < maxIndex; j++) {
                         if (buffer[j] != array[pref]) {
@@ -101,31 +88,20 @@ public class Substring {
         int lastBegin = -1;
         int lastEnd = -1;
         for (int i = 1; i < len; i++) {
-            if (i >= lastEnd) {
-                for (int j = i, k = 0; j < len; j++, k++) {
-                    if (array[j] != array[k]) {
-                        break;
-                    }
-                    prefixes[i]++;
-                }
-                if (prefixes[i] > 1) {
-                    lastBegin = i;
-                    lastEnd = i + prefixes[i];
-                }
-            } else if (i + prefixes[i - lastBegin] < lastEnd) {
+            if (i < lastEnd && i + prefixes[i - lastBegin] < lastEnd) {
                 prefixes[i] = prefixes[i - lastBegin];
             } else {
-                int known = lastEnd - i;
-                int j = lastEnd;
-                for (int k = known; j < len; j++, k++) {
-                    if (array[j] != array[k]) {
+                int pref = Integer.max(lastEnd - i, 0);
+                for (int j = i + pref; j < len; j++, pref++) {
+                    if (array[j] != array[pref]) {
                         break;
                     }
-                    known++;
                 }
-                prefixes[i] = known;
-                lastBegin = i;
-                lastEnd = j;
+                prefixes[i] = pref;
+                if (pref > 1) {
+                    lastBegin = i;
+                    lastEnd = i + pref;
+                }
             }
         }
         return prefixes;
