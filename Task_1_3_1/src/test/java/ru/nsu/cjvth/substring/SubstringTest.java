@@ -108,4 +108,12 @@ class SubstringTest {
             new StringReader(string));
         assertIterableEquals(List.of(0, 2, 4, 12), result);
     }
+
+    @Test
+    void testRepeatedBeginningSubstring() throws IOException {
+        String string = "abababababoba";
+        List<Integer> result = Substring.getSubstringEntries("abababoba",
+            new StringReader(string));
+        assertIterableEquals(List.of(4), result);
+    }
 }

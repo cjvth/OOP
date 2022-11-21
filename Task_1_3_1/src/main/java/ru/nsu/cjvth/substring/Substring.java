@@ -53,7 +53,8 @@ public class Substring {
             int iterationLimit = stop ? countRead : len;
             for (int i = 0; i < iterationLimit; i++, pos++) {
                 if (pos + prefixes[pos - lastBegin] >= lastEnd) {
-                    int pref = lastEnd - pos;
+                    int pref = Integer.max(0,
+                        Integer.min(prefixes[pos - lastBegin], lastEnd - pos));
                     for (int j = i + pref; j < i + len && j < maxIndex; j++) {
                         if (buffer[j] != array[pref]) {
                             break;
