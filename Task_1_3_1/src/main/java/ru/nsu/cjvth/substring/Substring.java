@@ -52,20 +52,24 @@ public class Substring {
             }
             int iterationLimit = stop ? countRead : len;
             for (int i = 0; i < iterationLimit; i++, pos++) {
-                if (pos + prefixes[pos - lastBegin] >= lastEnd) {
-                    int pref = Integer.max(0,
-                        Integer.min(prefixes[pos - lastBegin], lastEnd - pos));
-                    for (int j = i + pref; j < i + len && j < maxIndex; j++) {
-                        if (buffer[j] != array[pref]) {
-                            break;
-                        }
-                        pref++;
+                int pref;
+                if (pos >= lastEnd) {
+                    pref = 0;
+                } else if (pos + prefixes[pos - lastBegin] >= lastEnd) {
+                    pref = Integer.min(prefixes[pos - lastBegin], lastEnd - pos);
+                } else {
+                    continue;
+                }
+                for (int j = i + pref; j < i + len && j < maxIndex; j++) {
+                    if (buffer[j] != array[pref]) {
+                        break;
                     }
-                    lastBegin = pos;
-                    lastEnd = pos + pref;
-                    if (pref == len) {
-                        entries.add(pos);
-                    }
+                    pref++;
+                }
+                lastBegin = pos;
+                lastEnd = pos + pref;
+                if (pref == len) {
+                    entries.add(pos);
                 }
             }
         }
