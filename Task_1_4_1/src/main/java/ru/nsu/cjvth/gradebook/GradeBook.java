@@ -1,6 +1,10 @@
 package ru.nsu.cjvth.gradebook;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A record book for students. Supports adding and changing semester grades and calculating some
@@ -9,12 +13,11 @@ import java.util.List;
 public class GradeBook {
 
     private final int id;
-    private final int semesters;
-    private int lastSemester;
+    private final int totalSemesters;
+    private final List<Map<String, Grade>> subjects;
 
     /**
-     * Constructor. Last semester at which student has some final grades is set to 0, meaning that
-     * they haven't got any marks
+     * The constructor.
      *
      * @param id             the grade book's identification number
      * @param totalSemesters positive number of semesters that the student will is supposed to
@@ -22,8 +25,15 @@ public class GradeBook {
      */
     public GradeBook(int id, int totalSemesters) {
         this.id = id;
-        this.semesters = totalSemesters;
-        lastSemester = 0;
+        this.totalSemesters = totalSemesters;
+        subjects = new ArrayList<>(totalSemesters);
+        for (int i = 0; i < totalSemesters; i++) {
+            subjects.add(new HashMap<>());
+        }
+    }
+
+    private boolean isSemesterInvalid(int number) {
+        return number < 1 || number > totalSemesters;
     }
 
     /**
@@ -41,16 +51,7 @@ public class GradeBook {
      * @return the id of the book
      */
     public int getTotalSemestersCount() {
-        return semesters;
-    }
-
-    /**
-     * Get the number of last semester the student got some semester marks.
-     *
-     * @return the number of that semester. 0 means that the student hasn't finished any semester
-     */
-    public int lastSemester() {
-        return lastSemester;
+        return totalSemesters;
     }
 
     /**
@@ -62,11 +63,17 @@ public class GradeBook {
      * @param title     name of the subject
      * @param gradeType method of getting the mark from {@link GradeType}
      * @throws IllegalArgumentException if subject with this title already exists in this semester
-     *                                  or if the semester does not exist
+     *                                  or if such semester does not exist
      */
     public void addSubject(int semester, String title, GradeType gradeType) {
-        throw new IllegalArgumentException(
-            "Subject with this title already exists in this semester");
+        if (isSemesterInvalid(semester)) {
+            throw new IllegalArgumentException("Semester number is invalid");
+        }
+        if (subjects.get(semester - 1).containsKey(title)) {
+            throw new IllegalArgumentException(
+                "Subject with this title already exists in this semester");
+        }
+        subjects.get(semester - 1).put(title, new Grade(gradeType));
     }
 
     /**
@@ -74,9 +81,13 @@ public class GradeBook {
      *
      * @param semester number of the semester
      * @param title    name of the subject
+     * @throws IllegalArgumentException if such semester does not exist
      */
     public void removeSubject(int semester, String title) {
-
+        if (isSemesterInvalid(semester)) {
+            throw new IllegalArgumentException("Semester number is invalid");
+        }
+        subjects.get(semester - 1).remove(title);
     }
 
     /**
@@ -84,9 +95,13 @@ public class GradeBook {
      *
      * @param semester number of the semester
      * @return List of subject names
+     * @throws IllegalArgumentException if such semester does not exist
      */
-    public List<String> getSubjects(int semester) {
-        return null;
+    public Set<String> getSubjects(int semester) {
+        if (isSemesterInvalid(semester)) {
+            throw new IllegalArgumentException("Semester number is invalid");
+        }
+        return subjects.get(semester - 1).keySet();
     }
 
     /**
@@ -160,11 +175,12 @@ public class GradeBook {
     }
 
     /**
-     * Get what stipend will the student get in the next semester.
+     * Get what stipend the student should be given in certain semester.
      *
+     * @param semester number of the semester
      * @return 0 of none, 1 if normal, 2 if increased, -1 if not enough information to know
      */
-    public int nextSemesterStipend() {
+    public int semesterStipend(int semester) {
         return 0;
     }
 
@@ -189,7 +205,7 @@ public class GradeBook {
 
     private class Grade {
 
-        private GradeType gradeType;
+        private final GradeType gradeType;
         private int mark;
         private boolean hasMark;
 
