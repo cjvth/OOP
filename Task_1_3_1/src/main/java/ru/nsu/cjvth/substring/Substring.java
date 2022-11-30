@@ -4,6 +4,7 @@ package ru.nsu.cjvth.substring;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,9 +28,15 @@ public class Substring {
         List<Integer> entries = new ArrayList<>();
         int len = template.length();
         char[] array = template.toCharArray();
-        int[] prefixes = arrayZfunction(array);
 
-        char[] buffer = new char[2 * len];
+        char[] buffer = new char[3 * len];
+        System.arraycopy(template.toCharArray(), 0, buffer, 0, len);
+
+        int[] zfunction = new int[2 * len];
+
+        zfunction[0] = len;
+        utilZfunction(buffer, zfunction, 1, len, len, len, new Last(-1, -1));
+        int[] prefixes = Arrays.copyOfRange(zfunction, 0, len);
 
         int countRead = reader.read(buffer, len, len);
         boolean stop = false;
@@ -50,6 +57,8 @@ public class Substring {
                 stop = true;
                 maxIndex = countRead;
             }
+//            lastBegin -= len;
+//            lastEnd -= len;
             int iterationLimit = stop ? countRead : len;
             for (int i = 0; i < iterationLimit; i++, pos++) {
                 int pref;
@@ -76,12 +85,33 @@ public class Substring {
         return entries;
     }
 
+    private static void utilZfunction(char[] charArray, int[] result, int from, int to,
+        int substrLen, int iterationLimit, Last last) {
+        for (int i = from; i < to; i++) {
+            if (i < last.end && i + result[i - last.begin] < last.end) {
+                result[i] = result[i - last.begin];
+            } else {
+                int pref = Integer.max(last.end - i, 0);
+                for (int j = i + pref; j < iterationLimit && pref < substrLen; j++, pref++) {
+                    if (charArray[j] != charArray[pref]) {
+                        break;
+                    }
+                }
+                result[i] = pref;
+                if (pref > 1) {
+                    last.begin = i;
+                    last.end = i + pref;
+                }
+            }
+        }
+    }
+
     /**
      * Calculate Z-function for given array of chars.
      *
      * @param array non-empty char array, on which Z-function is calculated
      * @return int array, i-th element of which is the length of prefix between the char array and
-     *      its suffix that starts from i-th element
+     * its suffix that starts from i-th element
      */
     public static int[] arrayZfunction(char[] array) {
         int len = array.length;
@@ -90,25 +120,19 @@ public class Substring {
             return prefixes;
         }
         prefixes[0] = len;
-        int lastBegin = -1;
-        int lastEnd = -1;
-        for (int i = 1; i < len; i++) {
-            if (i < lastEnd && i + prefixes[i - lastBegin] < lastEnd) {
-                prefixes[i] = prefixes[i - lastBegin];
-            } else {
-                int pref = Integer.max(lastEnd - i, 0);
-                for (int j = i + pref; j < len; j++, pref++) {
-                    if (array[j] != array[pref]) {
-                        break;
-                    }
-                }
-                prefixes[i] = pref;
-                if (pref > 1) {
-                    lastBegin = i;
-                    lastEnd = i + pref;
-                }
-            }
-        }
+        Last last = new Last(-1, -1);
+        utilZfunction(array, prefixes, 1, len, len, len, last);
         return prefixes;
+    }
+
+    private static class Last {
+
+        public int begin;
+        public int end;
+
+        public Last(int begin, int end) {
+            this.begin = begin;
+            this.end = end;
+        }
     }
 }
