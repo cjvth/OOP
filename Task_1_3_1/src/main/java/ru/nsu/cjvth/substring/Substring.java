@@ -4,7 +4,6 @@ package ru.nsu.cjvth.substring;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,7 +26,6 @@ public class Substring {
         }
         List<Integer> entries = new ArrayList<>();
         int len = template.length();
-        char[] array = template.toCharArray();
 
         char[] buffer = new char[3 * len];
         System.arraycopy(template.toCharArray(), 0, buffer, 0, len);
@@ -36,48 +34,32 @@ public class Substring {
 
         zfunction[0] = len;
         utilZfunction(buffer, zfunction, 1, len, len, len, new Last(-1, -1));
-        int[] prefixes = Arrays.copyOfRange(zfunction, 0, len);
 
-        int countRead = reader.read(buffer, len, len);
+        int countRead = reader.read(buffer, len * 2, len);
         boolean stop = false;
-
         int pos = 0;
-        int lastBegin = -1;
-        int lastEnd = -1;
+        Last last = new Last(-1, -1);
         int maxIndex;
+
         while (countRead == len || !stop) {
-            System.arraycopy(buffer, len, buffer, 0, len);
+            System.arraycopy(buffer, len * 2, buffer, len, len);
             if (countRead == len) {
-                countRead = reader.read(buffer, len, len);
+                countRead = reader.read(buffer, len * 2, len);
                 if (countRead == -1) {
                     countRead = 0;
                 }
-                maxIndex = len + countRead;
+                maxIndex = len * 2 + countRead;
             } else {
                 stop = true;
-                maxIndex = countRead;
+                maxIndex = len + countRead;
             }
-//            lastBegin -= len;
-//            lastEnd -= len;
-            int iterationLimit = stop ? countRead : len;
-            for (int i = 0; i < iterationLimit; i++, pos++) {
-                int pref;
-                if (pos >= lastEnd) {
-                    pref = 0;
-                } else if (pos + prefixes[pos - lastBegin] >= lastEnd) {
-                    pref = Integer.min(prefixes[pos - lastBegin], lastEnd - pos);
-                } else {
-                    continue;
-                }
-                for (int j = i + pref; j < i + len && j < maxIndex; j++) {
-                    if (buffer[j] != array[pref]) {
-                        break;
-                    }
-                    pref++;
-                }
-                lastBegin = pos;
-                lastEnd = pos + pref;
-                if (pref == len) {
+            last.begin -= len;
+            last.end -= len;
+            int to = len + (stop ? countRead : len);
+
+            utilZfunction(buffer, zfunction, len, to, len, maxIndex, last);
+            for (int i = len; i < to; i++, pos++) {
+                if (zfunction[i] == len) {
                     entries.add(pos);
                 }
             }
@@ -111,7 +93,7 @@ public class Substring {
      *
      * @param array non-empty char array, on which Z-function is calculated
      * @return int array, i-th element of which is the length of prefix between the char array and
-     * its suffix that starts from i-th element
+     *         its suffix that starts from i-th element
      */
     public static int[] arrayZfunction(char[] array) {
         int len = array.length;
