@@ -251,14 +251,14 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>double</code></td>
+<td class="colFirst"><code>java.lang.Double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#meanMark()">meanMark</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get mean mark value across all semesters.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>double</code></td>
+<td class="colFirst"><code>java.lang.Double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#meanSemesterMark(int)">meanSemesterMark</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">Get mean mark value for certain semester.</div>
@@ -276,7 +276,8 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#semesterStipend(int)">semesterStipend</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
-<div class="block">Get what stipend the student should be given in certain semester.</div>
+<div class="block">Get what government academic stipend the student should be given in the next semester after
+ the given one.</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
@@ -412,7 +413,7 @@ extends java.lang.Object</pre>
 <dd><code>semester</code> - number of the semester</dd>
 <dd><code>title</code> - name of the subject</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.IllegalArgumentException</code> - if such semester does not exist</dd>
+<dd><code>java.lang.IllegalArgumentException</code> - if semester number is illegal</dd>
 </dl>
 </li>
 </ul>
@@ -428,9 +429,29 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>semester</code> - number of the semester</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>List of subject names</dd>
+<dd>set of subject names</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.IllegalArgumentException</code> - if such semester does not exist</dd>
+<dd><code>java.lang.IllegalArgumentException</code> - if semester number is illegal</dd>
+</dl>
+</li>
+</ul>
+<a id="getMark(int,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getMark</h4>
+<pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;getMark&#8203;(int&nbsp;semester,
+                                 java.lang.String&nbsp;title)</pre>
+<div class="block">Get the mark for subject if it is set.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semester</code> - number of the semester</dd>
+<dd><code>title</code> - name of the subject</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>mark value if it is set or null if it isn't</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if subject with this title at this semester does not exist</dd>
 </dl>
 </li>
 </ul>
@@ -453,7 +474,7 @@ extends java.lang.Object</pre>
                  <a href="GradeBook.GradeType.html#EXAM"><code>GradeBook.GradeType.EXAM</code></a></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalArgumentException</code> - if subject with this title at this semester does not exist;
-                                  or if mark is out of bounds</dd>
+                                  or if mark is out of bounds for its grade type</dd>
 </dl>
 </li>
 </ul>
@@ -495,41 +516,21 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="getMark(int,java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMark</h4>
-<pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;getMark&#8203;(int&nbsp;semester,
-                                 java.lang.String&nbsp;title)</pre>
-<div class="block">Get the mark for subject if it is set.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>semester</code> - number of the semester</dd>
-<dd><code>title</code> - name of the subject</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>mark value if it is set or null if it isn't</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.IllegalArgumentException</code> - if subject with this title at this semester does not exist</dd>
-</dl>
-</li>
-</ul>
 <a id="meanSemesterMark(int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>meanSemesterMark</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;meanSemesterMark&#8203;(int&nbsp;semester)</pre>
-<div class="block">Get mean mark value for certain semester.</div>
+<pre class="methodSignature">public&nbsp;java.lang.Double&nbsp;meanSemesterMark&#8203;(int&nbsp;semester)</pre>
+<div class="block">Get mean mark value for certain semester. Unset marks are ignored.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>semester</code> - number of the semester</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the mean mark of semester</dd>
+<dd>the mean mark of subjects with mark in the semester or null if no subjects have mark</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.lang.IllegalArgumentException</code> - if no such semester</dd>
+<dd><code>java.lang.IllegalArgumentException</code> - if semester number is illegal</dd>
 </dl>
 </li>
 </ul>
@@ -539,11 +540,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>meanMark</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;meanMark()</pre>
-<div class="block">Get mean mark value across all semesters.</div>
+<pre class="methodSignature">public&nbsp;java.lang.Double&nbsp;meanMark()</pre>
+<div class="block">Get mean mark value across all semesters. Unset marks are ignored.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the mean mark of all semesters</dd>
+<dd>the mean mark of subjects with mark for all time or null if no subjects have mark</dd>
 </dl>
 </li>
 </ul>
@@ -554,12 +555,16 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>semesterStipend</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;semesterStipend&#8203;(int&nbsp;semester)</pre>
-<div class="block">Get what stipend the student should be given in certain semester.</div>
+<div class="block">Get what government academic stipend the student should be given in the next semester after
+ the given one.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>semester</code> - number of the semester</dd>
+<dd><code>semester</code> - number of the semester, based on which marks the student is going to get
+                 stipend in the next semester</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>0 of none, 1 if normal, 2 if increased, -1 if not enough information to know</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if semester number is illegal</dd>
 </dl>
 </li>
 </ul>
