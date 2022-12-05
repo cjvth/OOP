@@ -3,7 +3,7 @@ plugins {
     id 'jacoco'
 }
 
-group 'ru.nsu.cjvth'
+group 'ru.nsu.cjvth.gradebook'
 version '1.0-SNAPSHOT'
 
 repositories {
