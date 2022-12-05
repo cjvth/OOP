@@ -148,11 +148,8 @@ public class GradeBook {
                 "Subject with this name does not exist in this semester");
         }
         Grade g = subjects.get(semester - 1).get(title);
-        int highLimit = switch (g.gradeType) {
-            case BOOL_CREDIT -> 1;
-            case DIFFERENTIATED_CREDIT, EXAM -> 5;
-        };
-        if (mark < 0 || mark > highLimit) {
+        if (mark < 0 || (g.gradeType == GradeType.BOOL_CREDIT && mark > 1
+            || g.gradeType != GradeType.BOOL_CREDIT && mark > 5)) {
             throw new IllegalArgumentException("Mark value is out of range for this type of grade");
         }
         g.hasMark = true;
