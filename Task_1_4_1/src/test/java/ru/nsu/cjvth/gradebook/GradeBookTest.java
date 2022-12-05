@@ -2,6 +2,7 @@ package ru.nsu.cjvth.gradebook;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Set;
@@ -92,5 +93,327 @@ class GradeBookTest {
         assertDoesNotThrow(() -> g.getSubjects(1));
         assertDoesNotThrow(() -> g.getSubjects(6));
         assertThrows(IllegalArgumentException.class, () -> g.getSubjects(7));
+    }
+
+    @Test
+    void getMarkInitial() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        assertNull(g.getMark(1, "History"));
+        assertNull(g.getMark(2, "Maths"));
+    }
+
+    @Test
+    void getMarkBadSemester() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.getMark(9, "History"));
+    }
+
+    @Test
+    void getMarkBadSubject() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.getMark(1, "Maths"));
+    }
+
+    @Test
+    void setMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(2, "Maths", 5);
+        g.setMark(1, "History", 4);
+        assertEquals(4, g.getMark(1, "History"));
+        assertEquals(5, g.getMark(2, "Maths"));
+        g.setMark(1, "History", 5);
+        assertEquals(5, g.getMark(1, "History"));
+    }
+
+    @Test
+    void setMarkBadSemester() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.setMark(9, "History", 3));
+    }
+
+    @Test
+    void setMarkBadSubject() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.setMark(1, "Maths", 2));
+    }
+
+    @Test
+    void setMarkBadMarks() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "Maths", GradeType.BOOL_CREDIT);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(3, "Maths", GradeType.EXAM);
+        assertThrows(IllegalArgumentException.class, () -> g.setMark(1, "Maths", 5));
+        assertDoesNotThrow(() -> g.setMark(2, "Maths", 5));
+        assertDoesNotThrow(() -> g.setMark(3, "Maths", 4));
+        assertThrows(IllegalArgumentException.class, () -> g.setMark(2, "Maths", -1));
+        assertThrows(IllegalArgumentException.class, () -> g.setMark(3, "Maths", 100));
+        assertDoesNotThrow(() -> g.setMark(1, "Maths", 0));
+    }
+
+    @Test
+    void unsetMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(2, "Maths", 5);
+        g.unsetMark(2, "Maths");
+        g.unsetMark(1, "History");
+        assertNull(g.getMark(1, "History"));
+        assertNull(g.getMark(2, "Maths"));
+    }
+
+    @Test
+    void unsetMarkBadSemester() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.unsetMark(9, "History"));
+    }
+
+    @Test
+    void unsetMarkBadSubject() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.unsetMark(1, "Maths"));
+    }
+
+    @Test
+    void getGradeType() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.removeSubject(2, "Maths");
+        g.addSubject(2, "Maths", GradeType.EXAM);
+        assertEquals(GradeType.DIFFERENTIATED_CREDIT, g.getGradeType(1, "History"));
+        assertEquals(GradeType.EXAM, g.getGradeType(2, "Maths"));
+    }
+
+    @Test
+    void getGradeTypeBadSemester() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.getGradeType(9, "History"));
+    }
+
+    @Test
+    void getGradeTypeBadSubject() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.DIFFERENTIATED_CREDIT);
+        assertThrows(IllegalArgumentException.class, () -> g.getGradeType(1, "Maths"));
+    }
+
+    @Test
+    void getMeanSemesterMarkNoBool() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "PE", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 4);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(2, "Maths", 4);
+        g.addSubject(1, "English", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "English", 5);
+        assertEquals(4., g.meanSemesterMark(1));
+    }
+
+    @Test
+    void getMeanSemesterMarkBoolPassed() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 4);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        assertEquals(4.25, g.meanSemesterMark(1));
+    }
+
+    @Test
+    void getMeanSemesterMarkBoolFailed() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 4);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 0);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        g.addSubject(1, "Java", GradeType.BOOL_CREDIT);
+        assertEquals(3., g.meanSemesterMark(1));
+    }
+
+    @Test
+    void getMeanSemesterMarkEmpty() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        assertNull(g.meanSemesterMark(1));
+    }
+
+    @Test
+    void getMeanSemesterBadSemester() {
+        GradeBook g = new GradeBook(1, 8);
+        assertThrows(IllegalArgumentException.class, () -> g.meanSemesterMark(-4));
+    }
+
+    @Test
+    void getMeanMarkNoBool() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "PE", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 4);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(2, "Maths", 4);
+        g.addSubject(2, "English", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(2, "English", 5);
+        assertEquals(4., g.meanMark());
+    }
+
+    @Test
+    void getMeanMarkBoolPassed() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(3, "History", GradeType.EXAM);
+        g.setMark(3, "History", 4);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(2, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(2, "Physics", 1);
+        assertEquals(4.25, g.meanMark());
+    }
+
+    @Test
+    void getMeanMarkBoolFailed() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 4);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 0);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        g.addSubject(1, "Java", GradeType.BOOL_CREDIT);
+        assertEquals(3., g.meanMark());
+    }
+
+    @Test
+    void getMeanMarkEmpty() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.addSubject(2, "English", GradeType.BOOL_CREDIT);
+        g.addSubject(3, "Physics", GradeType.BOOL_CREDIT);
+        assertNull(g.meanMark());
+    }
+
+    @Test
+    void semesterStipendGood() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 5);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        assertEquals(2, g.semesterStipend(1));
+    }
+
+    @Test
+    void semesterStipendGoodUnknown() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 5);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        g.addSubject(1, "Python", GradeType.DIFFERENTIATED_CREDIT);
+        assertEquals(-1, g.semesterStipend(1));
+    }
+
+    @Test
+    void semesterStipendOk() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 4);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        assertEquals(1, g.semesterStipend(1));
+    }
+
+    @Test
+    void semesterStipendOkUnknown() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 4);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        g.addSubject(1, "Python", GradeType.DIFFERENTIATED_CREDIT);
+        assertEquals(-1, g.semesterStipend(1));
+    }
+
+    @Test
+    void semesterBadGood() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 3);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        assertEquals(0, g.semesterStipend(1));
+    }
+
+    @Test
+    void semesterStipendBadUnknown() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 5);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 0);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        g.addSubject(1, "Python", GradeType.DIFFERENTIATED_CREDIT);
+        assertEquals(0, g.semesterStipend(1));
+    }
+
+    @Test
+    void semesterStipendBadSemester() {
+        GradeBook g = new GradeBook(1, 8);
+        assertThrows(IllegalArgumentException.class, () -> g.semesterStipend(10));
     }
 }
