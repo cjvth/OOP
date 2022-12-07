@@ -2,8 +2,10 @@ package ru.nsu.cjvth.gradebook;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -415,5 +417,158 @@ class GradeBookTest {
     void semesterStipendBadSemester() {
         GradeBook g = new GradeBook(1, 8);
         assertThrows(IllegalArgumentException.class, () -> g.semesterStipend(10));
+    }
+
+    @Test
+    void gradeMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.setDiplomaMark(4);
+        assertEquals(4, g.getDiplomaMark());
+        g.setDiplomaMark(5);
+        assertEquals(5, g.getDiplomaMark());
+    }
+
+    @Test
+    void getGradeMarkNotSet() {
+        GradeBook g = new GradeBook(1, 8);
+        assertNull(g.getDiplomaMark());
+    }
+
+    @Test
+    void setGradeMarkBad() {
+        GradeBook g = new GradeBook(1, 8);
+        assertThrows(IllegalArgumentException.class, () -> g.setDiplomaMark(-1));
+        assertThrows(IllegalArgumentException.class, () -> g.setDiplomaMark(6));
+        assertDoesNotThrow(() -> g.setDiplomaMark(3));
+    }
+
+    @Test
+    void unsetGradeMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.setDiplomaMark(4);
+        g.unsetDiplomaMark();
+        assertNull(g.getDiplomaMark());
+    }
+
+    @Test
+    void getHonorDegreeGood() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 4);
+        g.addSubject(2, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(2, "Maths", 5);
+        g.addSubject(1, "English", GradeType.BOOL_CREDIT);
+        g.setMark(1, "English", 1);
+        g.addSubject(1, "Physics", GradeType.BOOL_CREDIT);
+        g.setMark(1, "Physics", 1);
+        g.setDiplomaMark(5);
+        assertTrue(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeNoDiploma() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        assertFalse(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeBadDiploma() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.setDiplomaMark(4);
+        assertFalse(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeGoodDiploma() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 5);
+        g.setDiplomaMark(5);
+        assertTrue(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeMissingMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.addSubject(2, "History", GradeType.EXAM);
+        g.setMark(2, "History", 5);
+        g.setDiplomaMark(5);
+        assertFalse(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeBadMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.EXAM);
+        g.setMark(1, "History", 3);
+        g.addSubject(2, "History", GradeType.EXAM);
+        g.setMark(2, "History", 5);
+        g.setDiplomaMark(5);
+        assertFalse(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeBadBoolMark() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(2, "History", GradeType.BOOL_CREDIT);
+        g.setMark(2, "History", 0);
+        g.setDiplomaMark(5);
+        assertFalse(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeExactly75() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.BOOL_CREDIT);
+        g.setMark(1, "History", 1);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 4);
+        g.addSubject(1, "Informatics", GradeType.EXAM);
+        g.setMark(1, "Informatics", 5);
+        g.addSubject(1, "Physics", GradeType.EXAM);
+        g.setMark(1, "Physics", 5);
+        g.setDiplomaMark(5);
+        assertTrue(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeLessThan75() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.BOOL_CREDIT);
+        g.setMark(1, "History", 1);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 4);
+        g.addSubject(1, "Informatics", GradeType.EXAM);
+        g.setMark(1, "Informatics", 5);
+        g.addSubject(1, "Physics", GradeType.EXAM);
+        g.setMark(1, "Physics", 4);
+        g.addSubject(1, "English", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "English", 5);
+        g.setDiplomaMark(5);
+        assertFalse(g.getsHonourDegree());
+    }
+
+    @Test
+    void getHonorDegreeMoreThan75() {
+        GradeBook g = new GradeBook(1, 8);
+        g.addSubject(1, "History", GradeType.BOOL_CREDIT);
+        g.setMark(1, "History", 1);
+        g.addSubject(1, "Maths", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "Maths", 4);
+        g.addSubject(1, "Informatics", GradeType.EXAM);
+        g.setMark(1, "Informatics", 5);
+        g.addSubject(1, "Physics", GradeType.EXAM);
+        g.setMark(1, "Physics", 5);
+        g.addSubject(1, "English", GradeType.DIFFERENTIATED_CREDIT);
+        g.setMark(1, "English", 5);
+        g.setDiplomaMark(5);
+        assertTrue(g.getsHonourDegree());
     }
 }
