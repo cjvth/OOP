@@ -16,6 +16,8 @@ public class GradeBook {
     private final int totalSemesters;
     private final List<Map<String, Grade>> subjects;
 
+    private final Grade diploma = new Grade(GradeType.DIFFERENTIATED_CREDIT);
+
     /**
      * The constructor.
      *
@@ -148,8 +150,7 @@ public class GradeBook {
                 "Subject with this name does not exist in this semester");
         }
         Grade g = subjects.get(semester - 1).get(title);
-        if (mark < 0 || (g.gradeType == GradeType.BOOL_CREDIT && mark > 1
-            || g.gradeType != GradeType.BOOL_CREDIT && mark > 5)) {
+        if (g.isNewMarkIllegal(mark)) {
             throw new IllegalArgumentException("Mark value is out of range for this type of grade");
         }
         g.hasMark = true;
@@ -299,6 +300,80 @@ public class GradeBook {
     }
 
     /**
+     * Put or change mark for student's diploma work.
+     *
+     * @param mark     the mark, should be from 0 to 5
+     * @throws IllegalArgumentException if mark is out of bounds
+     */
+    public void setDiplomaMark(int mark) {
+        if (diploma.isNewMarkIllegal(mark)) {
+            throw new IllegalArgumentException("Mark value is out of range for diploma");
+        }
+        diploma.hasMark = true;
+        diploma.mark = mark;
+    }
+
+    /**
+     * Remove mark for the diploma work. Does nothing if there is no mark.
+     */
+    public void unsetDiplomaMark() {
+        diploma.hasMark = false;
+    }
+
+    /**
+     * Check if the student will definitely get a diploma with honors.
+     *
+     * @return false if student doesn't satisfy criteria or some marks are not set, true otherwise
+     */
+    public boolean getsHonourDegree() {
+        if (!Integer.valueOf(5).equals(getDiplomaMark())) {
+            return false;
+        }
+        Map<String, Integer> finalMarks = new HashMap<>();
+        for (var semester : subjects) {
+            for (var subject : semester.entrySet()) {
+                Grade grade = subject.getValue();
+                if (!grade.hasMark) {
+                    return false;
+                }
+                if (grade.gradeType == GradeType.BOOL_CREDIT) {
+                    if (grade.mark == 0) {
+                        return false;
+                    }
+                    finalMarks.put(subject.getKey(), 5);
+                } else {
+                    if (grade.mark < 4) {
+                        return false;
+                    }
+                    finalMarks.put(subject.getKey(), grade.mark);
+                }
+            }
+        }
+        int excellent = 0;
+        int total = 0;
+        for (int subject : finalMarks.values()) {
+            total++;
+            if (subject == 5) {
+                excellent++;
+            }
+        }
+        return excellent * 4 >= total * 3;
+    }
+
+    /**
+     * Get the mark for subject if it is set.
+     *
+     * @return mark value if it is set or null if it isn't
+     */
+    public Integer getDiplomaMark() {
+        if (diploma.hasMark) {
+            return diploma.mark;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Type of evaluating the student's achievements: {@link #BOOL_CREDIT},
      * {@link #DIFFERENTIATED_CREDIT}, {@link #EXAM}.
      */
@@ -315,17 +390,23 @@ public class GradeBook {
          * Student's answer on an exam is evaluated from 0 to 5.
          */
         EXAM
+
     }
 
     private static class Grade {
 
-        private final GradeType gradeType;
-        private int mark;
-        private boolean hasMark;
+        public final GradeType gradeType;
+        public int mark;
+        public boolean hasMark;
 
         public Grade(GradeType gradeType) {
             this.gradeType = gradeType;
             hasMark = false;
+        }
+
+        public boolean isNewMarkIllegal(int mark) {
+            return mark < 0 || ((gradeType != GradeType.BOOL_CREDIT || mark > 1)
+                && (gradeType == GradeType.BOOL_CREDIT || mark > 5));
         }
     }
 }
