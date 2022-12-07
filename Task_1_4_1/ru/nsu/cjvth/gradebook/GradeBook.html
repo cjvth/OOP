@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -214,6 +214,13 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDiplomaMark()">getDiplomaMark</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get the mark for subject if it is set.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="GradeBook.GradeType.html" title="enum in ru.nsu.cjvth.gradebook">GradeBook.GradeType</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGradeType(int,java.lang.String)">getGradeType</a></span>&#8203;(int&nbsp;semester,
             java.lang.String&nbsp;title)</code></th>
@@ -221,14 +228,14 @@ extends java.lang.Object</pre>
 <div class="block">Remove mark for previously added subject.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the id of the book.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMark(int,java.lang.String)">getMark</a></span>&#8203;(int&nbsp;semester,
        java.lang.String&nbsp;title)</code></th>
@@ -236,35 +243,42 @@ extends java.lang.Object</pre>
 <div class="block">Get the mark for subject if it is set.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getsHonourDegree()">getsHonourDegree</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Check if the student will definitely get a diploma with honors.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>java.util.Set&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubjects(int)">getSubjects</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">Get list of subjects in certain semester.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTotalSemestersCount()">getTotalSemestersCount</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get the number of semesters that the student is supposed to attend in total.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>java.lang.Double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#meanMark()">meanMark</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Get mean mark value across all semesters.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>java.lang.Double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#meanSemesterMark(int)">meanSemesterMark</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
 <div class="block">Get mean mark value for certain semester.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#removeSubject(int,java.lang.String)">removeSubject</a></span>&#8203;(int&nbsp;semester,
              java.lang.String&nbsp;title)</code></th>
@@ -272,7 +286,7 @@ extends java.lang.Object</pre>
 <div class="block">Remove subject in certain semester.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#semesterStipend(int)">semesterStipend</a></span>&#8203;(int&nbsp;semester)</code></th>
 <td class="colLast">
@@ -280,7 +294,14 @@ extends java.lang.Object</pre>
  the given one.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDiplomaMark(int)">setDiplomaMark</a></span>&#8203;(int&nbsp;mark)</code></th>
+<td class="colLast">
+<div class="block">Put or change mark for student's diploma work.</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setMark(int,java.lang.String,int)">setMark</a></span>&#8203;(int&nbsp;semester,
        java.lang.String&nbsp;title,
@@ -289,7 +310,14 @@ extends java.lang.Object</pre>
 <div class="block">Put or change mark for previously added subject.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unsetDiplomaMark()">unsetDiplomaMark</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Remove mark for the diploma work.</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unsetMark(int,java.lang.String)">unsetMark</a></span>&#8203;(int&nbsp;semester,
          java.lang.String&nbsp;title)</code></th>
@@ -551,7 +579,7 @@ extends java.lang.Object</pre>
 <a id="semesterStipend(int)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>semesterStipend</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;semesterStipend&#8203;(int&nbsp;semester)</pre>
@@ -565,6 +593,60 @@ extends java.lang.Object</pre>
 <dd>0 of none, 1 if normal, 2 if increased, -1 if not enough information to know</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.IllegalArgumentException</code> - if semester number is illegal</dd>
+</dl>
+</li>
+</ul>
+<a id="setDiplomaMark(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDiplomaMark</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDiplomaMark&#8203;(int&nbsp;mark)</pre>
+<div class="block">Put or change mark for student's diploma work.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>mark</code> - the mark, should be from 0 to 5</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code>java.lang.IllegalArgumentException</code> - if mark is out of bounds</dd>
+</dl>
+</li>
+</ul>
+<a id="unsetDiplomaMark()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unsetDiplomaMark</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;unsetDiplomaMark()</pre>
+<div class="block">Remove mark for the diploma work. Does nothing if there is no mark.</div>
+</li>
+</ul>
+<a id="getsHonourDegree()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getsHonourDegree</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;getsHonourDegree()</pre>
+<div class="block">Check if the student will definitely get a diploma with honors.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>false if student doesn't satisfy criteria or some marks are not set, true otherwise</dd>
+</dl>
+</li>
+</ul>
+<a id="getDiplomaMark()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getDiplomaMark</h4>
+<pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;getDiplomaMark()</pre>
+<div class="block">Get the mark for subject if it is set.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>mark value if it is set or null if it isn't</dd>
 </dl>
 </li>
 </ul>
