@@ -1,6 +1,8 @@
 package ru.nsu.cjvth.calculator;
 
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class that can parse and contain real number.
@@ -8,6 +10,7 @@ import java.util.Iterator;
 public class Number implements Token {
 
     private final double real;
+    private final double im;
 
     /**
      * Constructor.
@@ -15,25 +18,38 @@ public class Number implements Token {
      * @param number string representation of a number
      */
     public Number(String number) {
-        real = Double.parseDouble(number);
+        Pattern p = Pattern.compile("(?<number>(-?\\d+(\\.\\d+)?)?)(?<i>i?)");
+        Matcher m = p.matcher(number);
+        if (!m.matches()) {
+            throw new IllegalArgumentException(
+                "Not a valid real or imaginary number: " + number);
+        }
+        String numParse = m.group("number");
+        double num;
+        if (numParse.isEmpty()) {
+            num = 1;
+        } else {
+            num = Double.parseDouble(numParse);
+        }
+        String i = m.group("i");
+        if (i.isEmpty()) {
+            real = num;
+            im = 0;
+        } else {
+            real = 0;
+            im = num;
+        }
     }
 
     /**
      * Constructor.
      *
      * @param real real part of the number
+     * @param imaginary imaginary part of the number
      */
-    public Number(double real) {
+    public Number(double real, double imaginary) {
         this.real = real;
-    }
-
-    /**
-     * Get real part of a number.
-     *
-     * @return the real part
-     */
-    public double real() {
-        return real;
+        this.im = imaginary;
     }
 
     /**
@@ -43,7 +59,25 @@ public class Number implements Token {
      * @return whether string is a valid number
      */
     public static boolean isValid(String number) {
-        return number.matches("-?\\d+(\\.\\d+)?");
+        return number.matches("(-?\\d+(\\.\\d+)?)?i?");
+    }
+
+    /**
+     * Get real part of a complex number.
+     *
+     * @return the real part
+     */
+    public double real() {
+        return real;
+    }
+
+    /**
+     * Get imaginary part of a comblex number.
+     *
+     * @return the imaginary part
+     */
+    public double im() {
+        return im;
     }
 
     @Override
