@@ -22,9 +22,28 @@ class NumberTest {
     }
 
     @Test
+    void isValidImaginary() {
+        assertTrue(Number.isValid("2i"));
+        assertTrue(Number.isValid("i"));
+        assertTrue(Number.isValid("-12.3i"));
+        assertFalse(Number.isValid("--5i"));
+        assertFalse(Number.isValid("0.1.2i"));
+    }
+
+    @Test
     void stringConstructor() {
         assertEquals(-23, new Number("-23").real());
+        assertEquals(0, new Number("-23").im());
         assertEquals(12.3, new Number("12.3").real());
+        assertEquals(0, new Number("12.3").im());
+    }
+
+    @Test
+    void stringConstructorImaginary() {
+        assertEquals(0, new Number("-23.3i").real());
+        assertEquals(-23.3, new Number("-23.3i").im());
+        assertEquals(0, new Number("i").real());
+        assertEquals(1, new Number("i").im());
     }
 
     @Test
@@ -34,9 +53,23 @@ class NumberTest {
     }
 
     @Test
+    void stringConstructorInvalidImaginary() {
+        assertThrows(IllegalArgumentException.class, () -> new Number("-23.3.4i"));
+        assertThrows(IllegalArgumentException.class, () -> new Number("ii"));
+    }
+
+    @Test
     void doubleConstructor() {
-        assertEquals(1.000, new Number(1).real());
-        assertEquals(-12.5, new Number(-12.5).real());
+        assertEquals(1.000, new Number(1, 0).real());
+        assertEquals(0, new Number(1, 0).im());
+        assertEquals(-12.5, new Number(-12.5, 0).real());
+        assertEquals(0, new Number(-12.5, 0).im());
+    }
+
+    @Test
+    void doubleConstructorComplex() {
+        assertEquals(1.000, new Number(1, 7).real());
+        assertEquals(7, new Number(1, 7).im());
     }
 
 }

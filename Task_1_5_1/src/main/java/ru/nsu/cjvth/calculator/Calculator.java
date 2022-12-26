@@ -25,18 +25,38 @@ public class Calculator {
                 return;
             }
         }
-
         var iterator = Arrays.stream(args).map(Calculator::parseToken).iterator();
         Token first = iterator.next();
+        Number number;
         try {
-            Number number = first.apply(iterator);
-            if (iterator.hasNext()) {
-                System.out.println("Error: more operands than operators needed");
-            } else {
-                System.out.println(number.real());
-            }
+            number = first.apply(iterator);
         } catch (NoSuchElementException e) {
             System.out.println("Error: not enough operands");
+            return;
+        }
+        if (iterator.hasNext()) {
+            System.out.println("Error: more operands than operators needed");
+        } else {
+            if (Double.isNaN(number.real()) || Double.isNaN(number.im())) {
+                System.out.println("NaN");
+            } else {
+                if (number.real() != 0 || number.im() == 0) {
+                    System.out.print(number.real());
+                    if (number.im() != 0) {
+                        System.out.print(" + ");
+                    }
+                }
+                if (number.im() != 0) {
+                    if (Double.isFinite(number.im()) && !Double.toString(number.im())
+                        .contains("E")) {
+                        System.out.print(number.im());
+                        System.out.println("i");
+                    } else {
+                        System.out.print(number.im());
+                        System.out.println("*i");
+                    }
+                }
+            }
         }
     }
 
