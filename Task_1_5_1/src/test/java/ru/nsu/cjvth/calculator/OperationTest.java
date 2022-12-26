@@ -84,7 +84,8 @@ class OperationTest {
     @Test
     void pow() {
         Number res = fast("^", "3.2", "1.5");
-        assertTrue(Math.abs(5.72433402239946162281 - res.real()) < 0.0000001);
+        assertEquals(5.72433402239946162281, res.real(), 0.0000001);
+        assertEquals(0, res.im(), 0.0000001);
     }
 
     @Test
