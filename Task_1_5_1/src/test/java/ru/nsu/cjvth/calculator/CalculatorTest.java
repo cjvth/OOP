@@ -33,7 +33,7 @@ class CalculatorTest {
         assertDoesNotThrow(() -> Calculator.main(new String[]{":-("}));
         //noinspection Convert2MethodRef
         assertThrows(NoSuchElementException.class, () -> fast());
-        assertDoesNotThrow(() -> Calculator.main(new String[]{":-("}));
+        assertDoesNotThrow(() -> Calculator.main(new String[]{}));
         assertThrows(NoSuchElementException.class, () -> fast("+"));
         assertDoesNotThrow(() -> Calculator.main(new String[]{"+"}));
         assertDoesNotThrow(() -> Calculator.main(new String[]{"+", "1", "2"}));

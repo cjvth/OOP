@@ -50,13 +50,16 @@ public class Operation implements Token {
             case "cos":
                 arg = iterator.next().apply(iterator);
                 return new Number(Math.cos(arg.real()));
-            case "log", "ln":
+            case "log":
+            case "ln":
                 arg = iterator.next().apply(iterator);
                 return new Number(Math.log(arg.real()));
             case "sqrt":
                 arg = iterator.next().apply(iterator);
                 return new Number(Math.sqrt(arg.real()));
-            case "pow", "**", "^":
+            case "pow":
+            case "**":
+            case "^":
                 arg = iterator.next().apply(iterator);
                 arg2 = iterator.next().apply(iterator);
                 return new Number(Math.pow(arg.real(), arg2.real()));
