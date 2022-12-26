@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":9,"i2":10};
+var data = {"i0":10,"i1":10,"i2":9,"i3":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -158,7 +158,8 @@ implements <a href="Token.html" title="interface in ru.nsu.cjvth.calculator">Tok
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(double)">Number</a></span>&#8203;(double&nbsp;real)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(double,double)">Number</a></span>&#8203;(double&nbsp;real,
+      double&nbsp;imaginary)</code></th>
 <td class="colLast">
 <div class="block">Constructor.</div>
 </td>
@@ -195,17 +196,24 @@ implements <a href="Token.html" title="interface in ru.nsu.cjvth.calculator">Tok
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#im()">im</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Get imaginary part of a comblex number.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isValid(java.lang.String)">isValid</a></span>&#8203;(java.lang.String&nbsp;number)</code></th>
 <td class="colLast">
 <div class="block">Check if string is a valid number.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#real()">real</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Get real part of a number.</div>
+<div class="block">Get real part of a complex number.</div>
 </td>
 </tr>
 </table>
@@ -246,17 +254,19 @@ implements <a href="Token.html" title="interface in ru.nsu.cjvth.calculator">Tok
 </dl>
 </li>
 </ul>
-<a id="&lt;init&gt;(double)">
+<a id="&lt;init&gt;(double,double)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Number</h4>
-<pre>public&nbsp;Number&#8203;(double&nbsp;real)</pre>
+<pre>public&nbsp;Number&#8203;(double&nbsp;real,
+              double&nbsp;imaginary)</pre>
 <div class="block">Constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>real</code> - real part of the number</dd>
+<dd><code>imaginary</code> - imaginary part of the number</dd>
 </dl>
 </li>
 </ul>
@@ -270,20 +280,6 @@ implements <a href="Token.html" title="interface in ru.nsu.cjvth.calculator">Tok
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="real()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>real</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;real()</pre>
-<div class="block">Get real part of a number.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the real part</dd>
-</dl>
-</li>
-</ul>
 <a id="isValid(java.lang.String)">
 <!--   -->
 </a>
@@ -297,6 +293,34 @@ implements <a href="Token.html" title="interface in ru.nsu.cjvth.calculator">Tok
 <dd><code>number</code> - string that may represent number</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>whether string is a valid number</dd>
+</dl>
+</li>
+</ul>
+<a id="real()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>real</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;real()</pre>
+<div class="block">Get real part of a complex number.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the real part</dd>
+</dl>
+</li>
+</ul>
+<a id="im()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>im</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;im()</pre>
+<div class="block">Get imaginary part of a comblex number.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the imaginary part</dd>
 </dl>
 </li>
 </ul>
