@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.cjvth.calculator","l":"Calculator"},{"p":"ru.nsu.cjvth.calculator","l":"Number"},{"p":"ru.nsu.cjvth.calculator","l":"Operation"},{"p":"ru.nsu.cjvth.calculator","l":"Token"}]
