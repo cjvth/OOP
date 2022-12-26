@@ -10,8 +10,7 @@ import java.util.List;
 public class Operation implements Token {
 
     private static final List<String> possibleOperations = List.of("sin", "cos", "log", "ln",
-        "sqrt",
-        "+", "-", "/", "*", "pow", "^", "**");
+        "sqrt", "+", "-", "/", "*", "pow", "^", "**", "from_deg", "to_deg", "pi", "e");
 
     private final String mnemonic;
 
@@ -29,7 +28,8 @@ public class Operation implements Token {
 
     /**
      * Checks if mnemonic is in supported operations: ["sin", "cos", "log" / "ln" "sqrt", "+", "-",
-     * "/", "*", "pow" / "^" / "**"].
+     * "/", "*", "pow" / "^" / "**", "from_deg" (from degrees to radians), "to_deg"(from radians to
+     * degrees); or "pi" and "e" constants].
      *
      * @param mnemonic name of the operation
      * @return whether mnemonic is valid
@@ -76,6 +76,16 @@ public class Operation implements Token {
                 arg = iterator.next().apply(iterator);
                 arg2 = iterator.next().apply(iterator);
                 return new Number(arg.real() * arg2.real());
+            case "from_deg":
+                arg = iterator.next().apply(iterator);
+                return new Number(Math.toRadians(arg.real()));
+            case "to_deg":
+                arg = iterator.next().apply(iterator);
+                return new Number(Math.toDegrees(arg.real()));
+            case "pi":
+                return new Number(Math.PI);
+            case "e":
+                return new Number(Math.E);
             default:
                 return null;
         }

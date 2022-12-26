@@ -82,4 +82,28 @@ class OperationTest {
         Number res = fast("sqrt", "13");
         assertEquals(3.60555127546398929312, res.real());
     }
+
+    @Test
+    void fromDeg() {
+        Number res = fast("from_deg", "56");
+        assertEquals(0.97738438111682456308, res.real());
+    }
+
+    @Test
+    void toDeg() {
+        Number res = fast("to_deg", "1.5");
+        assertEquals(85.9436692696234813152, res.real());
+    }
+
+    @Test
+    void pi() {
+        Number res = fast("pi");
+        assertEquals(Math.PI, res.real());
+    }
+
+    @Test
+    void eps1() {
+        Number res = fast("e");
+        assertEquals(Math.E, res.real());
+    }
 }
