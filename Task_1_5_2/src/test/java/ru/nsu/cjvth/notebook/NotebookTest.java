@@ -50,7 +50,8 @@ class NotebookTest {
         var show = notebook.show(new String[]{"mmm", "aaa"}, null, null).stream()
             .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(
-            List.of(Map.entry("bbb ccc fff", "345"), Map.entry("ggg 123 fds", "456")), show);
+            List.of(Map.entry("eee ggg mmm", "456"), Map.entry("aaa bbb ccc", "123"),
+                Map.entry("aaa ddd eee", "234")), show);
     }
 
     @Test
