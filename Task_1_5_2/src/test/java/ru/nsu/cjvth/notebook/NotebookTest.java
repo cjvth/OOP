@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class NotebookTest {
@@ -18,7 +19,7 @@ class NotebookTest {
         assertTrue(notebook.add("2", "234"));
         assertFalse(notebook.add("1", "124"));
         var show = notebook.show(null, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("1", "123"), Map.entry("2", "234")), show);
     }
 
@@ -34,7 +35,7 @@ class NotebookTest {
         assertFalse(notebook.remove("3"));
         assertTrue(notebook.remove("2"));
         var show = notebook.show(null, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("1", "123"), Map.entry("4", "456")), show);
     }
 
@@ -47,7 +48,7 @@ class NotebookTest {
         notebook.add("aaa ddd eee", "234");
         notebook.add("ggg 123 fds", "456");
         var show = notebook.show(new String[]{"mmm", "aaa"}, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(
             List.of(Map.entry("bbb ccc fff", "345"), Map.entry("ggg 123 fds", "456")), show);
     }
@@ -75,25 +76,25 @@ class NotebookTest {
         final LocalDateTime t5 = LocalDateTime.now();
 
         var show1 = notebook.show(null, t3, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("3", "345"), Map.entry("4", "456")), show1);
 
         var show2 = notebook.show(null, null, t4).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(
             List.of(Map.entry("1", "123"), Map.entry("2", "234"), Map.entry("3", "345")), show2);
 
         var show3 = notebook.show(null, t1, t3).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("1", "123"), Map.entry("2", "234")), show3);
 
         var show4 = notebook.show(null, t2, t5).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(
             List.of(Map.entry("2", "234"), Map.entry("3", "345"), Map.entry("4", "456")), show4);
 
         var show5 = notebook.show(null, t4, t3).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(), show5);
     }
 }

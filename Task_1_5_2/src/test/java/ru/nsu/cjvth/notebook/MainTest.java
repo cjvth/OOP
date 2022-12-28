@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class MainTest {
@@ -31,7 +32,7 @@ class MainTest {
                 + "\"4\": {\"lastEdit\":1672236489183,\"text\":\"5\"}}}");
         Notebook notebook = Main.readNotebook(reader);
         var show = notebook.show(null, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("1", "2"), Map.entry("4", "5")), show);
     }
 
@@ -46,7 +47,7 @@ class MainTest {
         Reader reader = new StringReader(json);
         Notebook notebook2 = Main.readNotebook(reader);
         var show = notebook2.show(null, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("0", "2"), Map.entry("3", "4")), show);
     }
 
@@ -57,7 +58,7 @@ class MainTest {
         assertEquals("", Main.parseArgs(new String[]{"add", "2", "234"}, notebook));
         assertNotEquals("", Main.parseArgs(new String[]{"add", "1", "124"}, notebook));
         var show = notebook.show(null, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("1", "123"), Map.entry("2", "234")), show);
     }
 
@@ -73,7 +74,7 @@ class MainTest {
         assertNotEquals("", Main.parseArgs(new String[]{"remove", "3"}, notebook));
         assertEquals("", Main.parseArgs(new String[]{"remove", "2"}, notebook));
         var show = notebook.show(null, null, null).stream()
-            .map(e -> Map.entry(e.getKey(), e.getValue().text())).toList();
+            .map(e -> Map.entry(e.getKey(), e.getValue().text())).collect(Collectors.toList());
         assertIterableEquals(List.of(Map.entry("1", "123"), Map.entry("4", "456")), show);
     }
 
