@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -77,7 +78,7 @@ public class Notebook {
             s = s.filter(
                 entry -> Arrays.stream(keywords).noneMatch(word -> entry.getKey().contains(word)));
         }
-        return s.toList();
+        return s.collect(Collectors.toList());
     }
 
     /**
