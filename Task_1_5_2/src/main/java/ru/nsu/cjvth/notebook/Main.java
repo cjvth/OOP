@@ -96,6 +96,7 @@ public class Main {
                 try {
                     Writer writer = new FileWriter(file);
                     writeNotebook(writer, notebook);
+                    writer.close();
                 } catch (IOException e) {
                     System.out.println(
                         "Error writing json to file " + file.getName() + "\n" + e.getMessage());

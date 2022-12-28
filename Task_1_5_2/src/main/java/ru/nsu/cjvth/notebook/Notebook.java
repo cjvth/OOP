@@ -76,7 +76,7 @@ public class Notebook {
         s = s.filter(entry -> entry.getValue().created >= a);
         if (keywords != null) {
             s = s.filter(
-                entry -> Arrays.stream(keywords).noneMatch(word -> entry.getKey().contains(word)));
+                entry -> Arrays.stream(keywords).anyMatch(word -> entry.getKey().contains(word)));
         }
         return s.collect(Collectors.toList());
     }

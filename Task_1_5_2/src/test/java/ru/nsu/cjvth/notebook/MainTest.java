@@ -82,17 +82,19 @@ class MainTest {
     void parseShowKeywords() {
         Notebook notebook = new Notebook();
         Main.parseArgs(new String[]{"add", "aaa bbb ccc", "123"}, notebook);
-        Main.parseArgs(new String[]{"add", "bbb ccc fff", "34 56"}, notebook);
+        Main.parseArgs(new String[]{"add", "bbb ccc fff", "234"}, notebook);
         Main.parseArgs(new String[]{"add", "eee ggg mmm", "456"}, notebook);
-        Main.parseArgs(new String[]{"add", "aaa ddd eee", "234"}, notebook);
+        Main.parseArgs(new String[]{"add", "aaa ddd eee", "34 56"}, notebook);
         Main.parseArgs(new String[]{"add", "ggg 123 fds", "456"}, notebook);
 
         String[] showLines = Main.parseArgs(new String[]{"show", "-f", "mmm", "--find", "aaa"},
             notebook).split("\n");
-        assertEquals("bbb ccc fff", showLines[0]);
-        assertEquals("34 56", showLines[2]);
-        assertEquals("ggg 123 fds", showLines[6]);
-        assertEquals("456", showLines[8]);
+        assertEquals("eee ggg mmm", showLines[0]);
+        assertEquals("456", showLines[2]);
+        assertEquals("aaa bbb ccc", showLines[6]);
+        assertEquals("123", showLines[8]);
+        assertEquals("aaa ddd eee", showLines[12]);
+        assertEquals("34 56", showLines[14]);
     }
 
     @Test
