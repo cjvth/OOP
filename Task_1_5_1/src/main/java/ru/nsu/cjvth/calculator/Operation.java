@@ -12,30 +12,30 @@ public class Operation implements Token {
     private static final List<String> possibleOperations = List.of("sin", "cos", "log", "ln",
         "sqrt", "+", "-", "/", "*", "pow", "^", "**", "from_deg", "to_deg", "pi", "e");
 
-    private final String mnemonic;
+    private final String string;
 
     /**
      * Constructor.
      *
-     * @param mnemonic string with operation name, must be isValid(mnemonic) = true
+     * @param string operation name, must be isValid(string) = true
      */
-    public Operation(String mnemonic) {
-        if (!isValid(mnemonic)) {
-            throw new IllegalArgumentException("Operation has invalid mnemonic: " + mnemonic);
+    public Operation(String string) {
+        if (!isValid(string)) {
+            throw new IllegalArgumentException("Unknown operation: " + string);
         }
-        this.mnemonic = mnemonic;
+        this.string = string;
     }
 
     /**
-     * Checks if mnemonic is in supported operations: ["sin", "cos", "log" / "ln" "sqrt", "+", "-",
+     * Checks if operation is in supported list: ["sin", "cos", "log" / "ln" "sqrt", "+", "-",
      * "/", "*", "pow" / "^" / "**", "from_deg" (from degrees to radians), "to_deg"(from radians to
      * degrees); or "pi" and "e" constants].
      *
-     * @param mnemonic name of the operation
-     * @return whether mnemonic is valid
+     * @param operation name of the operation
+     * @return whether operation is valid
      */
-    public static boolean isValid(String mnemonic) {
-        return possibleOperations.contains(mnemonic);
+    public static boolean isValid(String operation) {
+        return possibleOperations.contains(operation);
     }
 
     private static Number pow(Number a, Number b) {
@@ -63,7 +63,7 @@ public class Operation implements Token {
         Number a;
         Number b;
         //noinspection EnhancedSwitchMigration
-        switch (mnemonic) {
+        switch (string) {
             case "sin": {
                 a = iterator.next().apply(iterator);
                 Number left = pow(new Number(Math.E, 0), new Number(-a.im(), a.real()));
