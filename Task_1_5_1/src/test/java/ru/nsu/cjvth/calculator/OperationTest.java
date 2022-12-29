@@ -1,5 +1,6 @@
 package ru.nsu.cjvth.calculator;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,16 +12,33 @@ import org.junit.jupiter.api.Test;
 class OperationTest {
 
     @Test
-    void isValid() {
-        assertTrue(Operation.isValid("sin"));
-        assertTrue(Operation.isValid("**"));
-        assertTrue(Operation.isValid("/"));
-        assertFalse(Operation.isValid("no"));
+    void isOperation() {
+        assertTrue(Operations.isOperation("sin"));
+        assertTrue(Operations.isOperation("**"));
+        assertTrue(Operations.isOperation("/"));
+        assertFalse(Operations.isOperation("no"));
     }
 
     @Test
-    void constructorInvalid() {
-        assertThrows(IllegalArgumentException.class, () -> new Operation("fin"));
+    void parse() {
+        assertEquals(Operations.Pow.class, Operations.parse("**").getClass());
+    }
+
+    @Test
+    void parseInvalid() {
+        assertThrows(IllegalArgumentException.class, () -> Operations.parse("fin"));
+    }
+
+    @Test
+    void assertArgs() {
+        assertDoesNotThrow(() -> new Operations.Pi().calculate());
+        assertDoesNotThrow(() -> new Operations.Sin().calculate(new Number(0, 0)));
+        assertThrows(IllegalArgumentException.class,
+            () -> new Operations.Eul().calculate(new Number(0, 0)));
+        assertThrows(IllegalArgumentException.class,
+            () -> new Operations.Add().calculate(new Number(0, 0)));
+        assertDoesNotThrow(
+            () -> new Operations.Add().calculate(new Number(0, 0), new Number(0, 0)));
     }
 
     Number fast(String... args) {
