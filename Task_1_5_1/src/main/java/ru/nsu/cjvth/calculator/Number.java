@@ -84,4 +84,40 @@ public class Number implements Token {
     public Number apply(Iterator<Token> iterator) {
         return this;
     }
+    
+    @Override
+    public String toString() {
+        if (Double.isNaN(this.real()) || Double.isNaN(this.im())) {
+            return "NaN";
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (this.real != 0 || this.im == 0) {
+                if (Math.round(this.real) == this.real) {
+                    stringBuilder.append((int) this.real);
+                } else {
+                    stringBuilder.append(this.real);
+                }
+                if (this.im != 0) {
+                    stringBuilder.append(" + ");
+                }
+            }
+            if (this.im() != 0) {
+                if (Double.isFinite(this.im) && !Double.toString(this.im)
+                    .contains("E")) {
+                    if (this.im != 1) {
+                        if (Math.round(this.im) == this.im) {
+                            stringBuilder.append((int) this.im);
+                        } else {
+                            stringBuilder.append(this.im);
+                        }
+                    }
+                    stringBuilder.append("i");
+                } else {
+                    stringBuilder.append(this.im);
+                    stringBuilder.append("*i");
+                }
+            }
+            return stringBuilder.toString();
+        }
+    }
 }

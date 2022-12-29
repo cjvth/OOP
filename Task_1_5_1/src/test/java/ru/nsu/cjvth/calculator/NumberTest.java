@@ -72,4 +72,14 @@ class NumberTest {
         assertEquals(7, new Number(1, 7).im());
     }
 
+    @Test
+    void toStringMethod() {
+        assertEquals("0", new Number(0, 0).toString());
+        assertEquals("1", new Number(1, 0).toString());
+        assertEquals("i", new Number(0, 1).toString());
+        assertEquals("1.004 + 1.5i", new Number(1.004, 1.5).toString());
+        assertEquals("NaN", new Number(Double.NaN, 0).toString());
+        assertEquals("NaN", new Number(0, Double.NaN).toString());
+        assertEquals("1.0E-15 + 2.4E12*i", new Number(1e-15, 2.4e+12).toString());
+    }
 }
