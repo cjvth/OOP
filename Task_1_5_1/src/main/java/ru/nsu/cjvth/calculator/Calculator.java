@@ -69,8 +69,8 @@ public class Calculator {
     public static Token parseToken(String token) {
         if (Number.isValid(token)) {
             return new Number(token);
-        } else if (Operation.isValid(token)) {
-            return new Operation(token);
+        } else if (Operations.isOperation(token)) {
+            return Operations.parse(token);
         } else {
             return null;
         }
@@ -83,6 +83,6 @@ public class Calculator {
      * @return whether it is a valid token
      */
     public static boolean isValidToken(String token) {
-        return Number.isValid(token) || Operation.isValid(token);
+        return Number.isValid(token) || Operations.isOperation(token);
     }
 }
