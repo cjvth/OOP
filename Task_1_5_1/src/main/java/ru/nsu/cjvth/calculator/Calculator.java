@@ -37,26 +37,7 @@ public class Calculator {
         if (iterator.hasNext()) {
             System.out.println("Error: more operands than operators needed");
         } else {
-            if (Double.isNaN(number.real()) || Double.isNaN(number.im())) {
-                System.out.println("NaN");
-            } else {
-                if (number.real() != 0 || number.im() == 0) {
-                    System.out.print(number.real());
-                    if (number.im() != 0) {
-                        System.out.print(" + ");
-                    }
-                }
-                if (number.im() != 0) {
-                    if (Double.isFinite(number.im()) && !Double.toString(number.im())
-                        .contains("E")) {
-                        System.out.print(number.im());
-                        System.out.println("i");
-                    } else {
-                        System.out.print(number.im());
-                        System.out.println("*i");
-                    }
-                }
-            }
+            System.out.println(number);
         }
     }
 
