@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"ru.nsu.cjvth.primes","c":"CheckPrime","l":"CheckPrime()","url":"%3Cinit%3E()"},{"p":"ru.nsu.cjvth.primes","c":"CheckPrime","l":"isPrime(int)"}]
