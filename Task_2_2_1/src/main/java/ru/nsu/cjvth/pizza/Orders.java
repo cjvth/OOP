@@ -10,13 +10,13 @@ public class Orders {
 
     public Orders(int orders) {
         this.availableOrders = new LinkedList<>();
-        for (int i = 0; i < orders; i++) {
+        for (int i = 1; i <= orders; i++) {
             availableOrders.add(i);
         }
         allCooked = new AtomicBoolean(false);
     }
 
-    synchronized public Integer take() {
+    public synchronized Integer take() {
         return availableOrders.poll();
     }
 
