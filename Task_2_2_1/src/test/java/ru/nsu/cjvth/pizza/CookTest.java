@@ -42,9 +42,9 @@ class CookTest {
                 default:
                     fail(String.format("Illegal event %s", i.getOrderStatus().toString()));
             }
-            for (LogEntry.OrderStatus j: orderStatuses) {
-                assertEquals(LogEntry.OrderStatus.COOK_FINISH, j);
-            }
+        }
+        for (LogEntry.OrderStatus j: orderStatuses) {
+            assertEquals(LogEntry.OrderStatus.COOK_FINISH, j);
         }
     }
 }
