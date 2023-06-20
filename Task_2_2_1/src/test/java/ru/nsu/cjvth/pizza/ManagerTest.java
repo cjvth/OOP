@@ -7,7 +7,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ManagerTest {
@@ -89,42 +92,77 @@ class ManagerTest {
             }
             Manager manager = new Manager(store, cooks, delivery);
             manager.start();
+
+
+            List<LogEntry.OrderStatus> orderStatuses = new ArrayList<>(Collections.nCopies(
+                    config.n_orders, LogEntry.OrderStatus.NOT_STARTED));
+            List<LogEntry.OrderStatus> cookStatuses = new ArrayList<>(Collections.nCopies(
+                    config.cooks.size(), LogEntry.OrderStatus.COOK_FINISH));
+            List<LogEntry.OrderStatus> deliveryStatuses = new ArrayList<>(Collections.nCopies(
+                    config.delivery.size(), LogEntry.OrderStatus.DELIVERY_FINISH));
+            for (LogEntry i : log) {
+                int order_index = i.getOrder() - 1;
+                int actor_index = i.getActor() - 1;
+                assertTrue(order_index >= 0 && order_index < config.n_orders);
+                switch (i.getOrderStatus()) {
+                    case COOK_START:
+                        assertEquals(LogEntry.OrderStatus.NOT_STARTED, orderStatuses.get(order_index));
+                        orderStatuses.set(order_index, LogEntry.OrderStatus.COOK_START);
+                        break;
+                    case COOK_FINISH:
+                        assertEquals(LogEntry.OrderStatus.COOK_START, orderStatuses.get(order_index));
+                        orderStatuses.set(order_index, LogEntry.OrderStatus.COOK_FINISH);
+                        break;
+                    case DELIVERY_START:
+                        assertEquals(LogEntry.OrderStatus.COOK_FINISH, orderStatuses.get(order_index));
+                        orderStatuses.set(order_index, LogEntry.OrderStatus.DELIVERY_START);
+                        break;
+                    case DELIVERY_FINISH:
+                        assertEquals(LogEntry.OrderStatus.DELIVERY_START, orderStatuses.get(order_index));
+                        orderStatuses.set(order_index, LogEntry.OrderStatus.DELIVERY_FINISH);
+                        break;
+                    default:
+                        fail(String.format("Illegal event for an order%s", i.getOrderStatus().toString()));
+                }
+                if (i.getActorType() == LogEntry.ActorType.COOK) {
+                    assertTrue(actor_index >= 0 && actor_index < config.cooks.size());
+                    switch (i.getOrderStatus()) {
+                        case COOK_START:
+                            assertEquals(LogEntry.OrderStatus.COOK_FINISH, cookStatuses.get(actor_index));
+                            cookStatuses.set(actor_index, LogEntry.OrderStatus.COOK_START);
+                            break;
+                        case COOK_FINISH:
+                            assertEquals(LogEntry.OrderStatus.COOK_START, cookStatuses.get(actor_index));
+                            cookStatuses.set(actor_index, LogEntry.OrderStatus.COOK_FINISH);
+                            break;
+                        default:
+                            fail(String.format("Illegal event for a cook%s", i.getOrderStatus().toString()));
+                    }
+                } else {
+                    assertTrue(actor_index >= 0 && actor_index < config.delivery.size());
+                    switch (i.getOrderStatus()) {
+                        case DELIVERY_START:
+                            assertEquals(LogEntry.OrderStatus.DELIVERY_FINISH, deliveryStatuses.get(actor_index));
+                            deliveryStatuses.set(actor_index, LogEntry.OrderStatus.DELIVERY_START);
+                            break;
+                        case DELIVERY_FINISH:
+                            assertEquals(LogEntry.OrderStatus.DELIVERY_START, deliveryStatuses.get(actor_index));
+                            deliveryStatuses.set(actor_index, LogEntry.OrderStatus.DELIVERY_FINISH);
+                            break;
+                        default:
+                            fail(String.format("Illegal event for delivery%s", i.getOrderStatus().toString()));
+                    }
+                }
+            }
+            for (LogEntry.OrderStatus j : orderStatuses) {
+                assertEquals(LogEntry.OrderStatus.DELIVERY_FINISH, j);
+            }
+            for (LogEntry.OrderStatus j : cookStatuses) {
+                assertEquals(LogEntry.OrderStatus.COOK_FINISH, j);
+            }
+            for (LogEntry.OrderStatus j : deliveryStatuses) {
+                assertEquals(LogEntry.OrderStatus.DELIVERY_FINISH, j);
+            }
         }
-
-
-//        int orders = 5;
-//        var store = new Store(3);
-//        List<LogEntry> log = new ArrayList<>(100);
-//        Orders availableOrders = new Orders(orders);
-//        int id = 4;
-//        var cook = new Thread(new Cook(id, 200, availableOrders, store, log));
-//        cook.start();
-//        for (int i = 0; i < orders; i++) {
-//            store.take();
-//        }
-//        cook.join();
-//        List<LogEntry.OrderStatus> orderStatuses = new ArrayList<>(Collections.nCopies(
-//                5, LogEntry.OrderStatus.NOT_STARTED));
-//        for (LogEntry i : log) {
-//            assertEquals(id, i.getActor());
-//            assertEquals(LogEntry.ActorType.COOK, i.getActorType());
-//            int order_index = i.getOrder() - 1;
-//            assertTrue(order_index >= 0 && order_index < orders);
-//            switch (i.getOrderStatus()) {
-//                case COOK_START:
-//                    assertEquals(LogEntry.OrderStatus.NOT_STARTED, orderStatuses.get(order_index));
-//                    orderStatuses.set(order_index, LogEntry.OrderStatus.COOK_START);
-//                    break;
-//                case COOK_FINISH:
-//                    assertEquals(LogEntry.OrderStatus.COOK_START, orderStatuses.get(order_index));
-//                    orderStatuses.set(order_index, LogEntry.OrderStatus.COOK_FINISH);
-//                    break;
-//                default:
-//                    fail(String.format("Illegal event %s", i.getOrderStatus().toString()));
-//            }
-//        }
-//        for (LogEntry.OrderStatus j : orderStatuses) {
-//            assertEquals(LogEntry.OrderStatus.COOK_FINISH, j);
-//        }
     }
 }
