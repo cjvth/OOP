@@ -3,6 +3,7 @@ package ru.nsu.cjvth.primes;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 /**
  * Class to check prime numbers using parallel stream inside
@@ -21,6 +22,6 @@ public class ParallelStreamRunner {
         var pool = new ForkJoinPool(parallelism);
         return pool.submit(
             () -> numbers.parallelStream().map(IsPrime::isPrime)
-        ).get().toList();
+        ).get().collect(Collectors.toList());
     }
 }
