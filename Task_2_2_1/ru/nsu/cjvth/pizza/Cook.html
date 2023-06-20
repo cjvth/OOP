@@ -137,6 +137,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">Cook</span>
 extends java.lang.Object
 implements java.lang.Runnable</pre>
+<div class="block">A cook that can make pizza in some amount of time.</div>
 </li>
 </ul>
 </div>
@@ -162,7 +163,9 @@ implements java.lang.Runnable</pre>
     <a href="Orders.html" title="class in ru.nsu.cjvth.pizza">Orders</a>&nbsp;availableOrders,
     <a href="Store.html" title="class in ru.nsu.cjvth.pizza">Store</a>&nbsp;store,
     java.util.List&lt;<a href="LogEntry.html" title="class in ru.nsu.cjvth.pizza">LogEntry</a>&gt;&nbsp;log)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -222,6 +225,16 @@ implements java.lang.Runnable</pre>
             <a href="Orders.html" title="class in ru.nsu.cjvth.pizza">Orders</a>&nbsp;availableOrders,
             <a href="Store.html" title="class in ru.nsu.cjvth.pizza">Store</a>&nbsp;store,
             java.util.List&lt;<a href="LogEntry.html" title="class in ru.nsu.cjvth.pizza">LogEntry</a>&gt;&nbsp;log)</pre>
+<div class="block">Constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - cook's id</dd>
+<dd><code>cookingTime</code> - time to make one pizza</dd>
+<dd><code>availableOrders</code> - a shared container with orders that were not started</dd>
+<dd><code>store</code> - place to store cooked pizza before delivery takes it,
+                        shared among cooks and delivery</dd>
+<dd><code>log</code> - log of status messages from cooks and delivery</dd>
+</dl>
 </li>
 </ul>
 </li>

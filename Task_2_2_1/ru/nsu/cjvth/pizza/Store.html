@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Store</span>
 extends java.lang.Object</pre>
+<div class="block">Storage for orders while they are cooked but not started delivering.</div>
 </li>
 </ul>
 </div>
@@ -153,7 +154,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">Store</a></span>&#8203;(int&nbsp;capacity)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,27 +179,37 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isAllCooked()">isAllCooked</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Check if no orders will be cooked today.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#put(int)">put</a></span>&#8203;(int&nbsp;order)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Place a cooked pizza into the storage, wait for available space.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAllCooked()">setAllCooked</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Inform delivery that no orders will be cooked today.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#take()">take</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Take pizza to deliver it, wait if nothing is present.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#takeNotWait()">takeNotWait</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Take pizza to deliver if some is available.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -229,6 +242,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Store</h4>
 <pre>public&nbsp;Store&#8203;(int&nbsp;capacity)</pre>
+<div class="block">Constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>capacity</code> - number of pizzas that it can store.</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -249,7 +267,10 @@ extends java.lang.Object</pre>
 <h4>put</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;put&#8203;(int&nbsp;order)
          throws java.lang.InterruptedException</pre>
+<div class="block">Place a cooked pizza into the storage, wait for available space.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>order</code> - id of the order.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
 </dl>
@@ -263,7 +284,10 @@ extends java.lang.Object</pre>
 <h4>take</h4>
 <pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;take()
                        throws java.lang.InterruptedException</pre>
+<div class="block">Take pizza to deliver it, wait if nothing is present.</div>
 <dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>id of the order</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
 </dl>
@@ -277,7 +301,10 @@ extends java.lang.Object</pre>
 <h4>takeNotWait</h4>
 <pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;takeNotWait()
                               throws java.lang.InterruptedException</pre>
+<div class="block">Take pizza to deliver if some is available.</div>
 <dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>id of the order if there is some, null otherwise</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
 </dl>
@@ -290,6 +317,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setAllCooked</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setAllCooked()</pre>
+<div class="block">Inform delivery that no orders will be cooked today.</div>
 </li>
 </ul>
 <a id="isAllCooked()">
@@ -299,6 +327,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isAllCooked</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isAllCooked()</pre>
+<div class="block">Check if no orders will be cooked today.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if everything is cooked</dd>
+</dl>
 </li>
 </ul>
 </li>

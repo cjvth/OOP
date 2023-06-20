@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Orders</span>
 extends java.lang.Object</pre>
+<div class="block">Pool of orders that no one has started cooking.</div>
 </li>
 </ul>
 </div>
@@ -152,8 +153,10 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">Orders</a></span>&#8203;(int&nbsp;orders)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int)">Orders</a></span>&#8203;(int&nbsp;numOrders)</code></th>
+<td class="colLast">
+<div class="block">Constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,7 +179,9 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#take()">take</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Take one order from the pool.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -208,7 +213,12 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Orders</h4>
-<pre>public&nbsp;Orders&#8203;(int&nbsp;orders)</pre>
+<pre>public&nbsp;Orders&#8203;(int&nbsp;numOrders)</pre>
+<div class="block">Constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>numOrders</code> - number of orders</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -228,6 +238,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>take</h4>
 <pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;take()</pre>
+<div class="block">Take one order from the pool.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>number of the order if there is some, null if all is already done</dd>
+</dl>
 </li>
 </ul>
 </li>

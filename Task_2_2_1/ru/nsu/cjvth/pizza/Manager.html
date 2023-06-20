@@ -156,7 +156,9 @@ extends java.lang.Object</pre>
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(ru.nsu.cjvth.pizza.Store,java.util.List,java.util.List)">Manager</a></span>&#8203;(<a href="Store.html" title="class in ru.nsu.cjvth.pizza">Store</a>&nbsp;store,
        java.util.List&lt;<a href="Cook.html" title="class in ru.nsu.cjvth.pizza">Cook</a>&gt;&nbsp;cooks,
        java.util.List&lt;<a href="Delivery.html" title="class in ru.nsu.cjvth.pizza">Delivery</a>&gt;&nbsp;delivery)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -179,7 +181,9 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start()">start</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Start the process of making pizza.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -214,6 +218,14 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;Manager&#8203;(<a href="Store.html" title="class in ru.nsu.cjvth.pizza">Store</a>&nbsp;store,
                java.util.List&lt;<a href="Cook.html" title="class in ru.nsu.cjvth.pizza">Cook</a>&gt;&nbsp;cooks,
                java.util.List&lt;<a href="Delivery.html" title="class in ru.nsu.cjvth.pizza">Delivery</a>&gt;&nbsp;delivery)</pre>
+<div class="block">Constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>store</code> - place to store cooked pizza before delivery takes it,
+                 shared among cooks and delivery</dd>
+<dd><code>cooks</code> - list of cooks to make threads from them</dd>
+<dd><code>delivery</code> - list of delivery men to make threads from them</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -234,6 +246,7 @@ extends java.lang.Object</pre>
 <h4>start</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;start()
            throws java.lang.InterruptedException</pre>
+<div class="block">Start the process of making pizza.</div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
