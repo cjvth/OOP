@@ -29,8 +29,14 @@ class RunnersTest {
 
     @Test
     void parallelStreamRunner() {
+        assertIterableEquals(expected, ParallelStreamRunner.checkPrime(input));
+    }
+
+    @Test
+    void customPoolParallelStreamRunner() {
         assertDoesNotThrow(
-            () -> assertIterableEquals(expected, ParallelStreamRunner.checkPrime(input, 4))
+            () -> assertIterableEquals(expected,
+                CustomPoolParallelStreamRunner.checkPrime(input, 4))
         );
     }
 }
