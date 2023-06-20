@@ -26,8 +26,21 @@ public class MultipleThreadsRunner {
         return result;
     }
 
-    private record CheckPrimeRunnable(List<Integer> input, List<Boolean> result, int start,
-                                      int step) implements Runnable {
+    @SuppressWarnings("ClassCanBeRecord")
+    private static class CheckPrimeRunnable implements Runnable {
+
+        private final List<Integer> input;
+        private final List<Boolean> result;
+
+        private final int start;
+        private final int step;
+
+        public CheckPrimeRunnable(List<Integer> input, List<Boolean> result, int start, int step) {
+            this.input = input;
+            this.result = result;
+            this.start = start;
+            this.step = step;
+        }
 
         @Override
         public void run() {
