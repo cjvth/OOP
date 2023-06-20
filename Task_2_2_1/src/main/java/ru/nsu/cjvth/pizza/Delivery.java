@@ -6,15 +6,13 @@ import java.util.List;
 public class Delivery implements Runnable {
     private final int id;
     private final int deliveryTime;
-    private final Orders availableOrders;
     private final Store store;
     private final List<LogEntry> log;
 
-    public Delivery(int id, int deliveryTime, Orders availableOrders,
+    public Delivery(int id, int deliveryTime,
                     Store store, List<LogEntry> log) {
         this.id = id;
         this.deliveryTime = deliveryTime;
-        this.availableOrders = availableOrders;
         this.store = store;
         this.log = log;
     }
@@ -25,7 +23,7 @@ public class Delivery implements Runnable {
             while (true) {
                 Integer order;
                 System.out.printf("Delivery %d is waiting\n", id);
-                if (availableOrders.isAllCooked()) {
+                if (store.isAllCooked()) {
                     order = store.takeNotWait();
                     if (order == null) {
                         System.out.printf("Delivery %d is done\n", id);
@@ -33,6 +31,10 @@ public class Delivery implements Runnable {
                     }
                 } else {
                     order = store.take();
+                    if (order == null) {
+                        System.out.printf("Delivery %d is done\n", id);
+                        return;
+                    }
                 }
                 System.out.printf("Delivery %d took order %d\n", id, order);
                 log.add(new LogEntry(id, LogEntry.ActorType.DELIVERY, order,

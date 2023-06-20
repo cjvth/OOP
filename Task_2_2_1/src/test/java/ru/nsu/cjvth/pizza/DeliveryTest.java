@@ -15,14 +15,13 @@ class DeliveryTest {
         int n_orders = 5;
         var store = new Store(3);
         List<LogEntry> log = new ArrayList<>(100);
-        Orders availableOrders = new Orders(n_orders);
         int id = 6;
-        var delivery = new Thread(new Delivery(id, 200, availableOrders, store, log));
+        var delivery = new Thread(new Delivery(id, 200, store, log));
         delivery.start();
         for (int i = 1; i <= n_orders; i++) {
             store.put(i);
         }
-        availableOrders.setAllCooked();
+        store.setAllCooked();
         delivery.join();
         List<LogEntry.OrderStatus> orderStatuses = new ArrayList<>(Collections.nCopies(
                 5, LogEntry.OrderStatus.COOK_FINISH));

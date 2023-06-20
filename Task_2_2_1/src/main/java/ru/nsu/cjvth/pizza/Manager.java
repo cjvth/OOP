@@ -7,40 +7,36 @@ import java.util.List;
  * Class that controls the cooking cycle.
  */
 public class Manager {
-    private final int cooks;
-    private final int delivery;
-    private final Orders availableOrders;
+    private final List<Cook> cooks;
+    private final List<Delivery> delivery;
     private final Store store;
-    private final List<LogEntry> log;
 
-    public Manager(int orders, int cooks, int delivery, int storeCapacity, List<LogEntry> log) {
+    public Manager(Store store, List<Cook> cooks, List<Delivery> delivery) {
         this.cooks = cooks;
         this.delivery = delivery;
-        this.availableOrders = new Orders(orders);
-        this.store = new Store(storeCapacity);
-        this.log = log;
+        this.store = store;
     }
 
-    public void run() throws InterruptedException {
-        List<Thread> cookList = new ArrayList<>(cooks);
-        for (int i = 1; i <= this.cooks; i++) {
-            cookList.add(new Thread(new Cook(i, 2000, availableOrders, store, log)));
+    public void start() throws InterruptedException {
+        List<Thread> cookThreads = new ArrayList<>(cooks.size());
+        for (var i : cooks) {
+            cookThreads.add(new Thread(i));
         }
-        List<Thread> deliveryList = new ArrayList<>(delivery);
-        for (int i = 1; i <= this.delivery; i++) {
-            deliveryList.add(new Thread(new Delivery(i, 1500, availableOrders, store, log)));
+        List<Thread> deliveryThreads = new ArrayList<>(delivery.size());
+        for (var i : delivery) {
+            deliveryThreads.add(new Thread(i));
         }
-        for (var i : cookList) {
+        for (var i : cookThreads) {
             i.start();
         }
-        for (var i : deliveryList) {
+        for (var i : deliveryThreads) {
             i.start();
         }
-        for (var i : cookList) {
+        for (var i : cookThreads) {
             i.join();
         }
-        availableOrders.setAllCooked();
-        for (var i : deliveryList) {
+        store.setAllCooked();
+        for (var i : deliveryThreads) {
             i.join();
         }
     }
