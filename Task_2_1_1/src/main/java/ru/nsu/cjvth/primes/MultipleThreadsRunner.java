@@ -1,9 +1,6 @@
 package ru.nsu.cjvth.primes;
 
-import static ru.nsu.cjvth.primes.IsPrime.isPrime;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,13 +12,20 @@ public class MultipleThreadsRunner {
      * Find prime numbers in a list.
      *
      * @param numbers    list of numbers
-     * @param numThreads numThreads level
+     * @param numThreads amount of threads
      * @return list of booleans, true if the corresponding element of `numbers` is prime
      */
-    public static List<Boolean> checkPrime(List<Integer> numbers, int numThreads) {
+    public static List<Boolean> checkPrime(List<Integer> numbers, int numThreads)
+        throws InterruptedException {
         List<Boolean> result = new ArrayList<>(Collections.nCopies(numbers.size(), false));
-        for (int i : numbers) {
-            result.add(isPrime(i));
+        List<Thread> threads = new ArrayList<>(numThreads);
+        for (int i = 0; i < numThreads; i++) {
+            var t = new Thread(new CheckPrimeRunnable(numbers, result, i, numThreads));
+            threads.add(t);
+            t.start();
+        }
+        for (var t : threads) {
+            t.join();
         }
         return result;
     }
