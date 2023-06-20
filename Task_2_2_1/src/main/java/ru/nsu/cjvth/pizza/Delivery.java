@@ -37,12 +37,16 @@ public class Delivery implements Runnable {
                     }
                 }
                 System.out.printf("Delivery %d took order %d\n", id, order);
-                log.add(new LogEntry(id, LogEntry.ActorType.DELIVERY, order,
-                        LogEntry.OrderStatus.DELIVERY_START));
+                synchronized (log) {
+                    log.add(new LogEntry(id, LogEntry.ActorType.DELIVERY, order,
+                            LogEntry.OrderStatus.DELIVERY_START));
+                }
                 Thread.sleep(deliveryTime);
                 System.out.printf("Delivery %d delivered order %d\n", id, order);
-                log.add(new LogEntry(id, LogEntry.ActorType.DELIVERY, order,
-                        LogEntry.OrderStatus.DELIVERY_FINISH));
+                synchronized (log) {
+                    log.add(new LogEntry(id, LogEntry.ActorType.DELIVERY, order,
+                            LogEntry.OrderStatus.DELIVERY_FINISH));
+                }
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

@@ -33,12 +33,16 @@ public class Cook implements Runnable {
                     }
                 }
                 System.out.printf("Cook %d took order %d\n", id, order);
-                log.add(new LogEntry(id, LogEntry.ActorType.COOK, order,
-                        LogEntry.OrderStatus.COOK_START));
+                synchronized (log) {
+                    log.add(new LogEntry(id, LogEntry.ActorType.COOK, order,
+                            LogEntry.OrderStatus.COOK_START));
+                }
                 Thread.sleep(cookingTime);
                 System.out.printf("Cook %d finished order %d\n", id, order);
-                log.add(new LogEntry(id, LogEntry.ActorType.COOK, order,
-                        LogEntry.OrderStatus.COOK_FINISH));
+                synchronized (log) {
+                    log.add(new LogEntry(id, LogEntry.ActorType.COOK, order,
+                            LogEntry.OrderStatus.COOK_FINISH));
+                }
                 store.put(order);
                 System.out.printf("Cook %d put to store order %d\n", id, order);
             }
