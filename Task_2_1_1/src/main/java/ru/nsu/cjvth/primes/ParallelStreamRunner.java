@@ -1,0 +1,26 @@
+package ru.nsu.cjvth.primes;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+
+/**
+ * Class to check prime numbers using parallel stream inside
+ * custom thread pool with specific amount of numbers.
+ */
+public class ParallelStreamRunner {
+    /**
+     * Find prime numbers in a list.
+     *
+     * @param numbers     list of numbers
+     * @param parallelism parallelism level
+     * @return list of booleans, true if the corresponding element of `numbers` is prime
+     */
+    public static List<Boolean> checkPrime(List<Integer> numbers, int parallelism)
+        throws ExecutionException, InterruptedException {
+        var pool = new ForkJoinPool(parallelism);
+        return pool.submit(
+            () -> numbers.parallelStream().map(IsPrime::isPrime)
+        ).get().toList();
+    }
+}

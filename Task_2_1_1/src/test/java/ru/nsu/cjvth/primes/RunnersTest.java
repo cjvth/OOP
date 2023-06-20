@@ -1,9 +1,10 @@
 package ru.nsu.cjvth.primes;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+
 import java.util.List;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 class RunnersTest {
 
@@ -17,5 +18,19 @@ class RunnersTest {
     @Test
     void sequentialRunner() {
         assertIterableEquals(expected, SequentialRunner.checkPrime(input));
+    }
+
+    @Test
+    void multipleThreadsRunner() {
+        assertDoesNotThrow(
+            () -> assertIterableEquals(expected, MultipleThreadsRunner.checkPrime(input, 4))
+        );
+    }
+
+    @Test
+    void parallelStreamRunner() {
+        assertDoesNotThrow(
+            () -> assertIterableEquals(expected, ParallelStreamRunner.checkPrime(input, 4))
+        );
     }
 }
