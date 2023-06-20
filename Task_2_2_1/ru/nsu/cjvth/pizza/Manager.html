@@ -153,11 +153,9 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,int,int,int,java.util.List)">Manager</a></span>&#8203;(int&nbsp;orders,
-       int&nbsp;cooks,
-       int&nbsp;delivery,
-       int&nbsp;storeCapacity,
-       java.util.List&lt;<a href="LogEntry.html" title="class in ru.nsu.cjvth.pizza">LogEntry</a>&gt;&nbsp;log)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(ru.nsu.cjvth.pizza.Store,java.util.List,java.util.List)">Manager</a></span>&#8203;(<a href="Store.html" title="class in ru.nsu.cjvth.pizza">Store</a>&nbsp;store,
+       java.util.List&lt;<a href="Cook.html" title="class in ru.nsu.cjvth.pizza">Cook</a>&gt;&nbsp;cooks,
+       java.util.List&lt;<a href="Delivery.html" title="class in ru.nsu.cjvth.pizza">Delivery</a>&gt;&nbsp;delivery)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -180,7 +178,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run()">run</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start()">start</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -207,17 +205,15 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(int,int,int,int,java.util.List)">
+<a id="&lt;init&gt;(ru.nsu.cjvth.pizza.Store,java.util.List,java.util.List)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Manager</h4>
-<pre>public&nbsp;Manager&#8203;(int&nbsp;orders,
-               int&nbsp;cooks,
-               int&nbsp;delivery,
-               int&nbsp;storeCapacity,
-               java.util.List&lt;<a href="LogEntry.html" title="class in ru.nsu.cjvth.pizza">LogEntry</a>&gt;&nbsp;log)</pre>
+<pre>public&nbsp;Manager&#8203;(<a href="Store.html" title="class in ru.nsu.cjvth.pizza">Store</a>&nbsp;store,
+               java.util.List&lt;<a href="Cook.html" title="class in ru.nsu.cjvth.pizza">Cook</a>&gt;&nbsp;cooks,
+               java.util.List&lt;<a href="Delivery.html" title="class in ru.nsu.cjvth.pizza">Delivery</a>&gt;&nbsp;delivery)</pre>
 </li>
 </ul>
 </li>
@@ -230,14 +226,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="run()">
+<a id="start()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>run</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;run()
-         throws java.lang.InterruptedException</pre>
+<h4>start</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;start()
+           throws java.lang.InterruptedException</pre>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.lang.InterruptedException</code></dd>
