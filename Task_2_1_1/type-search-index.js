@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.cjvth.primes","l":"CheckPrime"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.cjvth.primes","l":"IsPrime"},{"p":"ru.nsu.cjvth.primes","l":"MultipleThreadsRunner"},{"p":"ru.nsu.cjvth.primes","l":"ParallelStreamRunner"},{"p":"ru.nsu.cjvth.primes","l":"SequentialRunner"}]
