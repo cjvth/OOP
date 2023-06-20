@@ -3,7 +3,7 @@ package ru.nsu.cjvth.primes;
 /**
  * Check if given number is prime.
  */
-public class CheckPrime {
+public class IsPrime {
 
     /**
      * Check if given number is prime.
