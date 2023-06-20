@@ -2,6 +2,7 @@ package ru.nsu.cjvth.pizza;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -10,6 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Store {
     private final int capacity;
     private final AtomicInteger used;
+    private final AtomicBoolean allCooked = new AtomicBoolean(false);
 
     private final Lock ordersLock = new ReentrantLock();
     private final Condition notEmpty = ordersLock.newCondition();
@@ -39,11 +41,14 @@ public class Store {
         System.out.printf("Store used on %d of %d\n", used.get(), capacity);
     }
 
-    public int take() throws InterruptedException {
+    public Integer take() throws InterruptedException {
         ordersLock.lock();
         try {
             while (used.get() == 0) {
                 notEmpty.await();
+                if (used.get() == 0 && allCooked.get()) {
+                    return null;
+                }
             }
             if (used.decrementAndGet() == capacity - 1) {
                 notFull.signal();
@@ -68,5 +73,19 @@ public class Store {
         } finally {
             ordersLock.unlock();
         }
+    }
+
+    public void setAllCooked() {
+        ordersLock.lock();
+        allCooked.set(true);
+        notEmpty.signal();
+        ordersLock.unlock();
+    }
+
+    public boolean isAllCooked() {
+        ordersLock.lock();
+        var val = allCooked.get();
+        ordersLock.unlock();
+        return val;
     }
 }

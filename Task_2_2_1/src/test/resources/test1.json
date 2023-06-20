@@ -1,0 +1,32 @@
+{
+  "n_orders": 20,
+  "store_capacity": 4,
+  "cooks": [
+    {
+      "cook_time": 500
+    },
+    {
+      "cook_time": 600
+    },
+    {
+      "cook_time": 450
+    },
+    {
+      "cook_time": 500
+    },
+    {
+      "cook_time": 550
+    }
+  ],
+  "delivery": [
+    {
+      "delivery_time": 400
+    },
+    {
+      "delivery_time": 350
+    },
+    {
+      "delivery_time": 400
+    }
+  ]
+}
