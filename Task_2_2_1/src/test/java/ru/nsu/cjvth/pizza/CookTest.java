@@ -28,16 +28,16 @@ class CookTest {
         for (LogEntry i : log) {
             assertEquals(id, i.getActor());
             assertEquals(LogEntry.ActorType.COOK, i.getActorType());
-            int order_index = i.getOrder() - 1;
-            assertTrue(order_index >= 0 && order_index < orders);
+            int orderIndex = i.getOrder() - 1;
+            assertTrue(orderIndex >= 0 && orderIndex < orders);
             switch (i.getOrderStatus()) {
                 case COOK_START:
-                    assertEquals(LogEntry.OrderStatus.NOT_STARTED, orderStatuses.get(order_index));
-                    orderStatuses.set(order_index, LogEntry.OrderStatus.COOK_START);
+                    assertEquals(LogEntry.OrderStatus.NOT_STARTED, orderStatuses.get(orderIndex));
+                    orderStatuses.set(orderIndex, LogEntry.OrderStatus.COOK_START);
                     break;
                 case COOK_FINISH:
-                    assertEquals(LogEntry.OrderStatus.COOK_START, orderStatuses.get(order_index));
-                    orderStatuses.set(order_index, LogEntry.OrderStatus.COOK_FINISH);
+                    assertEquals(LogEntry.OrderStatus.COOK_START, orderStatuses.get(orderIndex));
+                    orderStatuses.set(orderIndex, LogEntry.OrderStatus.COOK_FINISH);
                     break;
                 default:
                     fail(String.format("Illegal event %s", i.getOrderStatus().toString()));

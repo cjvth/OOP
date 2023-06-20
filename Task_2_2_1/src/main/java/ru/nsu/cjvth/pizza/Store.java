@@ -8,6 +8,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Storage for orders while they are cooked but not started delivering.
+ */
 public class Store {
     private final int capacity;
     private final AtomicInteger used;
@@ -19,12 +22,22 @@ public class Store {
 
     private final Deque<Integer> orders;
 
+    /**
+     * Constructor.
+     *
+     * @param capacity number of pizzas that it can store.
+     */
     public Store(int capacity) {
         this.capacity = capacity;
         this.orders = new LinkedList<>();
         this.used = new AtomicInteger(0);
     }
 
+    /**
+     * Place a cooked pizza into the storage, wait for available space.
+     *
+     * @param order id of the order.
+     */
     public void put(int order) throws InterruptedException {
         ordersLock.lock();
         try {
@@ -41,6 +54,11 @@ public class Store {
         System.out.printf("Store used on %d of %d\n", used.get(), capacity);
     }
 
+    /**
+     * Take pizza to deliver it, wait if nothing is present.
+     *
+     * @return id of the order
+     */
     public Integer take() throws InterruptedException {
         ordersLock.lock();
         try {
@@ -61,6 +79,11 @@ public class Store {
         }
     }
 
+    /**
+     * Take pizza to deliver if some is available.
+     *
+     * @return id of the order if there is some, null otherwise
+     */
     public Integer takeNotWait() throws InterruptedException {
         ordersLock.lock();
         try {
@@ -75,6 +98,9 @@ public class Store {
         }
     }
 
+    /**
+     * Inform delivery that no orders will be cooked today.
+     */
     public void setAllCooked() {
         ordersLock.lock();
         allCooked.set(true);
@@ -82,6 +108,11 @@ public class Store {
         ordersLock.unlock();
     }
 
+    /**
+     * Check if no orders will be cooked today.
+     *
+     * @return true if everything is cooked
+     */
     public boolean isAllCooked() {
         ordersLock.lock();
         var val = allCooked.get();

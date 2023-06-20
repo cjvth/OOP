@@ -1,1 +1,1 @@
-{"n_orders":10,"store_capacity":4,"cooks":[{"cook_time":1000},{"cook_time":1200},{"cook_time":900},{"cook_time":1000}],"delivery":[{"delivery_time":800},{"delivery_time":700},{"delivery_time":600}]}
+{"numOrders":10,"storeCapacity":4,"cooks":[{"cookTime":1000},{"cookTime":1200},{"cookTime":900},{"cookTime":1000}],"delivery":[{"deliveryTime":800},{"deliveryTime":700},{"deliveryTime":600}]}

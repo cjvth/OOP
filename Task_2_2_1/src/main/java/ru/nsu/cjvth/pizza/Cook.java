@@ -2,6 +2,9 @@ package ru.nsu.cjvth.pizza;
 
 import java.util.List;
 
+/**
+ * A cook that can make pizza in some amount of time.
+ */
 @SuppressWarnings("BusyWait")
 public class Cook implements Runnable {
     private final int id;
@@ -10,6 +13,16 @@ public class Cook implements Runnable {
     private final Store store;
     private final List<LogEntry> log;
 
+    /**
+     * Constructor.
+     *
+     * @param id              cook's id
+     * @param cookingTime     time to make one pizza
+     * @param availableOrders a shared container with orders that were not started
+     * @param store           place to store cooked pizza before delivery takes it,
+     *                        shared among cooks and delivery
+     * @param log             log of status messages from cooks and delivery
+     */
     public Cook(int id, int cookingTime, Orders availableOrders, Store store, List<LogEntry> log) {
         this.id = id;
         this.cookingTime = cookingTime;

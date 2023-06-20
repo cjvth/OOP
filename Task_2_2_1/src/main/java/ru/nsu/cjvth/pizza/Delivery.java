@@ -2,6 +2,9 @@ package ru.nsu.cjvth.pizza;
 
 import java.util.List;
 
+/**
+ * A delivery man that can bring pizza to the destination in some amount of time.
+ */
 @SuppressWarnings("BusyWait")
 public class Delivery implements Runnable {
     private final int id;
@@ -9,6 +12,15 @@ public class Delivery implements Runnable {
     private final Store store;
     private final List<LogEntry> log;
 
+    /**
+     * Constructor.
+     *
+     * @param id           delivery man's id
+     * @param deliveryTime time to deliver one pizza
+     * @param store        place to store cooked pizza before delivery takes it,
+     *                     shared among cooks and delivery
+     * @param log          log of status messages from cooks and delivery
+     */
     public Delivery(int id, int deliveryTime,
                     Store store, List<LogEntry> log) {
         this.id = id;
@@ -25,16 +37,12 @@ public class Delivery implements Runnable {
                 System.out.printf("Delivery %d is waiting\n", id);
                 if (store.isAllCooked()) {
                     order = store.takeNotWait();
-                    if (order == null) {
-                        System.out.printf("Delivery %d is done\n", id);
-                        return;
-                    }
                 } else {
                     order = store.take();
-                    if (order == null) {
-                        System.out.printf("Delivery %d is done\n", id);
-                        return;
-                    }
+                }
+                if (order == null) {
+                    System.out.printf("Delivery %d is done\n", id);
+                    return;
                 }
                 System.out.printf("Delivery %d took order %d\n", id, order);
                 synchronized (log) {

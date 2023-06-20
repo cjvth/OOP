@@ -11,12 +11,23 @@ public class Manager {
     private final List<Delivery> delivery;
     private final Store store;
 
+    /**
+     * Constructor.
+     *
+     * @param store    place to store cooked pizza before delivery takes it,
+     *                 shared among cooks and delivery
+     * @param cooks    list of cooks to make threads from them
+     * @param delivery list of delivery men to make threads from them
+     */
     public Manager(Store store, List<Cook> cooks, List<Delivery> delivery) {
         this.cooks = cooks;
         this.delivery = delivery;
         this.store = store;
     }
 
+    /**
+     * Start the process of making pizza.
+     */
     public void start() throws InterruptedException {
         List<Thread> cookThreads = new ArrayList<>(cooks.size());
         for (var i : cooks) {
