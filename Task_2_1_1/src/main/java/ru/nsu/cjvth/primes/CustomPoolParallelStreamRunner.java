@@ -17,7 +17,7 @@ public class CustomPoolParallelStreamRunner {
      * @param parallelism parallelism level
      * @return list of booleans, true if the corresponding element of `numbers` is prime
      */
-    public static List<Boolean> checkPrime(List<Integer> numbers, int parallelism)
+    public static List<Boolean> checkPrime(List<Long> numbers, int parallelism)
         throws ExecutionException, InterruptedException {
         var pool = new ForkJoinPool(parallelism);
         return pool.submit(

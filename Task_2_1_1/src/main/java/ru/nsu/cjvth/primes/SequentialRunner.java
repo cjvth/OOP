@@ -15,9 +15,9 @@ public class SequentialRunner {
      * @param numbers list of numbers
      * @return list of booleans, true if the corresponding element of `numbers` is prime
      */
-    public static List<Boolean> checkPrime(List<Integer> numbers) {
+    public static List<Boolean> checkPrime(List<Long> numbers) {
         List<Boolean> result = new ArrayList<>(numbers.size());
-        for (int i : numbers) {
+        for (long i : numbers) {
             result.add(isPrime(i));
         }
         return result;
