@@ -13,7 +13,7 @@ public class ParallelStreamRunner {
      * @param numbers list of numbers
      * @return list of booleans, true if the corresponding element of `numbers` is prime
      */
-    public static List<Boolean> checkPrime(List<Integer> numbers) {
+    public static List<Boolean> checkPrime(List<Long> numbers) {
         return numbers.parallelStream().map(IsPrime::isPrime).collect(Collectors.toList());
     }
 }

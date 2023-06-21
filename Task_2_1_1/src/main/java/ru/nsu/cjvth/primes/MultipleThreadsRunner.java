@@ -15,7 +15,7 @@ public class MultipleThreadsRunner {
      * @param numThreads amount of threads
      * @return list of booleans, true if the corresponding element of `numbers` is prime
      */
-    public static List<Boolean> checkPrime(List<Integer> numbers, int numThreads)
+    public static List<Boolean> checkPrime(List<Long> numbers, int numThreads)
         throws InterruptedException {
         List<Boolean> result = new ArrayList<>(Collections.nCopies(numbers.size(), false));
         List<Thread> threads = new ArrayList<>(numThreads);
@@ -33,13 +33,13 @@ public class MultipleThreadsRunner {
     @SuppressWarnings("ClassCanBeRecord")
     private static class CheckPrimeRunnable implements Runnable {
 
-        private final List<Integer> input;
+        private final List<Long> input;
         private final List<Boolean> result;
 
         private final int start;
         private final int step;
 
-        public CheckPrimeRunnable(List<Integer> input, List<Boolean> result, int start, int step) {
+        public CheckPrimeRunnable(List<Long> input, List<Boolean> result, int start, int step) {
             this.input = input;
             this.result = result;
             this.start = start;
@@ -49,7 +49,7 @@ public class MultipleThreadsRunner {
         @Override
         public void run() {
             for (int i = start; i < input.size(); i += step) {
-                int x;
+                long x;
                 synchronized (input) {
                     x = input.get(i);
                 }

@@ -11,12 +11,12 @@ public class IsPrime {
      * @param x a number
      * @return whether x is a prime number
      */
-    public static boolean isPrime(int x) {
+    public static boolean isPrime(long x) {
         if (x <= 1) {
             return false;
         }
-        int sqrt = (int) Math.sqrt(x);
-        for (int i = 2; i <= sqrt; i++) {
+        long sqrt = (long) Math.sqrt(x);
+        for (long i = 2; i <= sqrt; i++) {
             if (x % i == 0) {
                 return false;
             }
