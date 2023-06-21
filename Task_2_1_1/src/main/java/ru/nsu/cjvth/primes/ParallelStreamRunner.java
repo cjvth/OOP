@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Class to check prime numbers using default parallel stream.
+ * Class to check prime numbers using parallel stream.
  */
 public class ParallelStreamRunner {
     /**
