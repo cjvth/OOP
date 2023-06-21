@@ -1,19 +1,19 @@
-Benchmark                                  Mode  Cnt      Score   Error  Units
-NoParamsBenchmark.parallelStreamBenchmark  avgt    5   3459.253 ± 4.276  us/op
-NoParamsBenchmark.sequentialBenchmark      avgt    5  18079.202 ± 2.206  us/op
+Benchmark                                  Mode  Cnt     Score   Error  Units
+NoParamsBenchmark.parallelStreamBenchmark  avgt    5   218.255 ± 3.980  ms/op
+NoParamsBenchmark.sequentialBenchmark      avgt    5  1166.617 ± 0.147  ms/op
 
-Benchmark                                          (numThreads)  Mode  Cnt      Score     Error  Units
-MultipleThreadsBenchmark.multipleThreadsBenchmark             1  avgt    3  18569.551 ± 235.437  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             2  avgt    3   9626.074 ± 346.295  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             3  avgt    3   6694.866 ±  26.268  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             4  avgt    3   5205.996 ±  59.420  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             5  avgt    3   4310.405 ±  22.471  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             6  avgt    3   3600.836 ±  71.135  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             7  avgt    3   5473.116 ±  29.291  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             8  avgt    3   5032.648 ±  45.570  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark             9  avgt    3   4649.529 ±  27.639  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark            10  avgt    3   4272.018 ±  31.456  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark            11  avgt    3   3883.652 ± 644.453  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark            12  avgt    3   3703.886 ±  51.264  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark            13  avgt    3   4567.915 ±  84.416  us/op
-MultipleThreadsBenchmark.multipleThreadsBenchmark            14  avgt    3   4074.421 ±  52.205  us/op
+Benchmark                                          (numThreads)  Mode  Cnt     Score    Error  Units
+MultipleThreadsBenchmark.multipleThreadsBenchmark             1  avgt    3  1168.066 ±  5.950  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             2  avgt    3   594.905 ±  7.315  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             3  avgt    3   414.994 ± 10.261  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             4  avgt    3   322.391 ±  5.583  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             5  avgt    3   261.715 ±  2.403  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             6  avgt    3   227.051 ±  3.486  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             7  avgt    3   277.291 ± 29.818  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             8  avgt    3   263.751 ± 17.345  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark             9  avgt    3   254.497 ± 20.260  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark            10  avgt    3   249.729 ± 14.653  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark            11  avgt    3   234.180 ± 17.189  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark            12  avgt    3   223.500 ±  6.446  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark            13  avgt    3   236.352 ± 32.135  ms/op
+MultipleThreadsBenchmark.multipleThreadsBenchmark            14  avgt    3   238.222 ± 33.213  ms/op
