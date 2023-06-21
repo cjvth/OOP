@@ -29,7 +29,7 @@ import org.openjdk.jmh.infra.Blackhole;
 @Warmup(iterations = 2)
 @Measurement(iterations = 3)
 @Fork(value = 1, warmups = 0)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class MultipleThreadsBenchmark {
 
     @Param({"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"})
